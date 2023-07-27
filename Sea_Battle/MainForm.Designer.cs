@@ -38,6 +38,8 @@
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            MouseDown += MainForm_MouseDown;
+            MouseMove += MainForm_MouseMove;
             ResumeLayout(false);
         }
 
