@@ -26,6 +26,7 @@ namespace Sea_Battle
 
             _parent = parent;
         }
+        // разметка поля
         public void CreateField(Point p1, Point p2)
         {
             for (int i = 0; i < _sizeField; i++)
@@ -54,6 +55,7 @@ namespace Sea_Battle
                     if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
                         _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
                     {
+                        // привязываем корабыль к сетке
                         ShipRef.Location = _field[i, j]._p1;
                     }
                 }

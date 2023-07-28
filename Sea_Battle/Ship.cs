@@ -8,6 +8,13 @@ using System.Windows.Forms;
 
 namespace Sea_Battle
 {
+    enum ShipType
+    {
+        Boat = 1,
+        Destroyer,
+        Cruiser,
+        Battleship
+    }
     internal class Ship : PictureBox
     {
         Point DownPoint;
@@ -16,14 +23,20 @@ namespace Sea_Battle
         Image _screenBackground;
         Image part;
         Graphics graphics;
+        public readonly Point _startPos;
+        public readonly ShipType _shipType;
 
         public PlayingField PlayingFieldRef { get; set; }
 
-        public Ship(MainForm parent)
+        public Ship(MainForm parent, Point startPos, ShipType type)
         {
             this._parent = parent;
+            this._shipType = type;
+            this._startPos = startPos;
+            this.Location = _startPos;
             this.LocationChanged += new EventHandler(LocationEvent);
 
+            // настройка стилей для сглажевания мигания Background и удаления артефактов
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
                 ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick, true);
@@ -31,6 +44,7 @@ namespace Sea_Battle
             this.BackgroundImageLayout = ImageLayout.Center;
             this.SizeMode = PictureBoxSizeMode.AutoSize;
 
+            // копируем BackgroundImage формы для отображения псевдо-прозрачности на PictureBox
             Rectangle rectangle = new Rectangle(0, 0, parent.Width, parent.Height);
             Bitmap bmp = new Bitmap(parent.Width, parent.Height);
             parent.DrawToBitmap(bmp, rectangle);
@@ -44,9 +58,10 @@ namespace Sea_Battle
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            // привязываем корабыль к сетке
             PlayingFieldRef.ShipRef = this;
             PlayingFieldRef.SnapingToShipGrid(Location);
-            //_parent.Text = Location.X + " " + Location.Y;
+
             IsDragMode = false;
             base.OnMouseUp(e);
         }
@@ -60,13 +75,18 @@ namespace Sea_Battle
             }
             base.OnMouseMove(e);
         }
-        private void LocationEvent(object? sender, EventArgs e)
+        // имитация прозрачности PictureBox при его перемещении
+        public void TransparentBackground()
         {
             part = new Bitmap(Width, Height);
             graphics = Graphics.FromImage(part);
             graphics.DrawImage(_screenBackground, 0, 0,
                 new Rectangle(new Point(Location.X + 8, Location.Y + 31), new Size(Width, Height)), GraphicsUnit.Pixel);
             this.BackgroundImage = part;
+        }
+        private void LocationEvent(object? sender, EventArgs e)
+        {
+            TransparentBackground();
         }
     }
    
