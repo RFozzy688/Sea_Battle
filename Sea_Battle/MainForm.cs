@@ -5,7 +5,7 @@ namespace Sea_Battle
         Ship _battleship;
         Ship[] _cruiser;
         Ship[] _destroyer;
-        Ship[] _boat;
+        Ship _boat;
         PlayingField _playerField;
         public MainForm()
         {
@@ -19,8 +19,18 @@ namespace Sea_Battle
             _battleship.Image = new Bitmap(Properties.Resources.battleship);
             this.Controls.Add(_battleship);
 
+            _boat = new Ship(this);
+            _boat.Name = "BattleShipBox";
+            _boat.Image = new Bitmap(Properties.Resources.boat);
+            this.Controls.Add(_boat);
+
             _playerField = new PlayingField(this);
             _playerField.CreateField(new Point(23, 140), new Point(66, 183));
+
+
+            _battleship.PlayingFieldRef = _playerField;
+
+            _boat.PlayingFieldRef = _playerField;
         }
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
@@ -30,7 +40,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            _playerField.func(new Point(e.X, e.Y));
+            //_playerField.func(new Point(e.X, e.Y));
         }
     }
 }

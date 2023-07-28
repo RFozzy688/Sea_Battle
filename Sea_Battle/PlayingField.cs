@@ -16,6 +16,7 @@ namespace Sea_Battle
         Field[,] _field;
         int _sizeField;
         MainForm _parent;
+        public Ship ShipRef { get; set; }
 
         public int GetSizeField() { return _sizeField; }
         public PlayingField(MainForm parent)
@@ -44,16 +45,16 @@ namespace Sea_Battle
                 p2.Y += 43;
             }
         }
-        public void func(Point point)
+        public void SnapingToShipGrid(Point point)
         {
             for (int i = 0; i < _sizeField; i++)
             {
                 for (int j = 0; j < _sizeField; j++)
                 {
-                    if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y &&
-                        _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y)
+                    if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
+                        _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
                     {
-                        _parent.Text = i + " " + j;
+                        ShipRef.Location = _field[i, j]._p1;
                     }
                 }
             }

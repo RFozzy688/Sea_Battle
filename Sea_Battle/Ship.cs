@@ -12,14 +12,16 @@ namespace Sea_Battle
     {
         Point DownPoint;
         bool IsDragMode;
-        MainForm parent;
+        MainForm _parent;
         Image _screenBackground;
         Image part;
         Graphics graphics;
 
+        public PlayingField PlayingFieldRef { get; set; }
+
         public Ship(MainForm parent)
         {
-            this.parent = parent;
+            this._parent = parent;
             this.LocationChanged += new EventHandler(LocationEvent);
 
             SetStyle(
@@ -42,6 +44,9 @@ namespace Sea_Battle
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            PlayingFieldRef.ShipRef = this;
+            PlayingFieldRef.SnapingToShipGrid(Location);
+            //_parent.Text = Location.X + " " + Location.Y;
             IsDragMode = false;
             base.OnMouseUp(e);
         }
