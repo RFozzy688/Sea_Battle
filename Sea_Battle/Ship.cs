@@ -28,6 +28,7 @@ namespace Sea_Battle
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipLocation _shipLocation;
+        public bool IsOnField { get; set; }
 
         public PlayingField PlayingFieldRef { get; set; }
 
@@ -38,6 +39,7 @@ namespace Sea_Battle
             this._startPos = startPos;
             this.Location = _startPos;
             this._shipLocation = shipLocation;
+            this.IsOnField = false;
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
             SetStyle(

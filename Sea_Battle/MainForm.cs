@@ -88,6 +88,8 @@ namespace Sea_Battle
         private void BtnRotationPressed(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
+
+            _playerField.RotationShip();
         }
 
         private void BtnRotationRelesed(object sender, MouseEventArgs e)

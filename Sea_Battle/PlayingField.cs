@@ -52,6 +52,8 @@ namespace Sea_Battle
         {
             // если мы вне игрового поля, то ставим корабыль в начальную позицию
             ShipRef.Location = ShipRef._startPos;
+            // корабыль не на поле
+            ShipRef.IsOnField = false;
         }
         // если точка находится на игровом поле, то возращаем индексы этой ячейки
         public bool GetIndices(Point point, ref int index_i, ref int index_j)
@@ -84,6 +86,8 @@ namespace Sea_Battle
                 {
                     // привязываем корабыль к сетке
                     ShipRef.Location = _field[i, j]._p1;
+                    // корабыль на поле
+                    ShipRef.IsOnField = true;
                 }
                 else
                 {
@@ -132,6 +136,15 @@ namespace Sea_Battle
         public void DeleteDisplayBoxes()
         {
             _parent.Controls.Remove(_previewShip);
+        }
+        public void RotationShip()
+        {
+            if (ShipRef is not null && ShipRef.IsOnField)
+            {
+                Bitmap bitmap = (Bitmap)ShipRef.Image;
+                bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
+                ShipRef.Image = bitmap;
+            }
         }
     }
 }
