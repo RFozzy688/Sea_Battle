@@ -15,7 +15,6 @@ namespace Sea_Battle
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
             _playerField = new PlayingField(this);
-            _playerField.CreateGridOnForm(new Point(-20, 10), new Point(23, 53));
             _playerField.CreateField(new Point(23, 140), new Point(66, 183));
 
             CreateShips();
