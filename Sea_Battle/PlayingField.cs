@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace Sea_Battle
                 p2.Y += 43;
             }
         }
-        public void SnapingToShipGrid(Point point)
+        public Point GetPointCoordinates(Point point)
         {
             for (int i = 0; i < _sizeField; i++)
             {
@@ -56,10 +57,22 @@ namespace Sea_Battle
                     if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
                         _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
                     {
-                        // привязываем корабыль к сетке
-                        ShipRef.Location = _field[i, j]._p1;
+                        // возращаем верхнюю левую точку квадрата в котором находится наша искомая точка
+                        return _field[i, j]._p1;
                     }
                 }
+            }
+
+            return Point.Empty;
+        }
+        public void SnapingToShipGrid(Point point)
+        {
+            Point p = GetPointCoordinates(point);
+
+            if (!p.IsEmpty)
+            {
+                // привязываем корабыль к сетке
+                ShipRef.Location = p;
             }
         }
         public void CreateDisplayBoxes()
@@ -75,18 +88,13 @@ namespace Sea_Battle
         }
         public void ShowDisplayBoxes(Point point)
         {
-            for (int i = 0; i < _sizeField; i++)
+            Point p = GetPointCoordinates(point);
+
+            if (!p.IsEmpty)
             {
-                for (int j = 0; j < _sizeField; j++)
-                {
-                    if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
-                        _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
-                    {
-                        // привязываем корабыль к сетке
-                        _previewShip.Location = _field[i, j]._p1;
-                        _previewShip.Show();
-                    }
-                }
+                // привязываем боксы к сетке
+                _previewShip.Location = p;
+                _previewShip.Show();
             }
         }
         public void DeleteDisplayBoxes()
