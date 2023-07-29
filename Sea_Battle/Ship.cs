@@ -43,24 +43,28 @@ namespace Sea_Battle
 
             this.BackgroundImageLayout = ImageLayout.Center;
             this.SizeMode = PictureBoxSizeMode.AutoSize;
+            this.BackColor = Color.Transparent;
 
             // копируем BackgroundImage формы для отображения псевдо-прозрачности на PictureBox
-            Rectangle rectangle = new Rectangle(0, 0, parent.Width, parent.Height);
-            Bitmap bmp = new Bitmap(parent.Width, parent.Height);
-            parent.DrawToBitmap(bmp, rectangle);
-            _screenBackground = bmp;
+            //Rectangle rectangle = new Rectangle(0, 0, parent.Width, parent.Height);
+            //Bitmap bmp = new Bitmap(parent.Width, parent.Height);
+            //parent.DrawToBitmap(bmp, rectangle);
+            //_screenBackground = bmp;
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
             DownPoint = e.Location;
             IsDragMode = true;
+            PlayingFieldRef.ShipRef = this;
+            PlayingFieldRef.CreateDisplayBoxes();
             base.OnMouseDown(e);
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
             // привязываем корабыль к сетке
-            PlayingFieldRef.ShipRef = this;
+            //PlayingFieldRef.ShipRef = this;
             PlayingFieldRef.SnapingToShipGrid(Location);
+            PlayingFieldRef.DeleteDisplayBoxes();
 
             IsDragMode = false;
             base.OnMouseUp(e);
@@ -72,21 +76,24 @@ namespace Sea_Battle
                 Point point = e.Location;
                 Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
                 Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
+
+                PlayingFieldRef.ShowDisplayBoxes(Location);
             }
+            //_parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
         }
         // имитация прозрачности PictureBox при его перемещении
         public void TransparentBackground()
         {
-            part = new Bitmap(Width, Height);
-            graphics = Graphics.FromImage(part);
-            graphics.DrawImage(_screenBackground, 0, 0,
-                new Rectangle(new Point(Location.X + 8, Location.Y + 31), new Size(Width, Height)), GraphicsUnit.Pixel);
-            this.BackgroundImage = part;
+            //part = new Bitmap(Width, Height);
+            //graphics = Graphics.FromImage(part);
+            //graphics.DrawImage(_screenBackground, 0, 0,
+            //    new Rectangle(new Point(Location.X + 8, Location.Y + 31), new Size(Width, Height)), GraphicsUnit.Pixel);
+            //this.BackgroundImage = part;
         }
         private void LocationEvent(object? sender, EventArgs e)
         {
-            TransparentBackground();
+            //TransparentBackground();
         }
     }
    

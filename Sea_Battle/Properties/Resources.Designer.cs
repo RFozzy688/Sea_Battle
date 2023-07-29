@@ -103,9 +103,29 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap green_square {
+            get {
+                object obj = ResourceManager.GetObject("green_square", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap one_field {
             get {
                 object obj = ResourceManager.GetObject("one_field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_square {
+            get {
+                object obj = ResourceManager.GetObject("red_square", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

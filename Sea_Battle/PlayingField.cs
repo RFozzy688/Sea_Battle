@@ -16,6 +16,7 @@ namespace Sea_Battle
         Field[,] _field;
         int _sizeField;
         MainForm _parent;
+        PictureBox _previewShip; // предпоказ где можна или нельзя поставить корабыль
         public Ship ShipRef { get; set; }
 
         public int GetSizeField() { return _sizeField; }
@@ -60,6 +61,38 @@ namespace Sea_Battle
                     }
                 }
             }
+        }
+        public void CreateDisplayBoxes()
+        {
+            _previewShip = new PictureBox();
+            _previewShip.Size = new Size(ShipRef.Width, ShipRef.Height);
+            _previewShip.BackColor = Color.Transparent;
+            _previewShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
+            _previewShip.BackgroundImageLayout = ImageLayout.Tile;
+            _previewShip.Location = ShipRef.Location;
+            _parent.Controls.Add(_previewShip);
+            _previewShip.Hide();
+        }
+        public void ShowDisplayBoxes(Point point)
+        {
+            for (int i = 0; i < _sizeField; i++)
+            {
+                for (int j = 0; j < _sizeField; j++)
+                {
+                    if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
+                        _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
+                    {
+                        // привязываем корабыль к сетке
+                        _previewShip.Location = _field[i, j]._p1;
+                        _previewShip.Show();
+                    }
+                }
+            }
+        }
+        public void DeleteDisplayBoxes()
+        {
+            //_previewShip.Dispose();
+            _parent.Controls.Remove(_previewShip);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Sea_Battle
         }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            Text = e.X + " " + e.Y;
+            //Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
