@@ -24,7 +24,6 @@ namespace Sea_Battle
         MainForm _parent;
         PictureBox _previewShip; // предпоказ где можна или нельзя поставить корабыль
         public Ship ShipRef { get; set; }
-        ShipType _type; // 
 
         public int GetSizeField() { return _sizeField; }
         public PlayingField(MainForm parent)
@@ -35,7 +34,7 @@ namespace Sea_Battle
 
             _parent = parent;
         }
-        // 
+        // создание сетки на всей форме
         public void CreateGridOnForm(Point p1, Point p2)
         {
             for (int i = 0; i < 14; i++)
@@ -178,7 +177,6 @@ namespace Sea_Battle
         }
         public void DeleteDisplayBoxes()
         {
-            //_previewShip.Dispose();
             _parent.Controls.Remove(_previewShip);
         }
     }

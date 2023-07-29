@@ -85,5 +85,15 @@ namespace Sea_Battle
         {
             //_playerField.func(new Point(e.X, e.Y));
         }
+
+        private void BtnRotationPressed(object sender, MouseEventArgs e)
+        {
+            BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
+        }
+
+        private void BtnRotationRelesed(object sender, MouseEventArgs e)
+        {
+            BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
+        }
     }
 }

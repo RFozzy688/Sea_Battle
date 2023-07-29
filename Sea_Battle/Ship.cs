@@ -25,9 +25,6 @@ namespace Sea_Battle
         Point DownPoint;
         bool IsDragMode;
         MainForm _parent;
-        Image _screenBackground;
-        Image part;
-        Graphics graphics;
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipLocation _shipLocation;
@@ -41,7 +38,6 @@ namespace Sea_Battle
             this._startPos = startPos;
             this.Location = _startPos;
             this._shipLocation = shipLocation;
-            this.LocationChanged += new EventHandler(LocationEvent);
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
             SetStyle(
@@ -86,10 +82,6 @@ namespace Sea_Battle
             }
             _parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
-        }
-        private void LocationEvent(object? sender, EventArgs e)
-        {
-            //TransparentBackground();
         }
     }
    

@@ -28,21 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
+            BtnRotation = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)BtnRotation).BeginInit();
             SuspendLayout();
+            // 
+            // BtnRotation
+            // 
+            BtnRotation.BackColor = Color.Transparent;
+            BtnRotation.Image = Properties.Resources.btn_rotation_relesed;
+            BtnRotation.Location = new Point(459, 479);
+            BtnRotation.Name = "BtnRotation";
+            BtnRotation.Size = new Size(100, 98);
+            BtnRotation.TabIndex = 0;
+            BtnRotation.TabStop = false;
+            BtnRotation.MouseDown += BtnRotationPressed;
+            BtnRotation.MouseUp += BtnRotationRelesed;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.one_field;
             ClientSize = new Size(1024, 603);
+            Controls.Add(BtnRotation);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             MouseDown += MainForm_MouseDown;
             MouseMove += MainForm_MouseMove;
+            ((System.ComponentModel.ISupportInitialize)BtnRotation).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
+
+        private PictureBox BtnRotation;
     }
 }
