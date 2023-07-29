@@ -80,15 +80,17 @@ namespace Sea_Battle
 
             if (GetIndices(point, ref i, ref j))
             {
-                // проверяем не выходит ли корабыль за пределы игрового поля по горизонтали
-                // по вертикали проверяет верхний if
-                if (j + (int)ShipRef._shipType <= _sizeField)
+                // проверяем не выходит ли корабыль за пределы игрового поля по горизонтали или по вертикали
+                if ((ShipRef._shipLocation == ShipLocation.Horizontal && 
+                    j + (int)ShipRef._shipType <= _sizeField) ||
+                    (ShipRef._shipLocation == ShipLocation.Vertical &&
+                    i + (int)ShipRef._shipType <= _sizeField))
                 {
                     // привязываем корабыль к сетке
                     ShipRef.Location = _field[i, j]._p1;
                     // корабыль на поле
                     ShipRef.IsOnField = true;
-                }
+                } 
                 else
                 {
                     SetStartingPosition();
@@ -144,6 +146,15 @@ namespace Sea_Battle
                 Bitmap bitmap = (Bitmap)ShipRef.Image;
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                 ShipRef.Image = bitmap;
+
+                if (ShipRef._shipLocation == ShipLocation.Horizontal)
+                {
+                    ShipRef._shipLocation = ShipLocation.Vertical;
+                }
+                else
+                {
+                    ShipRef._shipLocation = ShipLocation.Horizontal;
+                }
             }
         }
     }
