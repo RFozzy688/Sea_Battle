@@ -15,6 +15,7 @@ namespace Sea_Battle
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
             _playerField = new PlayingField(this);
+            _playerField.CreateGridOnForm(new Point(-20, 10), new Point(23, 53));
             _playerField.CreateField(new Point(23, 140), new Point(66, 183));
 
             CreateShips();
@@ -23,7 +24,7 @@ namespace Sea_Battle
         private void CreateShips()
         {
             // 4-х палубный
-            _battleship = new Ship(this, new Point(540, 140), ShipType.Battleship);
+            _battleship = new Ship(this, new Point(540, 140), ShipType.Battleship, ShipLocation.Horizontal);
             _battleship.Name = "BattleShipBox";
             _battleship.Image = new Bitmap(Properties.Resources.battleship);
             this.Controls.Add(_battleship);
@@ -36,7 +37,7 @@ namespace Sea_Battle
 
             for (int i = 0; i < 2; i++)
             {
-                _cruiser[i] = new Ship(this, tempPoint, ShipType.Cruiser);
+                _cruiser[i] = new Ship(this, tempPoint, ShipType.Cruiser, ShipLocation.Horizontal);
                 _cruiser[i].Name = "CruiserBox";
                 _cruiser[i].Image = new Bitmap(Properties.Resources.cruiser);
                 this.Controls.Add(_cruiser[i]);
@@ -51,7 +52,7 @@ namespace Sea_Battle
 
             for (int i = 0; i < 3; i++)
             {
-                _destroyer[i] = new Ship(this, tempPoint, ShipType.Destroyer);
+                _destroyer[i] = new Ship(this, tempPoint, ShipType.Destroyer, ShipLocation.Horizontal);
                 _destroyer[i].Name = "CruiserBox";
                 _destroyer[i].Image = new Bitmap(Properties.Resources.destroyer);
                 this.Controls.Add(_destroyer[i]);
@@ -66,7 +67,7 @@ namespace Sea_Battle
 
             for (int i = 0; i < 4; i++)
             {
-                _boat[i] = new Ship(this, tempPoint, ShipType.Boat);
+                _boat[i] = new Ship(this, tempPoint, ShipType.Boat, ShipLocation.Horizontal);
                 _boat[i].Name = "CruiserBox";
                 _boat[i].Image = new Bitmap(Properties.Resources.boat);
                 this.Controls.Add(_boat[i]);

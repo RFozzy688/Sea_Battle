@@ -15,6 +15,11 @@ namespace Sea_Battle
         Cruiser,
         Battleship
     }
+    enum ShipLocation
+    {
+        Horizontal,
+        Vertical
+    }
     internal class Ship : PictureBox
     {
         Point DownPoint;
@@ -25,15 +30,17 @@ namespace Sea_Battle
         Graphics graphics;
         public readonly Point _startPos;
         public readonly ShipType _shipType;
+        public ShipLocation _shipLocation;
 
         public PlayingField PlayingFieldRef { get; set; }
 
-        public Ship(MainForm parent, Point startPos, ShipType type)
+        public Ship(MainForm parent, Point startPos, ShipType type, ShipLocation shipLocation)
         {
             this._parent = parent;
             this._shipType = type;
             this._startPos = startPos;
             this.Location = _startPos;
+            this._shipLocation = shipLocation;
             this.LocationChanged += new EventHandler(LocationEvent);
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
@@ -44,6 +51,7 @@ namespace Sea_Battle
             this.BackgroundImageLayout = ImageLayout.Center;
             this.SizeMode = PictureBoxSizeMode.AutoSize;
             this.BackColor = Color.Transparent;
+
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
@@ -76,7 +84,7 @@ namespace Sea_Battle
 
                 PlayingFieldRef.ShowDisplayBoxes(Location);
             }
-            //_parent.Text = Location.X + " " + Location.Y;
+            _parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
         }
         private void LocationEvent(object? sender, EventArgs e)
