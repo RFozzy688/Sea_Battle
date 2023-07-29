@@ -48,7 +48,8 @@ namespace Sea_Battle
                 p2.Y += 43;
             }
         }
-        public Point GetPointCoordinates(Point point)
+        // если точка находится на игровом поле, то возращаем индексы этой ячейки
+        public bool GetIndices(Point point, ref int index_i, ref int index_j)
         {
             for (int i = 0; i < _sizeField; i++)
             {
@@ -57,22 +58,28 @@ namespace Sea_Battle
                     if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
                         _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
                     {
-                        // возращаем верхнюю левую точку квадрата в котором находится наша искомая точка
-                        return _field[i, j]._p1;
+                        index_i = i;
+                        index_j = j;
+                        return true;
                     }
                 }
             }
 
-            return Point.Empty;
+            return false;
         }
         public void SnapingToShipGrid(Point point)
         {
-            Point p = GetPointCoordinates(point);
+            int i = 0, j = 0;
 
-            if (!p.IsEmpty)
+            if (GetIndices(point, ref i, ref j))
             {
                 // привязываем корабыль к сетке
-                ShipRef.Location = p;
+                ShipRef.Location = _field[i, j]._p1;
+            }
+            else
+            {
+                // если мы вне игрового поля, то ставим корабыль в начальную позицию
+                ShipRef.Location = ShipRef._startPos;
             }
         }
         public void CreateDisplayBoxes()
@@ -80,21 +87,23 @@ namespace Sea_Battle
             _previewShip = new PictureBox();
             _previewShip.Size = new Size(ShipRef.Width, ShipRef.Height);
             _previewShip.BackColor = Color.Transparent;
-            _previewShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
             _previewShip.BackgroundImageLayout = ImageLayout.Tile;
             _previewShip.Location = ShipRef.Location;
             _parent.Controls.Add(_previewShip);
-            _previewShip.Hide();
         }
         public void ShowDisplayBoxes(Point point)
         {
-            Point p = GetPointCoordinates(point);
+            int i = 0, j = 0;
 
-            if (!p.IsEmpty)
+            if (GetIndices(point, ref i, ref j))
             {
                 // привязываем боксы к сетке
-                _previewShip.Location = p;
+                _previewShip.Location = _field[i, j]._p1;
                 _previewShip.Show();
+            }
+            else
+            {
+                _previewShip.Hide();
             }
         }
         public void DeleteDisplayBoxes()

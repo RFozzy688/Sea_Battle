@@ -27,7 +27,6 @@ namespace Sea_Battle
             _battleship.Name = "BattleShipBox";
             _battleship.Image = new Bitmap(Properties.Resources.battleship);
             this.Controls.Add(_battleship);
-            _battleship.TransparentBackground();
             _battleship.PlayingFieldRef = _playerField;
 
             Point tempPoint = new Point(540, 226);
@@ -41,7 +40,6 @@ namespace Sea_Battle
                 _cruiser[i].Name = "CruiserBox";
                 _cruiser[i].Image = new Bitmap(Properties.Resources.cruiser);
                 this.Controls.Add(_cruiser[i]);
-                _cruiser[i].TransparentBackground();
                 _cruiser[i].PlayingFieldRef = _playerField;
 
                 tempPoint.X += 43 * 4;
@@ -57,7 +55,6 @@ namespace Sea_Battle
                 _destroyer[i].Name = "CruiserBox";
                 _destroyer[i].Image = new Bitmap(Properties.Resources.destroyer);
                 this.Controls.Add(_destroyer[i]);
-                _destroyer[i].TransparentBackground();
                 _destroyer[i].PlayingFieldRef = _playerField;
 
                 tempPoint.X += 43 * 3;
@@ -73,7 +70,6 @@ namespace Sea_Battle
                 _boat[i].Name = "CruiserBox";
                 _boat[i].Image = new Bitmap(Properties.Resources.boat);
                 this.Controls.Add(_boat[i]);
-                _boat[i].TransparentBackground();
                 _boat[i].PlayingFieldRef = _playerField;
 
                 tempPoint.X += 43 * 2;

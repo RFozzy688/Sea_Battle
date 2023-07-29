@@ -44,25 +44,22 @@ namespace Sea_Battle
             this.BackgroundImageLayout = ImageLayout.Center;
             this.SizeMode = PictureBoxSizeMode.AutoSize;
             this.BackColor = Color.Transparent;
-
-            // копируем BackgroundImage формы для отображения псевдо-прозрачности на PictureBox
-            //Rectangle rectangle = new Rectangle(0, 0, parent.Width, parent.Height);
-            //Bitmap bmp = new Bitmap(parent.Width, parent.Height);
-            //parent.DrawToBitmap(bmp, rectangle);
-            //_screenBackground = bmp;
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            this.BringToFront(); // Помещает элемент управления в начало z-порядка
+
             DownPoint = e.Location;
             IsDragMode = true;
+
             PlayingFieldRef.ShipRef = this;
             PlayingFieldRef.CreateDisplayBoxes();
+
             base.OnMouseDown(e);
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
             // привязываем корабыль к сетке
-            //PlayingFieldRef.ShipRef = this;
             PlayingFieldRef.SnapingToShipGrid(Location);
             PlayingFieldRef.DeleteDisplayBoxes();
 
@@ -81,15 +78,6 @@ namespace Sea_Battle
             }
             //_parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
-        }
-        // имитация прозрачности PictureBox при его перемещении
-        public void TransparentBackground()
-        {
-            //part = new Bitmap(Width, Height);
-            //graphics = Graphics.FromImage(part);
-            //graphics.DrawImage(_screenBackground, 0, 0,
-            //    new Rectangle(new Point(Location.X + 8, Location.Y + 31), new Size(Width, Height)), GraphicsUnit.Pixel);
-            //this.BackgroundImage = part;
         }
         private void LocationEvent(object? sender, EventArgs e)
         {
