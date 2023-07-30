@@ -74,6 +74,20 @@ namespace Sea_Battle
 
             return false;
         }
+        private bool IsOnPlayingField(int i, int j)
+        {
+            if ((ShipRef._shipDirection == ShipDirection.Horizontal &&
+                j + (int)ShipRef._shipType <= _sizeField) ||
+                (ShipRef._shipDirection == ShipDirection.Vertical &&
+                i + (int)ShipRef._shipType <= _sizeField))
+            {
+                return true;
+            }
+            else
+            { 
+                return false; 
+            }
+        }
         public void SnapingToShipGrid(Point point)
         {
             int i = 0, j = 0;
@@ -81,10 +95,7 @@ namespace Sea_Battle
             if (GetIndices(point, ref i, ref j))
             {
                 // проверяем не выходит ли корабыль за пределы игрового поля по горизонтали или по вертикали
-                if ((ShipRef._shipLocation == ShipLocation.Horizontal && 
-                    j + (int)ShipRef._shipType <= _sizeField) ||
-                    (ShipRef._shipLocation == ShipLocation.Vertical &&
-                    i + (int)ShipRef._shipType <= _sizeField))
+                if (IsOnPlayingField(i, j)) // если да, то перемещаем в стариовую позицию
                 {
                     // привязываем корабыль к сетке
                     ShipRef.Location = _field[i, j]._p1;
@@ -110,7 +121,7 @@ namespace Sea_Battle
             _previewShip.Location = ShipRef.Location;
             _parent.Controls.Add(_previewShip);
         }
-        public void ShowDisplayBoxes(Point point)
+        public void SnapPositionHighlight(Point point)
         {
             int i = 0, j = 0;
 
@@ -118,7 +129,7 @@ namespace Sea_Battle
             {
                 _previewShip.Show();
 
-                if (j + (int)ShipRef._shipType <= _sizeField)
+                if (IsOnPlayingField(i, j))
                 {
                     _previewShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
                     // привязываем боксы к сетке
@@ -126,8 +137,7 @@ namespace Sea_Battle
                 }
                 else
                 {
-                    _previewShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
-                    _previewShip.Location = _field[i, j]._p1;
+                    _previewShip.Hide();
                 }
             }
             else
@@ -147,13 +157,13 @@ namespace Sea_Battle
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                 ShipRef.Image = bitmap;
 
-                if (ShipRef._shipLocation == ShipLocation.Horizontal)
+                if (ShipRef._shipDirection == ShipDirection.Horizontal)
                 {
-                    ShipRef._shipLocation = ShipLocation.Vertical;
+                    ShipRef._shipDirection = ShipDirection.Vertical;
                 }
                 else
                 {
-                    ShipRef._shipLocation = ShipLocation.Horizontal;
+                    ShipRef._shipDirection = ShipDirection.Horizontal;
                 }
             }
         }

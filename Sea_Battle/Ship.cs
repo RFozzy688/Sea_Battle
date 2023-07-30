@@ -15,7 +15,7 @@ namespace Sea_Battle
         Cruiser,
         Battleship
     }
-    enum ShipLocation
+    enum ShipDirection
     {
         Horizontal,
         Vertical
@@ -27,18 +27,18 @@ namespace Sea_Battle
         MainForm _parent;
         public readonly Point _startPos;
         public readonly ShipType _shipType;
-        public ShipLocation _shipLocation;
+        public ShipDirection _shipDirection; // расположение корабля горизонтальное/вертикальное
         public bool IsOnField { get; set; }
 
         public PlayingField PlayingFieldRef { get; set; }
 
-        public Ship(MainForm parent, Point startPos, ShipType type, ShipLocation shipLocation)
+        public Ship(MainForm parent, Point startPos, ShipType type, ShipDirection shipDirection)
         {
             this._parent = parent;
             this._shipType = type;
             this._startPos = startPos;
             this.Location = _startPos;
-            this._shipLocation = shipLocation;
+            this._shipDirection = shipDirection;
             this.IsOnField = false;
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
@@ -80,7 +80,7 @@ namespace Sea_Battle
                 Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
                 Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
 
-                PlayingFieldRef.ShowDisplayBoxes(Location);
+                PlayingFieldRef.SnapPositionHighlight(Location);
             }
             _parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
