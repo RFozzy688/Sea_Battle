@@ -28,6 +28,8 @@ namespace Sea_Battle
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipDirection _shipDirection; // расположение корабля горизонтальное/вертикальное
+        public int I { get; set; } // индекс строки в массиве
+        public int J { get; set; } // индекс столбца в массиве
         public bool IsOnField { get; set; }
 
         public PlayingField PlayingFieldRef { get; set; }
