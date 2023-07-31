@@ -139,9 +139,18 @@ namespace Sea_Battle
 
                 if (IsOnPlayingField())
                 {
-                    _previewShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
-                    // привязываем боксы к сетке
-                    _previewShip.Location = _field[_indexRow, _indexCol]._p1;
+                    if (IsEmptyPositionsAroundShip())
+                    {
+                        _previewShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
+                        // привязываем боксы к сетке
+                        _previewShip.Location = _field[_indexRow, _indexCol]._p1;
+                    }
+                    else
+                    {
+                        _previewShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
+                        // привязываем боксы к сетке
+                        _previewShip.Location = _field[_indexRow, _indexCol]._p1;
+                    }
                 }
                 else
                 {
