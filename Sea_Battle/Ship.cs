@@ -28,8 +28,8 @@ namespace Sea_Battle
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipDirection _shipDirection; // расположение корабля горизонтальное/вертикальное
-        public int I { get; set; } // индекс строки в массиве
-        public int J { get; set; } // индекс столбца в массиве
+        public int IndexRow { get; set; } // индекс строки в массиве начала корабля
+        public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; }
 
         public PlayingField PlayingFieldRef { get; set; }
@@ -63,6 +63,12 @@ namespace Sea_Battle
             PlayingFieldRef.ShipRef = this;
             PlayingFieldRef.CreateDisplayBoxes();
 
+            if (IsOnField)
+            {
+                PlayingFieldRef.GetIndices(this.Location);
+                PlayingFieldRef.DeleteShipToArray();
+            }
+
             base.OnMouseDown(e);
         }
         protected override void OnMouseUp(MouseEventArgs e)
@@ -70,6 +76,14 @@ namespace Sea_Battle
             // привязываем корабыль к сетке
             PlayingFieldRef.SnapingToShipGrid(Location);
             PlayingFieldRef.DeleteDisplayBoxes();
+
+            if (IsOnField)
+            {
+                PlayingFieldRef.SetShipToArray();
+
+                IndexRow = PlayingFieldRef.GetIndexRow();
+                IndexCol = PlayingFieldRef.GetIndexCol();
+            }
 
             IsDragMode = false;
             base.OnMouseUp(e);
@@ -82,9 +96,14 @@ namespace Sea_Battle
                 Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
                 Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
 
+
+                    //if (PlayingFieldRef.IsEmptyPositionsAroundShip())
+                    //{ _parent.Text = PlayingFieldRef.i_i + " " + PlayingFieldRef.j_i + " " + PlayingFieldRef.n + " " + PlayingFieldRef.k + " true"; }
+                    //else { _parent.Text = PlayingFieldRef.i_i + " " + PlayingFieldRef.j_i + " " + PlayingFieldRef.n + " " + PlayingFieldRef.k + " false"; }
+
                 PlayingFieldRef.SnapPositionHighlight(Location);
             }
-            _parent.Text = Location.X + " " + Location.Y;
+            //_parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
         }
     }

@@ -15,15 +15,21 @@ namespace Sea_Battle
     }
     internal class PlayingField
     {
-        Field[,] _field;
+        public Field[,] _field;
         int _sizeField;
         MainForm _parent;
         PictureBox _previewShip; // предпоказ где можна или нельзя поставить корабыль
         int _indexRow; // индекс строки начала корабля
         int _indexCol; // индекс столбца начала корабля
+        //public int n;
+        //public int k;
+        //public int i_i;
+        //public int j_i;
         public Ship ShipRef { get; set; }
 
         public int GetSizeField() { return _sizeField; }
+        public int GetIndexRow() { return _indexRow; }
+        public int GetIndexCol() { return _indexCol; }
         public PlayingField(MainForm parent)
         {
             _sizeField = 10;
@@ -100,7 +106,8 @@ namespace Sea_Battle
                 if (IsOnPlayingField()) // если да, то перемещаем в стариовую позицию
                 {
                     // привязываем корабыль к сетке
-                    ShipRef.Location = _field[_indexRow, _indexCol]._p1;
+                    Point p = new Point(_field[_indexRow, _indexCol]._p1.X + 1, _field[_indexRow, _indexCol]._p1.Y + 1);
+                    ShipRef.Location = p;
                     // корабыль на поле
                     ShipRef.IsOnField = true;
                 } 
@@ -126,8 +133,6 @@ namespace Sea_Battle
         // подсвечиваем позицию где будет установлем корабыль
         public void SnapPositionHighlight(Point point)
         {
-            int i = 0, j = 0;
-
             if (GetIndices(point))
             {
                 _previewShip.Show();
@@ -160,6 +165,8 @@ namespace Sea_Battle
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                 ShipRef.Image = bitmap;
 
+                DeleteShipToArray();
+
                 if (ShipRef._shipDirection == ShipDirection.Horizontal)
                 {
                     ShipRef._shipDirection = ShipDirection.Vertical;
@@ -168,8 +175,114 @@ namespace Sea_Battle
                 {
                     ShipRef._shipDirection = ShipDirection.Horizontal;
                 }
+
+                SetShipToArray();
             }
         }
+        public void SetShipToArray()
+        {
+            switch (ShipRef._shipDirection)
+            {
+                case ShipDirection.Horizontal:
+                    int col = _indexCol;
+                    for (int n = 0; n < (int)ShipRef._shipType; n++)
+                    {
+                        _field[_indexRow, col++]._ship = (int)ShipRef._shipType;
+                    }
+                    break;
+                case ShipDirection.Vertical:
+                    int row = _indexRow;
+                    for (int n = 0; n < (int)ShipRef._shipType; n++)
+                    {
+                        _field[row++, _indexCol]._ship = (int)ShipRef._shipType;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void DeleteShipToArray()
+        {
+            switch (ShipRef._shipDirection)
+            {
+                case ShipDirection.Horizontal:
+                    int col = _indexCol;
+                    for (int n = 0; n < (int)ShipRef._shipType; n++)
+                    {
+                        _field[_indexRow, col++]._ship = 0;
+                    }
+                    break;
+                case ShipDirection.Vertical:
+                    int row = _indexRow;
+                    for (int n = 0; n < (int)ShipRef._shipType; n++)
+                    {
+                        _field[row++, _indexCol]._ship = 0;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        public bool IsEmptyPositionsAroundShip()
+        {
+            int temp_j;
+            int i, j;
+            int n, k;
 
+            switch (ShipRef._shipDirection)
+            {
+                case ShipDirection.Horizontal:
+                    i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
+                    j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+
+                    if (_indexRow == 0) { n = 2; }
+                    else if (i + 3 <= _sizeField) { n = i + 3; }
+                    else { n = _sizeField; }
+
+                    if (_indexCol == 0) { k = (int)ShipRef._shipType + 1; }
+                    else if (j + (int)ShipRef._shipType + 2 <= _sizeField) { k = j + (int)ShipRef._shipType + 2; }
+                    else { k = _sizeField; }
+
+                    temp_j = j;
+
+                    for (; i < n; i++)
+                    {
+                        for (; j < k; j++)
+                        {
+                            if (_field[i, j]._ship != 0) { return false; }
+                        }
+                        j = temp_j;
+                    }
+
+                    break;
+
+                case ShipDirection.Vertical:
+                    i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
+                    j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+
+                    if (_indexRow == 0) { n = (int)ShipRef._shipType + 1; }
+                    else if (i + (int)ShipRef._shipType + 2 <= _sizeField) { n = i + (int)ShipRef._shipType + 2; }
+                    else { n = _sizeField; }
+
+                    if (_indexCol == 0) { k = 2; }
+                    else if (j + 3 <= _sizeField) { k = j + 3; }
+                    else { k = _sizeField; }
+
+                    temp_j = j;
+
+                    for (; i < n; i++)
+                    {
+                        for (; j < k; j++)
+                        {
+                            if (_field[i, j]._ship != 0) { return false; }
+                        }
+                        j = temp_j;
+                    }
+
+                    break;
+            }
+
+            return true;
+        }
     }
 }

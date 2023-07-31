@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Sea_Battle
 {
     public partial class MainForm : Form
@@ -91,10 +93,27 @@ namespace Sea_Battle
 
             _playerField.RotationShip();
         }
-
         private void BtnRotationRelesed(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
+        }
+        private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            using (FileStream fs = new FileStream("array.txt", FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
+                {
+                    for (int i = 0; i < _playerField.GetSizeField(); i++)
+                    {
+                        for (int j = 0; j < _playerField.GetSizeField(); j++)
+                        {
+                            sw.Write(_playerField._field[i, j]._ship + " ");
+                        }
+                        sw.Write("\n");
+                    }
+                }
+                
+            }
         }
     }
 }
