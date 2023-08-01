@@ -21,7 +21,8 @@ namespace Sea_Battle
         public Field[,] _field;
         int _sizeField;
         MainForm _parent;
-        PictureBox _previewShip; // предпоказ где можна или нельзя поставить корабыль
+        PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
+        PictureBox _backlightPositionWhenRotation;
         int _indexRow; // индекс строки начала корабля
         int _indexCol; // индекс столбца начала корабля
         Timer _timer;
@@ -30,7 +31,6 @@ namespace Sea_Battle
         //public int i_i;
         //public int j_i;
         public Ship ShipRef { get; set; }
-
         public int GetSizeField() { return _sizeField; }
         public int GetIndexRow() { return _indexRow; }
         public int GetIndexCol() { return _indexCol; }
@@ -48,7 +48,7 @@ namespace Sea_Battle
         }
         private void RemoveRedHighlight(object? sender, EventArgs e)
         {
-            DeleteDisplayBoxes();
+            _parent.Controls.Remove(_backlightPositionWhenRotation);
 
             _timer.Stop();
             _timer.Enabled = false;
@@ -148,48 +148,57 @@ namespace Sea_Battle
         }
         public void CreateDisplayBoxes()
         {
-            _previewShip = new PictureBox();
-            _previewShip.Size = new Size(ShipRef.Width, ShipRef.Height);
-            _previewShip.BackColor = Color.Transparent;
-            _previewShip.BackgroundImageLayout = ImageLayout.Tile;
-            _previewShip.Location = ShipRef.Location;
-            _parent.Controls.Add(_previewShip);
+            _backlightPositionShip = new PictureBox();
+            _backlightPositionShip.Size = new Size(ShipRef.Width, ShipRef.Height);
+            _backlightPositionShip.BackColor = Color.Transparent;
+            _backlightPositionShip.BackgroundImageLayout = ImageLayout.Tile;
+            _backlightPositionShip.Location = ShipRef.Location;
+            _parent.Controls.Add(_backlightPositionShip);
+        }
+        private void CreateBacklightWhenRotation()
+        {
+            _backlightPositionWhenRotation = new PictureBox();
+            _backlightPositionWhenRotation.Size = new Size(ShipRef.Width, ShipRef.Height);
+            _backlightPositionWhenRotation.BackColor = Color.Transparent;
+            _backlightPositionWhenRotation.BackgroundImageLayout = ImageLayout.Tile;
+            _backlightPositionWhenRotation.Location = ShipRef.Location;
+            _parent.Controls.Add(_backlightPositionWhenRotation);
         }
         // подсвечиваем позицию где будет установлем корабыль
         public void PositionHighlight(Point point)
         {
             if (GetIndices(point))
             {
-                _previewShip.Show();
+                _backlightPositionShip.Show();
 
                 if (IsOnPlayingField())
                 {
                     if (IsEmptyPositionsAroundShip())
                     {
-                        _previewShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
+                        _backlightPositionShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
                         // привязываем боксы к сетке
-                        _previewShip.Location = _field[_indexRow, _indexCol]._p1;
+                        _backlightPositionShip.Location = _field[_indexRow, _indexCol]._p1;
                     }
                     else
                     {
-                        _previewShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
+                        _backlightPositionShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
                         // привязываем боксы к сетке
-                        _previewShip.Location = _field[_indexRow, _indexCol]._p1;
+                        _backlightPositionShip.Location = _field[_indexRow, _indexCol]._p1;
                     }
                 }
                 else
                 {
-                    _previewShip.Hide();
+                    _backlightPositionShip.Hide();
                 }
             }
             else
             {
-                _previewShip.Hide();
+                _backlightPositionShip.Hide();
             }
         }
         public void DeleteDisplayBoxes()
         {
-            _parent.Controls.Remove(_previewShip);
+            _parent.Controls.Remove(_backlightPositionShip);
         }
         public void RotationShip()
         {
@@ -209,9 +218,9 @@ namespace Sea_Battle
                 }
                 else
                 {
-                    CreateDisplayBoxes();
-                    _previewShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
-                    _previewShip.BringToFront();
+                    CreateBacklightWhenRotation();
+                    _backlightPositionWhenRotation.BackgroundImage = new Bitmap(Properties.Resources.red_square);
+                    _backlightPositionWhenRotation.BringToFront();
 
                     bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                     ShipRef.Image = bitmap;
