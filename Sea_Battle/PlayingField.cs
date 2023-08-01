@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Sea_Battle
 {
@@ -22,6 +24,7 @@ namespace Sea_Battle
         PictureBox _previewShip; // предпоказ где можна или нельзя поставить корабыль
         int _indexRow; // индекс строки начала корабля
         int _indexCol; // индекс столбца начала корабля
+        Timer _timer;
         //public int n;
         //public int k;
         //public int i_i;
@@ -37,6 +40,18 @@ namespace Sea_Battle
             _field = new Field[_sizeField, _sizeField];
 
             _parent = parent;
+
+            _timer = new Timer();
+            _timer.Enabled = false;
+            _timer.Interval = 1000;
+            _timer.Tick += new EventHandler(RemoveRedHighlight);
+        }
+        private void RemoveRedHighlight(object? sender, EventArgs e)
+        {
+            DeleteDisplayBoxes();
+
+            _timer.Stop();
+            _timer.Enabled = false;
         }
         // разметка поля
         public void CreateField(Point p1, Point p2)
@@ -141,7 +156,7 @@ namespace Sea_Battle
             _parent.Controls.Add(_previewShip);
         }
         // подсвечиваем позицию где будет установлем корабыль
-        public void SnapPositionHighlight(Point point)
+        public void PositionHighlight(Point point)
         {
             if (GetIndices(point))
             {
@@ -180,11 +195,11 @@ namespace Sea_Battle
         {
             if (ShipRef is not null && ShipRef.IsOnField)
             {
+                DeleteShipToArray();
+
                 Bitmap bitmap = (Bitmap)ShipRef.Image;
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                 ShipRef.Image = bitmap;
-
-                DeleteShipToArray();
 
                 if (ShipRef._shipDirection == ShipDirection.Horizontal)
                 {
@@ -195,7 +210,33 @@ namespace Sea_Battle
                     ShipRef._shipDirection = ShipDirection.Horizontal;
                 }
 
-                SetShipToArray();
+                if (IsOnPlayingField() && IsEmptyPositionsAroundShip())
+                {
+                    SetShipToArray();
+                }
+                else
+                {
+                    CreateDisplayBoxes();
+                    _previewShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
+                    _previewShip.BringToFront();
+
+                    bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
+                    ShipRef.Image = bitmap;
+
+                    if (ShipRef._shipDirection == ShipDirection.Horizontal)
+                    {
+                        ShipRef._shipDirection = ShipDirection.Vertical;
+                    }
+                    else
+                    {
+                        ShipRef._shipDirection = ShipDirection.Horizontal;
+                    }
+
+                    SetShipToArray();
+
+                    _timer.Enabled = true;
+                    _timer.Start();
+                }
             }
         }
         public void SetShipToArray()

@@ -31,9 +31,7 @@ namespace Sea_Battle
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; }
-
         public PlayingField PlayingFieldRef { get; set; }
-
         public Ship(MainForm parent, Point startPos, ShipType type, ShipDirection shipDirection)
         {
             this._parent = parent;
@@ -96,13 +94,9 @@ namespace Sea_Battle
                     }
                     else
                     {
-                        PlayingFieldRef.TestSave();
                         PlayingFieldRef.DeleteShipToArray();
                         PlayingFieldRef.ReturnShipToOldPosition(IndexRow, IndexCol);
                         PlayingFieldRef.SetShipToArray();
-
-                        PlayingFieldRef.TestSave();
-
                     }
                 }
             }
@@ -118,7 +112,7 @@ namespace Sea_Battle
                 Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
                 Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
 
-                PlayingFieldRef.SnapPositionHighlight(Location);
+                PlayingFieldRef.PositionHighlight(Location);
             }
             //_parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
