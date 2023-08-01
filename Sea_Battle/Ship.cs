@@ -42,6 +42,8 @@ namespace Sea_Battle
             this.Location = _startPos;
             this._shipDirection = shipDirection;
             this.IsOnField = false;
+            this.IndexRow = -1;
+            this.IndexCol = -1;
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
             SetStyle(
@@ -79,10 +81,30 @@ namespace Sea_Battle
 
             if (IsOnField)
             {
-                PlayingFieldRef.SetShipToArray();
+                if (PlayingFieldRef.IsEmptyPositionsAroundShip())
+                {
+                    PlayingFieldRef.SetShipToArray();
 
-                IndexRow = PlayingFieldRef.GetIndexRow();
-                IndexCol = PlayingFieldRef.GetIndexCol();
+                    IndexRow = PlayingFieldRef.GetIndexRow();
+                    IndexCol = PlayingFieldRef.GetIndexCol();
+                }
+                else
+                {
+                    if (IndexRow == -1 && IndexCol == -1)
+                    {
+                        PlayingFieldRef.SetStartingPosition();
+                    }
+                    else
+                    {
+                        PlayingFieldRef.TestSave();
+                        PlayingFieldRef.DeleteShipToArray();
+                        PlayingFieldRef.ReturnShipToOldPosition(IndexRow, IndexCol);
+                        PlayingFieldRef.SetShipToArray();
+
+                        PlayingFieldRef.TestSave();
+
+                    }
+                }
             }
 
             IsDragMode = false;
@@ -95,11 +117,6 @@ namespace Sea_Battle
                 Point point = e.Location;
                 Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
                 Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
-
-
-                    //if (PlayingFieldRef.IsEmptyPositionsAroundShip())
-                    //{ _parent.Text = PlayingFieldRef.i_i + " " + PlayingFieldRef.j_i + " " + PlayingFieldRef.n + " " + PlayingFieldRef.k + " true"; }
-                    //else { _parent.Text = PlayingFieldRef.i_i + " " + PlayingFieldRef.j_i + " " + PlayingFieldRef.n + " " + PlayingFieldRef.k + " false"; }
 
                 PlayingFieldRef.SnapPositionHighlight(Location);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -292,6 +293,33 @@ namespace Sea_Battle
             }
 
             return true;
+        }
+        public void ReturnShipToOldPosition(int i, int j)
+        {
+            Point p = new Point(_field[i, j]._p1.X + 1, _field[i, j]._p1.Y + 1);
+            ShipRef.Location = p;
+
+            _indexRow = i;
+            _indexCol = j;
+        }
+
+        public void TestSave()
+        {
+            using (FileStream fs = new FileStream("array.txt", FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
+                {
+                    for (int i = 0; i < _sizeField; i++)
+                    {
+                        for (int j = 0; j < _sizeField; j++)
+                        {
+                            sw.Write(_field[i, j]._ship + " ");
+                        }
+                        sw.Write("\n");
+                    }
+                }
+
+            }
         }
     }
 }
