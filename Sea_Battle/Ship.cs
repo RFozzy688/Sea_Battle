@@ -24,7 +24,6 @@ namespace Sea_Battle
     {
         Point DownPoint;
         bool IsDragMode;
-        MainForm _parent;
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipPositioning _shipPositioning; // расположение корабля горизонтальное/вертикальное
@@ -32,9 +31,8 @@ namespace Sea_Battle
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; }
         public PlayingField PlayingFieldRef { get; set; }
-        public Ship(MainForm parent, Point startPos, ShipType type, ShipPositioning shipPositioning)
+        public Ship(Point startPos, ShipType type, ShipPositioning shipPositioning)
         {
-            this._parent = parent;
             this._shipType = type;
             this._startPos = startPos;
             this.Location = _startPos;

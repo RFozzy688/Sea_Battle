@@ -18,18 +18,18 @@ namespace Sea_Battle
     }
     internal class PlayingField
     {
-        public Field[,] _field;
+        Field[,] _field;
         int _sizeField;
+        Ship _battleship;
+        Ship[] _cruiser;
+        Ship[] _destroyer;
+        Ship[] _boat;
         MainForm _parent;
         PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
         PictureBox _backlightPositionWhenRotation;
         int _indexRow; // индекс строки начала корабля
         int _indexCol; // индекс столбца начала корабля
         Timer _timer;
-        //public int n;
-        //public int k;
-        //public int i_i;
-        //public int j_i;
         public Ship ShipRef { get; set; }
         public int GetSizeField() { return _sizeField; }
         public int GetIndexRow() { return _indexRow; }
@@ -40,6 +40,9 @@ namespace Sea_Battle
             _field = new Field[_sizeField, _sizeField];
 
             _parent = parent;
+
+            CreateShips();
+            CreateField(new Point(23, 140), new Point(66, 183));
 
             _timer = new Timer();
             _timer.Enabled = false;
@@ -52,6 +55,61 @@ namespace Sea_Battle
 
             _timer.Stop();
             _timer.Enabled = false;
+        }
+        private void CreateShips()
+        {
+            // 4-х палубный
+            _battleship = new Ship(new Point(540, 140), ShipType.Battleship, ShipPositioning.Horizontal);
+            _battleship.Name = "BattleShipBox";
+            _battleship.Image = new Bitmap(Properties.Resources.battleship);
+            _parent.Controls.Add(_battleship);
+            _battleship.PlayingFieldRef = this;
+
+            Point tempPoint = new Point(540, 226);
+
+            // 3-х палубные
+            _cruiser = new Ship[2];
+
+            for (int i = 0; i < 2; i++)
+            {
+                _cruiser[i] = new Ship(tempPoint, ShipType.Cruiser, ShipPositioning.Horizontal);
+                _cruiser[i].Name = "CruiserBox";
+                _cruiser[i].Image = new Bitmap(Properties.Resources.cruiser);
+                _parent.Controls.Add(_cruiser[i]);
+                _cruiser[i].PlayingFieldRef = this;
+
+                tempPoint.X += 43 * 4;
+            }
+
+            // 2-х палубные
+            _destroyer = new Ship[3];
+            tempPoint = new Point(540, 312);
+
+            for (int i = 0; i < 3; i++)
+            {
+                _destroyer[i] = new Ship(tempPoint, ShipType.Destroyer, ShipPositioning.Horizontal);
+                _destroyer[i].Name = "CruiserBox";
+                _destroyer[i].Image = new Bitmap(Properties.Resources.destroyer);
+                _parent.Controls.Add(_destroyer[i]);
+                _destroyer[i].PlayingFieldRef = this;
+
+                tempPoint.X += 43 * 3;
+            }
+
+            // 1-о палубные
+            _boat = new Ship[4];
+            tempPoint = new Point(540, 398);
+
+            for (int i = 0; i < 4; i++)
+            {
+                _boat[i] = new Ship(tempPoint, ShipType.Boat, ShipPositioning.Horizontal);
+                _boat[i].Name = "CruiserBox";
+                _boat[i].Image = new Bitmap(Properties.Resources.boat);
+                _parent.Controls.Add(_boat[i]);
+                _boat[i].PlayingFieldRef = this;
+
+                tempPoint.X += 43 * 2;
+            }
         }
         // разметка поля
         public void CreateField(Point p1, Point p2)
