@@ -15,7 +15,7 @@ namespace Sea_Battle
         Cruiser,
         Battleship
     }
-    enum ShipDirection
+    enum ShipPositioning
     {
         Horizontal,
         Vertical
@@ -27,18 +27,18 @@ namespace Sea_Battle
         MainForm _parent;
         public readonly Point _startPos;
         public readonly ShipType _shipType;
-        public ShipDirection _shipDirection; // расположение корабля горизонтальное/вертикальное
+        public ShipPositioning _shipPositioning; // расположение корабля горизонтальное/вертикальное
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; }
         public PlayingField PlayingFieldRef { get; set; }
-        public Ship(MainForm parent, Point startPos, ShipType type, ShipDirection shipDirection)
+        public Ship(MainForm parent, Point startPos, ShipType type, ShipPositioning shipPositioning)
         {
             this._parent = parent;
             this._shipType = type;
             this._startPos = startPos;
             this.Location = _startPos;
-            this._shipDirection = shipDirection;
+            this._shipPositioning = shipPositioning;
             this.IsOnField = false;
             this.IndexRow = -1;
             this.IndexCol = -1;

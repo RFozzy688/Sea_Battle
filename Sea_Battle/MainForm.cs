@@ -25,7 +25,7 @@ namespace Sea_Battle
         private void CreateShips()
         {
             // 4-х палубный
-            _battleship = new Ship(this, new Point(540, 140), ShipType.Battleship, ShipDirection.Horizontal);
+            _battleship = new Ship(this, new Point(540, 140), ShipType.Battleship, ShipPositioning.Horizontal);
             _battleship.Name = "BattleShipBox";
             _battleship.Image = new Bitmap(Properties.Resources.battleship);
             this.Controls.Add(_battleship);
@@ -38,7 +38,7 @@ namespace Sea_Battle
 
             for (int i = 0; i < 2; i++)
             {
-                _cruiser[i] = new Ship(this, tempPoint, ShipType.Cruiser, ShipDirection.Horizontal);
+                _cruiser[i] = new Ship(this, tempPoint, ShipType.Cruiser, ShipPositioning.Horizontal);
                 _cruiser[i].Name = "CruiserBox";
                 _cruiser[i].Image = new Bitmap(Properties.Resources.cruiser);
                 this.Controls.Add(_cruiser[i]);
@@ -53,7 +53,7 @@ namespace Sea_Battle
 
             for (int i = 0; i < 3; i++)
             {
-                _destroyer[i] = new Ship(this, tempPoint, ShipType.Destroyer, ShipDirection.Horizontal);
+                _destroyer[i] = new Ship(this, tempPoint, ShipType.Destroyer, ShipPositioning.Horizontal);
                 _destroyer[i].Name = "CruiserBox";
                 _destroyer[i].Image = new Bitmap(Properties.Resources.destroyer);
                 this.Controls.Add(_destroyer[i]);
@@ -68,7 +68,7 @@ namespace Sea_Battle
 
             for (int i = 0; i < 4; i++)
             {
-                _boat[i] = new Ship(this, tempPoint, ShipType.Boat, ShipDirection.Horizontal);
+                _boat[i] = new Ship(this, tempPoint, ShipType.Boat, ShipPositioning.Horizontal);
                 _boat[i].Name = "CruiserBox";
                 _boat[i].Image = new Bitmap(Properties.Resources.boat);
                 this.Controls.Add(_boat[i]);

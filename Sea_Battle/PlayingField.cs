@@ -75,13 +75,13 @@ namespace Sea_Battle
         }
         public void SetStartingPosition()
         {
-            if (ShipRef._shipDirection == ShipDirection.Vertical)
+            if (ShipRef._shipPositioning == ShipPositioning.Vertical)
             {
                 Bitmap bitmap = (Bitmap)ShipRef.Image;
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                 ShipRef.Image = bitmap;
 
-                ShipRef._shipDirection = ShipDirection.Horizontal;
+                ShipRef._shipPositioning = ShipPositioning.Horizontal;
             }
 
             // если мы вне игрового поля, то ставим корабыль в начальную позицию
@@ -110,9 +110,9 @@ namespace Sea_Battle
         }
         private bool IsOnPlayingField()
         {
-            if ((ShipRef._shipDirection == ShipDirection.Horizontal &&
+            if ((ShipRef._shipPositioning == ShipPositioning.Horizontal &&
                 _indexCol + (int)ShipRef._shipType <= _sizeField) ||
-                (ShipRef._shipDirection == ShipDirection.Vertical &&
+                (ShipRef._shipPositioning == ShipPositioning.Vertical &&
                 _indexRow + (int)ShipRef._shipType <= _sizeField))
             {
                 return true;
@@ -201,14 +201,7 @@ namespace Sea_Battle
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                 ShipRef.Image = bitmap;
 
-                if (ShipRef._shipDirection == ShipDirection.Horizontal)
-                {
-                    ShipRef._shipDirection = ShipDirection.Vertical;
-                }
-                else
-                {
-                    ShipRef._shipDirection = ShipDirection.Horizontal;
-                }
+                ChangeShipPositioning();
 
                 if (IsOnPlayingField() && IsEmptyPositionsAroundShip())
                 {
@@ -223,14 +216,7 @@ namespace Sea_Battle
                     bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
                     ShipRef.Image = bitmap;
 
-                    if (ShipRef._shipDirection == ShipDirection.Horizontal)
-                    {
-                        ShipRef._shipDirection = ShipDirection.Vertical;
-                    }
-                    else
-                    {
-                        ShipRef._shipDirection = ShipDirection.Horizontal;
-                    }
+                    ChangeShipPositioning();
 
                     SetShipToArray();
 
@@ -241,16 +227,16 @@ namespace Sea_Battle
         }
         public void SetShipToArray()
         {
-            switch (ShipRef._shipDirection)
+            switch (ShipRef._shipPositioning)
             {
-                case ShipDirection.Horizontal:
+                case ShipPositioning.Horizontal:
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
                         _field[_indexRow, col++]._ship = (int)ShipRef._shipType;
                     }
                     break;
-                case ShipDirection.Vertical:
+                case ShipPositioning.Vertical:
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
@@ -263,16 +249,16 @@ namespace Sea_Battle
         }
         public void DeleteShipToArray()
         {
-            switch (ShipRef._shipDirection)
+            switch (ShipRef._shipPositioning)
             {
-                case ShipDirection.Horizontal:
+                case ShipPositioning.Horizontal:
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
                         _field[_indexRow, col++]._ship = 0;
                     }
                     break;
-                case ShipDirection.Vertical:
+                case ShipPositioning.Vertical:
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
@@ -289,9 +275,9 @@ namespace Sea_Battle
             int i, j;
             int n, k;
 
-            switch (ShipRef._shipDirection)
+            switch (ShipRef._shipPositioning)
             {
-                case ShipDirection.Horizontal:
+                case ShipPositioning.Horizontal:
                     i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
                     j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
 
@@ -316,7 +302,7 @@ namespace Sea_Battle
 
                     break;
 
-                case ShipDirection.Vertical:
+                case ShipPositioning.Vertical:
                     i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
                     j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
 
@@ -351,6 +337,17 @@ namespace Sea_Battle
 
             _indexRow = i;
             _indexCol = j;
+        }
+        private void ChangeShipPositioning()
+        {
+            if (ShipRef._shipPositioning == ShipPositioning.Horizontal)
+            {
+                ShipRef._shipPositioning = ShipPositioning.Vertical;
+            }
+            else
+            {
+                ShipRef._shipPositioning = ShipPositioning.Horizontal;
+            }
         }
 
         public void TestSave()
