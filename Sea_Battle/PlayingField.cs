@@ -60,6 +60,15 @@ namespace Sea_Battle
         }
         public void SetStartingPosition()
         {
+            if (ShipRef._shipDirection == ShipDirection.Vertical)
+            {
+                Bitmap bitmap = (Bitmap)ShipRef.Image;
+                bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
+                ShipRef.Image = bitmap;
+
+                ShipRef._shipDirection = ShipDirection.Horizontal;
+            }
+
             // если мы вне игрового поля, то ставим корабыль в начальную позицию
             ShipRef.Location = ShipRef._startPos;
             // корабыль не на поле
@@ -72,8 +81,8 @@ namespace Sea_Battle
             {
                 for (int j = 0; j < _sizeField; j++)
                 {
-                    if (_field[i, j]._p1.X <= point.X && _field[i, j]._p1.Y <= point.Y + 21 &&
-                        _field[i, j]._p2.X >= point.X && _field[i, j]._p2.Y >= point.Y + 21)
+                    if (_field[i, j]._p1.X <= point.X + 21 && _field[i, j]._p1.Y <= point.Y + 21 &&
+                        _field[i, j]._p2.X >= point.X + 21 && _field[i, j]._p2.Y >= point.Y + 21)
                     {
                         _indexRow = i;
                         _indexCol = j;
