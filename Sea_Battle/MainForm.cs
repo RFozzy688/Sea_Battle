@@ -25,6 +25,9 @@ namespace Sea_Battle
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             //_playerField.func(new Point(e.X, e.Y));
+            _playerField.ClearField();
+            _playerField.SetShipOnField();
+            _playerField.SetImageShipOnField();
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)

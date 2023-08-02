@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Sea_Battle
@@ -150,6 +151,9 @@ namespace Sea_Battle
             ShipRef.Location = ShipRef._startPos;
             // корабыль не на поле
             ShipRef.IsOnField = false;
+            // сбрасываем индексы
+            ShipRef.IndexRow = -1;
+            ShipRef.IndexCol = -1;
         }
         // если точка находится на игровом поле, то возращаем индексы этой ячейки
         public bool GetIndices(Point point)
@@ -436,29 +440,71 @@ namespace Sea_Battle
             }
         }
         // координата корабля на поле увеличанная на один по X и Y
-        private Point GetPoint()
+        public Point GetPoint(int i, int j)
         {
-            return new Point(_field[_indexRow, _indexCol]._p1.X + 1, _field[_indexRow, _indexCol]._p1.Y + 1);
+            return new Point(_field[i, j]._p1.X + 1, _field[i, j]._p1.Y + 1);
         }
-        public void RandomPositionShips()
+        // очистка поля
+        public void ClearField()
         {
-            if (!_ships[0].IsOnField)
+            for (int i = 0; i < 10; i++)
             {
-                ShipRef = _ships[0];
+                ShipRef = _ships[i];
 
-                _ships[0]._shipPositioning = RandomDirection();
-                RandomIndices();
-
-                if (IsEmptyPositionsAroundShip() && IsOnPlayingField())
+                if (ShipRef.IsOnField)
                 {
-                    SetShipToArray();
+                    _indexRow = _ships[i].IndexRow;
+                    _indexCol = _ships[i].IndexCol;
 
-                    _ships[0].Location = GetPoint();
-                    _ships[0].IsOnField = true;
-                    _ships[0].IndexRow = _indexRow;
-                    _ships[0].IndexCol = _indexCol;
+                    DeleteShipToArray();
+                    SetStartingPosition();
                 }
+            }
+        }
+        // заполняем рандомна массив кораблями
+        private bool RandomPositionShip(Ship ship)
+        {
+            ShipRef = ship;
 
+            ship._shipPositioning = RandomDirection();
+            RandomIndices();
+
+            if (IsEmptyPositionsAroundShip() && IsOnPlayingField())
+            {
+                SetShipToArray();
+
+                ship.IsOnField = true;
+                ship.IndexRow = _indexRow;
+                ship.IndexCol = _indexCol;
+
+                return true;
+            }
+
+            return false;
+        }
+        // отрисовываем корабли на поле в PictureBox-сах
+        public void SetImageShipOnField()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                _ships[i].Location = GetPoint(_ships[i].IndexRow, _ships[i].IndexCol);
+
+                if (_ships[i]._shipPositioning == ShipPositioning.Vertical)
+                {
+                    ShipRef = _ships[i];
+                    RotationBitmap();
+                }
+            }
+        }
+        // обход массива кораблей для рандомной растсновки
+        public void SetShipOnField()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if (!RandomPositionShip(_ships[i]))
+                {
+                    i--;
+                }
             }
         }
         public void RandomIndices()
@@ -498,6 +544,12 @@ namespace Sea_Battle
                             sw.Write(_field[i, j]._ship + " ");
                         }
                         sw.Write("\n");
+                    }
+                    sw.Write("\n");
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        sw.Write(_ships[i]._shipPositioning.ToString() + "\n");
                     }
                 }
 
