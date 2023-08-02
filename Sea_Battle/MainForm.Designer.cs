@@ -49,16 +49,18 @@
             // BtnAuto
             // 
             BtnAuto.BackColor = Color.Transparent;
+            BtnAuto.BackgroundImage = Properties.Resources.btn_relesed;
             BtnAuto.BackgroundImageLayout = ImageLayout.Center;
+            BtnAuto.CausesValidation = false;
             BtnAuto.FlatAppearance.BorderSize = 0;
             BtnAuto.FlatAppearance.MouseDownBackColor = Color.Transparent;
             BtnAuto.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnAuto.FlatStyle = FlatStyle.Flat;
-            BtnAuto.Image = Properties.Resources.btn_relesed;
             BtnAuto.Location = new Point(571, 501);
             BtnAuto.Name = "BtnAuto";
             BtnAuto.Size = new Size(212, 76);
             BtnAuto.TabIndex = 4;
+            BtnAuto.TabStop = false;
             BtnAuto.Text = "Авто";
             BtnAuto.UseVisualStyleBackColor = false;
             BtnAuto.MouseDown += BtnAutoPressed;
@@ -67,16 +69,18 @@
             // BtnNext
             // 
             BtnNext.BackColor = Color.Transparent;
+            BtnNext.BackgroundImage = Properties.Resources.btn_relesed;
             BtnNext.BackgroundImageLayout = ImageLayout.Center;
+            BtnNext.CausesValidation = false;
             BtnNext.FlatAppearance.BorderSize = 0;
             BtnNext.FlatAppearance.MouseDownBackColor = Color.Transparent;
             BtnNext.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnNext.FlatStyle = FlatStyle.Flat;
-            BtnNext.Image = Properties.Resources.btn_relesed;
-            BtnNext.Location = new Point(795, 501);
+            BtnNext.Location = new Point(789, 501);
             BtnNext.Name = "BtnNext";
             BtnNext.Size = new Size(212, 76);
             BtnNext.TabIndex = 5;
+            BtnNext.TabStop = false;
             BtnNext.Text = "Далее";
             BtnNext.UseVisualStyleBackColor = false;
             BtnNext.MouseDown += BtnNextPressed;
@@ -101,9 +105,8 @@
         }
 
         #endregion
-
-        private PictureBox BtnRotation;
-        private Button BtnAuto;
-        private Button BtnNext;
+        public PictureBox BtnRotation;
+        public Button BtnAuto;
+        public Button BtnNext;
     }
 }

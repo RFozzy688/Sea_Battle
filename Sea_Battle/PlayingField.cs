@@ -56,6 +56,10 @@ namespace Sea_Battle
 
             _timer.Stop();
             _timer.Enabled = false;
+
+            _parent.BtnRotation.Enabled = true;
+            _parent.BtnAuto.Enabled = true;
+            _parent.BtnNext.Enabled = true;
         }
         // создаём флот кораблей
         private void CreateShips()
@@ -304,6 +308,13 @@ namespace Sea_Battle
                     ChangeShipPositioning();
 
                     SetShipToArray();
+
+                    // что бы кнопка была визуально отжата
+                    _parent.BtnRotationRelesed(null, null);
+                    // блокируем кнопки пока не удалится подсветка
+                    _parent.BtnRotation.Enabled = false;
+                    _parent.BtnAuto.Enabled = false;
+                    _parent.BtnNext.Enabled = false;
 
                     _timer.Enabled = true;
                     _timer.Start();
