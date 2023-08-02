@@ -4,7 +4,7 @@ namespace Sea_Battle
 {
     public partial class MainForm : Form
     {
-        
+
         PlayingField _playerField;
         public MainForm()
         {
@@ -16,7 +16,7 @@ namespace Sea_Battle
             _playerField = new PlayingField(this);
         }
 
-        
+
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
             //Text = e.X + " " + e.Y;
@@ -25,9 +25,7 @@ namespace Sea_Battle
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             //_playerField.func(new Point(e.X, e.Y));
-            _playerField.ClearField();
-            _playerField.SetShipOnField();
-            _playerField.SetImageShipOnField();
+
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)
@@ -39,6 +37,29 @@ namespace Sea_Battle
         private void BtnRotationRelesed(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
+        }
+
+        private void BtnAutoPressed(object sender, MouseEventArgs e)
+        {
+            BtnAuto.Image = new Bitmap(Properties.Resources.btn_pressed);
+            _playerField.ClearField();
+            _playerField.SetShipOnField();
+            _playerField.SetImageShipOnField();
+        }
+
+        private void BtnAutoRelesed(object sender, MouseEventArgs e)
+        {
+            BtnAuto.Image = new Bitmap(Properties.Resources.btn_relesed);
+        }
+
+        private void BtnNextPressed(object sender, MouseEventArgs e)
+        {
+            BtnNext.Image = new Bitmap(Properties.Resources.btn_pressed);
+        }
+
+        private void BtnNextRelesed(object sender, MouseEventArgs e)
+        {
+            BtnNext.Image = new Bitmap(Properties.Resources.btn_relesed);
         }
     }
 }
