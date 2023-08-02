@@ -64,6 +64,7 @@
             BtnAuto.TabIndex = 4;
             BtnAuto.TabStop = false;
             BtnAuto.Text = "Авто";
+            BtnAuto.UseCompatibleTextRendering = true;
             BtnAuto.UseVisualStyleBackColor = false;
             BtnAuto.MouseDown += BtnAutoPressed;
             BtnAuto.MouseUp += BtnAutoRelesed;
@@ -84,6 +85,7 @@
             BtnNext.TabIndex = 5;
             BtnNext.TabStop = false;
             BtnNext.Text = "Далее";
+            BtnNext.UseCompatibleTextRendering = true;
             BtnNext.UseVisualStyleBackColor = false;
             BtnNext.MouseDown += BtnNextPressed;
             BtnNext.MouseUp += BtnNextRelesed;

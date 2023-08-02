@@ -6,6 +6,7 @@ namespace Sea_Battle
     {
 
         PlayingField _playerField;
+        EmbededFont _embededFont;
         public MainForm()
         {
             InitializeComponent();
@@ -14,6 +15,12 @@ namespace Sea_Battle
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
             _playerField = new PlayingField(this);
+            _embededFont = new EmbededFont();
+
+            BtnAuto.Font = _embededFont.GetBtnFontRelesed();
+            BtnNext.Font = _embededFont.GetBtnFontRelesed();
+            BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnNext.ForeColor = Color.FromArgb(38, 42, 182);
         }
 
 
@@ -40,6 +47,7 @@ namespace Sea_Battle
         }
         private void BtnAutoPressed(object sender, MouseEventArgs e)
         {
+            BtnAuto.Font = _embededFont.GetBtnFontPressed();
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
             _playerField.ClearField();
             _playerField.SetShipOnField();
@@ -47,14 +55,17 @@ namespace Sea_Battle
         }
         private void BtnAutoRelesed(object sender, MouseEventArgs e)
         {
+            BtnAuto.Font = _embededFont.GetBtnFontRelesed();
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
         }
         private void BtnNextPressed(object sender, MouseEventArgs e)
         {
+            BtnNext.Font = _embededFont.GetBtnFontPressed();
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
         }
         private void BtnNextRelesed(object sender, MouseEventArgs e)
         {
+            BtnNext.Font = _embededFont.GetBtnFontRelesed();
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
         }
         private void BtnBackPressed(object sender, MouseEventArgs e)
