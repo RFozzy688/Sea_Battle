@@ -57,5 +57,13 @@ namespace Sea_Battle
         {
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
         }
+        private void BtnBackPressed(object sender, MouseEventArgs e)
+        {
+            BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
+        }
+        private void BtnBackRelesed(object sender, MouseEventArgs e)
+        {
+            BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
+        }
     }
 }

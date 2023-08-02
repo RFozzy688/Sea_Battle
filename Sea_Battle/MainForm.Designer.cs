@@ -31,7 +31,9 @@
             BtnRotation = new PictureBox();
             BtnAuto = new Button();
             BtnNext = new Button();
+            BtnBack = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)BtnRotation).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)BtnBack).BeginInit();
             SuspendLayout();
             // 
             // BtnRotation
@@ -86,12 +88,26 @@
             BtnNext.MouseDown += BtnNextPressed;
             BtnNext.MouseUp += BtnNextRelesed;
             // 
+            // BtnBack
+            // 
+            BtnBack.BackColor = Color.Transparent;
+            BtnBack.BackgroundImage = Properties.Resources.btn_back_relesed;
+            BtnBack.BackgroundImageLayout = ImageLayout.Center;
+            BtnBack.Location = new Point(26, 12);
+            BtnBack.Name = "BtnBack";
+            BtnBack.Size = new Size(80, 80);
+            BtnBack.TabIndex = 6;
+            BtnBack.TabStop = false;
+            BtnBack.MouseDown += BtnBackPressed;
+            BtnBack.MouseUp += BtnBackRelesed;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.one_field;
             ClientSize = new Size(1024, 603);
+            Controls.Add(BtnBack);
             Controls.Add(BtnNext);
             Controls.Add(BtnAuto);
             Controls.Add(BtnRotation);
@@ -101,6 +117,7 @@
             MouseDown += MainForm_MouseDown;
             MouseMove += MainForm_MouseMove;
             ((System.ComponentModel.ISupportInitialize)BtnRotation).EndInit();
+            ((System.ComponentModel.ISupportInitialize)BtnBack).EndInit();
             ResumeLayout(false);
         }
 
@@ -108,5 +125,6 @@
         public PictureBox BtnRotation;
         public Button BtnAuto;
         public Button BtnNext;
+        private PictureBox BtnBack;
     }
 }
