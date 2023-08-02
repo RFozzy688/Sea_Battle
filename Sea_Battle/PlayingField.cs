@@ -20,13 +20,10 @@ namespace Sea_Battle
     {
         Field[,] _field;
         int _sizeField;
-        Ship _battleship;
-        Ship[] _cruiser;
-        Ship[] _destroyer;
-        Ship[] _boat;
+        Ship[] _ships;
         MainForm _parent;
         PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
-        PictureBox _backlightPositionWhenRotation;
+        PictureBox _backlightPositionWhenRotation; // подсветка позиции при не удачном вращении
         int _indexRow; // индекс строки начала корабля
         int _indexCol; // индекс столбца начала корабля
         Timer _timer;
@@ -39,6 +36,8 @@ namespace Sea_Battle
             _sizeField = 10;
             _field = new Field[_sizeField, _sizeField];
 
+            _ships = new Ship[10];
+
             _parent = parent;
 
             CreateShips();
@@ -49,6 +48,7 @@ namespace Sea_Battle
             _timer.Interval = 1000;
             _timer.Tick += new EventHandler(RemoveRedHighlight);
         }
+        // удаление PictureBox подсветки после вращения
         private void RemoveRedHighlight(object? sender, EventArgs e)
         {
             _parent.Controls.Remove(_backlightPositionWhenRotation);
@@ -56,59 +56,62 @@ namespace Sea_Battle
             _timer.Stop();
             _timer.Enabled = false;
         }
+        // создаём флот кораблей
         private void CreateShips()
         {
+            int index = 0;
+
             // 4-х палубный
-            _battleship = new Ship(new Point(540, 140), ShipType.Battleship, ShipPositioning.Horizontal);
-            _battleship.Name = "BattleShipBox";
-            _battleship.Image = new Bitmap(Properties.Resources.battleship);
-            _parent.Controls.Add(_battleship);
-            _battleship.PlayingFieldRef = this;
+            _ships[index] = new Ship(new Point(540, 140), ShipType.Battleship, ShipPositioning.Horizontal);
+            _ships[index].Name = "BattleShipBox";
+            _ships[index].Image = new Bitmap(Properties.Resources.battleship);
+            _parent.Controls.Add(_ships[index]);
+            _ships[index].PlayingFieldRef = this;
+            index++;
 
             Point tempPoint = new Point(540, 226);
 
             // 3-х палубные
-            _cruiser = new Ship[2];
-
             for (int i = 0; i < 2; i++)
             {
-                _cruiser[i] = new Ship(tempPoint, ShipType.Cruiser, ShipPositioning.Horizontal);
-                _cruiser[i].Name = "CruiserBox";
-                _cruiser[i].Image = new Bitmap(Properties.Resources.cruiser);
-                _parent.Controls.Add(_cruiser[i]);
-                _cruiser[i].PlayingFieldRef = this;
+                _ships[index] = new Ship(tempPoint, ShipType.Cruiser, ShipPositioning.Horizontal);
+                _ships[index].Name = "CruiserBox";
+                _ships[index].Image = new Bitmap(Properties.Resources.cruiser);
+                _parent.Controls.Add(_ships[index]);
+                _ships[index].PlayingFieldRef = this;
 
                 tempPoint.X += 43 * 4;
+                index++;
             }
 
             // 2-х палубные
-            _destroyer = new Ship[3];
             tempPoint = new Point(540, 312);
 
             for (int i = 0; i < 3; i++)
             {
-                _destroyer[i] = new Ship(tempPoint, ShipType.Destroyer, ShipPositioning.Horizontal);
-                _destroyer[i].Name = "CruiserBox";
-                _destroyer[i].Image = new Bitmap(Properties.Resources.destroyer);
-                _parent.Controls.Add(_destroyer[i]);
-                _destroyer[i].PlayingFieldRef = this;
+                _ships[index] = new Ship(tempPoint, ShipType.Destroyer, ShipPositioning.Horizontal);
+                _ships[index].Name = "CruiserBox";
+                _ships[index].Image = new Bitmap(Properties.Resources.destroyer);
+                _parent.Controls.Add(_ships[index]);
+                _ships[index].PlayingFieldRef = this;
 
                 tempPoint.X += 43 * 3;
+                index++;
             }
 
             // 1-о палубные
-            _boat = new Ship[4];
             tempPoint = new Point(540, 398);
 
             for (int i = 0; i < 4; i++)
             {
-                _boat[i] = new Ship(tempPoint, ShipType.Boat, ShipPositioning.Horizontal);
-                _boat[i].Name = "CruiserBox";
-                _boat[i].Image = new Bitmap(Properties.Resources.boat);
-                _parent.Controls.Add(_boat[i]);
-                _boat[i].PlayingFieldRef = this;
+                _ships[index] = new Ship(tempPoint, ShipType.Boat, ShipPositioning.Horizontal);
+                _ships[index].Name = "CruiserBox";
+                _ships[index].Image = new Bitmap(Properties.Resources.boat);
+                _parent.Controls.Add(_ships[index]);
+                _ships[index].PlayingFieldRef = this;
 
                 tempPoint.X += 43 * 2;
+                index++;
             }
         }
         // разметка поля
@@ -131,6 +134,7 @@ namespace Sea_Battle
                 p2.Y += 43;
             }
         }
+        // перемещаем корабль в стартовую позицию если не удалось установить корабыль на поле
         public void SetStartingPosition()
         {
             if (ShipRef._shipPositioning == ShipPositioning.Vertical)
@@ -166,19 +170,21 @@ namespace Sea_Battle
 
             return false;
         }
+        // проверяем не выходит ли корабыль за пределы игрового поля
         private bool IsOnPlayingField()
         {
-            if ((ShipRef._shipPositioning == ShipPositioning.Horizontal &&
-                _indexCol + (int)ShipRef._shipType <= _sizeField) ||
-                (ShipRef._shipPositioning == ShipPositioning.Vertical &&
-                _indexRow + (int)ShipRef._shipType <= _sizeField))
+            if (ShipRef._shipPositioning == ShipPositioning.Horizontal &&
+                _indexCol + (int)ShipRef._shipType <= _sizeField)
             {
                 return true;
             }
-            else
+            else if ((ShipRef._shipPositioning == ShipPositioning.Vertical &&
+                _indexRow + (int)ShipRef._shipType <= _sizeField))
             { 
-                return false; 
+                return true; 
             }
+
+            return false;
         }
         // устанавливаем корабыль на поле
         public void SnapingToShipGrid(Point point)
@@ -204,6 +210,7 @@ namespace Sea_Battle
                 SetStartingPosition();
             }
         }
+        // создеём PictureBox для подсветки позиции корабля на поле
         public void CreateDisplayBoxes()
         {
             _backlightPositionShip = new PictureBox();
@@ -213,6 +220,7 @@ namespace Sea_Battle
             _backlightPositionShip.Location = ShipRef.Location;
             _parent.Controls.Add(_backlightPositionShip);
         }
+        // создеём PictureBox для подсветки позиции корабля после вращения
         private void CreateBacklightWhenRotation()
         {
             _backlightPositionWhenRotation = new PictureBox();
@@ -254,19 +262,26 @@ namespace Sea_Battle
                 _backlightPositionShip.Hide();
             }
         }
+        // удаляем PictureBox подсветки после того как корабыль стал на поле
         public void DeleteDisplayBoxes()
         {
             _parent.Controls.Remove(_backlightPositionShip);
         }
+        // вращение картинки корабля
+        private void RotationBitmap()
+        {
+            Bitmap bitmap = (Bitmap)ShipRef.Image;
+            bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
+            ShipRef.Image = bitmap;
+        }
+        // вращение корабля на 90/-90 градусов
         public void RotationShip()
         {
             if (ShipRef is not null && ShipRef.IsOnField)
             {
                 DeleteShipToArray();
 
-                Bitmap bitmap = (Bitmap)ShipRef.Image;
-                bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
-                ShipRef.Image = bitmap;
+                RotationBitmap();
 
                 ChangeShipPositioning();
 
@@ -280,8 +295,7 @@ namespace Sea_Battle
                     _backlightPositionWhenRotation.BackgroundImage = new Bitmap(Properties.Resources.red_square);
                     _backlightPositionWhenRotation.BringToFront();
 
-                    bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
-                    ShipRef.Image = bitmap;
+                    RotationBitmap();
 
                     ChangeShipPositioning();
 
@@ -292,6 +306,7 @@ namespace Sea_Battle
                 }
             }
         }
+        // отмечаем позицию корабля вмассиве _field
         public void SetShipToArray()
         {
             switch (ShipRef._shipPositioning)
@@ -314,6 +329,7 @@ namespace Sea_Battle
                     break;
             }
         }
+        // удаление корабля из массива
         public void DeleteShipToArray()
         {
             switch (ShipRef._shipPositioning)
@@ -336,6 +352,7 @@ namespace Sea_Battle
                     break;
             }
         }
+        // проверяем можно ли разместить корабыль в данной позиции согласно правилам игры
         public bool IsEmptyPositionsAroundShip()
         {
             int temp_j;
@@ -397,6 +414,7 @@ namespace Sea_Battle
 
             return true;
         }
+        // возращаем корабыль в старую позицию на поле если не удалось установить корабыль согласно правилам игры
         public void ReturnShipToOldPosition(int i, int j)
         {
             Point p = new Point(_field[i, j]._p1.X + 1, _field[i, j]._p1.Y + 1);
@@ -405,6 +423,7 @@ namespace Sea_Battle
             _indexRow = i;
             _indexCol = j;
         }
+        // смена позиционирования корабля на поле вертикальное/горизонтальное
         private void ChangeShipPositioning()
         {
             if (ShipRef._shipPositioning == ShipPositioning.Horizontal)
@@ -415,6 +434,55 @@ namespace Sea_Battle
             {
                 ShipRef._shipPositioning = ShipPositioning.Horizontal;
             }
+        }
+        // координата корабля на поле увеличанная на один по X и Y
+        private Point GetPoint()
+        {
+            return new Point(_field[_indexRow, _indexCol]._p1.X + 1, _field[_indexRow, _indexCol]._p1.Y + 1);
+        }
+        public void RandomPositionShips()
+        {
+            if (!_ships[0].IsOnField)
+            {
+                ShipRef = _ships[0];
+
+                _ships[0]._shipPositioning = RandomDirection();
+                RandomIndices();
+
+                if (IsEmptyPositionsAroundShip() && IsOnPlayingField())
+                {
+                    SetShipToArray();
+
+                    _ships[0].Location = GetPoint();
+                    _ships[0].IsOnField = true;
+                    _ships[0].IndexRow = _indexRow;
+                    _ships[0].IndexCol = _indexCol;
+                }
+
+            }
+        }
+        public void RandomIndices()
+        {
+            Random random = new Random();
+            _indexRow = random.Next(0, 10);
+            _indexCol = random.Next(0, 10);
+        }
+        public ShipPositioning RandomDirection()
+        {
+            Random random = new Random();
+            int num = random.Next(0, 2);
+            ShipPositioning direction = ShipPositioning.Horizontal;
+
+            switch (num)
+            {
+                case 0:
+                    direction = ShipPositioning.Horizontal;
+                    break;
+                case 1:
+                    direction = ShipPositioning.Vertical;
+                    break;
+            }
+            return direction;
         }
 
         public void TestSave()
