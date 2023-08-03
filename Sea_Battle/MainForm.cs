@@ -4,8 +4,9 @@ namespace Sea_Battle
 {
     public partial class MainForm : Form
     {
-
-        PlayingField_temp _playerField;
+        CreateFleetOfShips _playerFleet;
+        CreatePlayingField _playerField;
+        AutomaticPositioningOfShips _playerShipsPosition;
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -14,13 +15,18 @@ namespace Sea_Battle
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
-            _playerField = new PlayingField_temp(this);
+            _playerFleet = new CreateFleetOfShips(this);
+            _playerFleet.CreateShips(new Point(540, 140), 43, true, null);
+            _playerField = new CreatePlayingField();
+            _playerField.CreateField(new Point(23, 140), new Point(66, 183));
+            _playerShipsPosition = new AutomaticPositioningOfShips(_playerFleet, _playerField);
+
             _embededFont = new EmbededFont();
 
             BtnAuto.Font = _embededFont.GetBtnFontRelesed();
             BtnNext.Font = _embededFont.GetBtnFontRelesed();
             BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
-            BtnNext.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnNext.ForeColor = Color.FromArgb(38, 42, 182); 
         }
 
 
@@ -39,7 +45,7 @@ namespace Sea_Battle
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
 
-            _playerField.RotationShip();
+            //_playerField.RotationShip();
         }
         public void BtnRotationRelesed(object sender, MouseEventArgs e)
         {
@@ -50,9 +56,11 @@ namespace Sea_Battle
             BtnAuto.Font = _embededFont.GetBtnFontPressed();
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
 
-            _playerField.ClearField();
-            _playerField.SetShipOnField();
-            _playerField.SetImageShipOnField();
+            _playerShipsPosition.ClearField();
+            _playerShipsPosition.SetShipOnField();
+            _playerShipsPosition.SetImageShipOnField();
+
+            _playerShipsPosition.TestSave();
         }
         private void BtnAutoRelesed(object sender, MouseEventArgs e)
         {

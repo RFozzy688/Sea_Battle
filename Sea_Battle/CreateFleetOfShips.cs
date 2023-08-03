@@ -82,5 +82,6 @@ namespace Sea_Battle
                 index++;
             }
         }
+        public Ship[] ArrayShips { get { return _ships; } }
     }
 }

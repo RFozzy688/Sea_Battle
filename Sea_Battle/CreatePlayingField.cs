@@ -17,8 +17,9 @@ namespace Sea_Battle
     internal class CreatePlayingField
     {
         Field[,] _field;
-        public readonly int SizeField;
-        
+        public int SizeField { get; }
+        public Field[,] ArrayField { get { return _field; } }
+
         public CreatePlayingField()
         {
             SizeField = 10;

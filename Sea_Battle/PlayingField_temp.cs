@@ -16,492 +16,233 @@ namespace Sea_Battle
     {
         
         
-        MainForm _parent;
-        PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
-        PictureBox _backlightPositionWhenRotation; // подсветка позиции при не удачном вращении
-        int _indexRow; // индекс строки начала корабля
-        int _indexCol; // индекс столбца начала корабля
-        Timer _timer;
-        public Ship ShipRef { get; set; }
-        //public int GetSizeField() { return _sizeField; }
-        public int GetIndexRow() { return _indexRow; }
-        public int GetIndexCol() { return _indexCol; }
-        public PlayingField_temp(MainForm parent)
-        {
+        //MainForm _parent;
+        //PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
+        //PictureBox _backlightPositionWhenRotation; // подсветка позиции при не удачном вращении
+        //Timer _timer;
+        //public PlayingField_temp(MainForm parent)
+        //{
 
 
             
 
-            _parent = parent;
+        //    _parent = parent;
 
-            //CreateShips(new Point(540, 140), 43, true, this);
-            //CreateField(new Point(23, 140), new Point(66, 183));
+        //    //CreateShips(new Point(540, 140), 43, true, this);
+        //    //CreateField(new Point(23, 140), new Point(66, 183));
 
-            _timer = new Timer();
-            _timer.Enabled = false;
-            _timer.Interval = 1000;
-            _timer.Tick += new EventHandler(RemoveRedHighlight);
-        }
-        // удаление PictureBox подсветки после вращения
-        private void RemoveRedHighlight(object? sender, EventArgs e)
-        {
-            _parent.Controls.Remove(_backlightPositionWhenRotation);
+        //    _timer = new Timer();
+        //    _timer.Enabled = false;
+        //    _timer.Interval = 1000;
+        //    _timer.Tick += new EventHandler(RemoveRedHighlight);
+        //}
+        //// удаление PictureBox подсветки после вращения
+        //private void RemoveRedHighlight(object? sender, EventArgs e)
+        //{
+        //    _parent.Controls.Remove(_backlightPositionWhenRotation);
 
-            _timer.Stop();
-            _timer.Enabled = false;
+        //    _timer.Stop();
+        //    _timer.Enabled = false;
 
-            _parent.BtnRotation.Enabled = true;
-            _parent.BtnAuto.Enabled = true;
-            _parent.BtnNext.Enabled = true;
-        }
+        //    _parent.BtnRotation.Enabled = true;
+        //    _parent.BtnAuto.Enabled = true;
+        //    _parent.BtnNext.Enabled = true;
+        //}
         
 
-        // перемещаем корабль в стартовую позицию если не удалось установить корабыль на поле
-        public void SetStartingPosition()
-        {
-            if (ShipRef._shipPositioning == ShipPositioning.Vertical)
-            {
-                Bitmap bitmap = (Bitmap)ShipRef.Image;
-                bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
-                ShipRef.Image = bitmap;
+        
+        //// если точка находится на игровом поле, то возращаем индексы этой ячейки
+        //public bool GetIndices(Point point)
+        //{
+        //    for (int i = 0; i < _sizeField; i++)
+        //    {
+        //        for (int j = 0; j < _sizeField; j++)
+        //        {
+        //            if (_field[i, j]._p1.X <= point.X + 21 && _field[i, j]._p1.Y <= point.Y + 21 &&
+        //                _field[i, j]._p2.X >= point.X + 21 && _field[i, j]._p2.Y >= point.Y + 21)
+        //            {
+        //                _indexRow = i;
+        //                _indexCol = j;
+        //                return true;
+        //            }
+        //        }
+        //    }
 
-                ShipRef._shipPositioning = ShipPositioning.Horizontal;
-            }
+        //    return false;
+        //}
+        
+        //// устанавливаем корабыль на поле
+        //public void SnapingToShipGrid(Point point)
+        //{
+        //    if (GetIndices(point))
+        //    {
+        //        // проверяем не выходит ли корабыль за пределы игрового поля по горизонтали или по вертикали
+        //        if (IsOnPlayingField()) // если да, то перемещаем в стариовую позицию
+        //        {
+        //            // привязываем корабыль к сетке
+        //            Point p = new Point(_field[_indexRow, _indexCol]._p1.X + 1, _field[_indexRow, _indexCol]._p1.Y + 1);
+        //            ShipRef.Location = p;
+        //            // корабыль на поле
+        //            ShipRef.IsOnField = true;
+        //        } 
+        //        else
+        //        {
+        //            SetStartingPosition();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        SetStartingPosition();
+        //    }
+        //}
+        //// создеём PictureBox для подсветки позиции корабля на поле
+        //public void CreateDisplayBoxes()
+        //{
+        //    _backlightPositionShip = new PictureBox();
+        //    _backlightPositionShip.Size = new Size(ShipRef.Width, ShipRef.Height);
+        //    _backlightPositionShip.BackColor = Color.Transparent;
+        //    _backlightPositionShip.BackgroundImageLayout = ImageLayout.Tile;
+        //    _backlightPositionShip.Location = ShipRef.Location;
+        //    _parent.Controls.Add(_backlightPositionShip);
+        //}
+        //// создеём PictureBox для подсветки позиции корабля после вращения
+        //private void CreateBacklightWhenRotation()
+        //{
+        //    _backlightPositionWhenRotation = new PictureBox();
+        //    _backlightPositionWhenRotation.Size = new Size(ShipRef.Width, ShipRef.Height);
+        //    _backlightPositionWhenRotation.BackColor = Color.Transparent;
+        //    _backlightPositionWhenRotation.BackgroundImageLayout = ImageLayout.Tile;
+        //    _backlightPositionWhenRotation.Location = ShipRef.Location;
+        //    _parent.Controls.Add(_backlightPositionWhenRotation);
+        //}
+        //// подсвечиваем позицию где будет установлем корабыль
+        //public void PositionHighlight(Point point)
+        //{
+        //    if (GetIndices(point))
+        //    {
+        //        _backlightPositionShip.Show();
 
-            // если мы вне игрового поля, то ставим корабыль в начальную позицию
-            ShipRef.Location = ShipRef._startPos;
-            // корабыль не на поле
-            ShipRef.IsOnField = false;
-            // сбрасываем индексы
-            ShipRef.IndexRow = -1;
-            ShipRef.IndexCol = -1;
-        }
-        // если точка находится на игровом поле, то возращаем индексы этой ячейки
-        public bool GetIndices(Point point)
-        {
-            for (int i = 0; i < _sizeField; i++)
-            {
-                for (int j = 0; j < _sizeField; j++)
-                {
-                    if (_field[i, j]._p1.X <= point.X + 21 && _field[i, j]._p1.Y <= point.Y + 21 &&
-                        _field[i, j]._p2.X >= point.X + 21 && _field[i, j]._p2.Y >= point.Y + 21)
-                    {
-                        _indexRow = i;
-                        _indexCol = j;
-                        return true;
-                    }
-                }
-            }
+        //        if (IsOnPlayingField())
+        //        {
+        //            if (IsEmptyPositionsAroundShip())
+        //            {
+        //                _backlightPositionShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
+        //                // привязываем боксы к сетке
+        //                _backlightPositionShip.Location = _field[_indexRow, _indexCol]._p1;
+        //            }
+        //            else
+        //            {
+        //                _backlightPositionShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
+        //                // привязываем боксы к сетке
+        //                _backlightPositionShip.Location = _field[_indexRow, _indexCol]._p1;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            _backlightPositionShip.Hide();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        _backlightPositionShip.Hide();
+        //    }
+        //}
+        //// удаляем PictureBox подсветки после того как корабыль стал на поле
+        //public void DeleteDisplayBoxes()
+        //{
+        //    _parent.Controls.Remove(_backlightPositionShip);
+        //}
 
-            return false;
-        }
-        // проверяем не выходит ли корабыль за пределы игрового поля
-        private bool IsOnPlayingField()
-        {
-            if (ShipRef._shipPositioning == ShipPositioning.Horizontal &&
-                _indexCol + (int)ShipRef._shipType <= _sizeField)
-            {
-                return true;
-            }
-            else if ((ShipRef._shipPositioning == ShipPositioning.Vertical &&
-                _indexRow + (int)ShipRef._shipType <= _sizeField))
-            { 
-                return true; 
-            }
+        //// вращение корабля на 90/-90 градусов
+        //public void RotationShip()
+        //{
+        //    if (ShipRef is not null && ShipRef.IsOnField)
+        //    {
+        //        DeleteShipToArray();
 
-            return false;
-        }
-        // устанавливаем корабыль на поле
-        public void SnapingToShipGrid(Point point)
-        {
-            if (GetIndices(point))
-            {
-                // проверяем не выходит ли корабыль за пределы игрового поля по горизонтали или по вертикали
-                if (IsOnPlayingField()) // если да, то перемещаем в стариовую позицию
-                {
-                    // привязываем корабыль к сетке
-                    Point p = new Point(_field[_indexRow, _indexCol]._p1.X + 1, _field[_indexRow, _indexCol]._p1.Y + 1);
-                    ShipRef.Location = p;
-                    // корабыль на поле
-                    ShipRef.IsOnField = true;
-                } 
-                else
-                {
-                    SetStartingPosition();
-                }
-            }
-            else
-            {
-                SetStartingPosition();
-            }
-        }
-        // создеём PictureBox для подсветки позиции корабля на поле
-        public void CreateDisplayBoxes()
-        {
-            _backlightPositionShip = new PictureBox();
-            _backlightPositionShip.Size = new Size(ShipRef.Width, ShipRef.Height);
-            _backlightPositionShip.BackColor = Color.Transparent;
-            _backlightPositionShip.BackgroundImageLayout = ImageLayout.Tile;
-            _backlightPositionShip.Location = ShipRef.Location;
-            _parent.Controls.Add(_backlightPositionShip);
-        }
-        // создеём PictureBox для подсветки позиции корабля после вращения
-        private void CreateBacklightWhenRotation()
-        {
-            _backlightPositionWhenRotation = new PictureBox();
-            _backlightPositionWhenRotation.Size = new Size(ShipRef.Width, ShipRef.Height);
-            _backlightPositionWhenRotation.BackColor = Color.Transparent;
-            _backlightPositionWhenRotation.BackgroundImageLayout = ImageLayout.Tile;
-            _backlightPositionWhenRotation.Location = ShipRef.Location;
-            _parent.Controls.Add(_backlightPositionWhenRotation);
-        }
-        // подсвечиваем позицию где будет установлем корабыль
-        public void PositionHighlight(Point point)
-        {
-            if (GetIndices(point))
-            {
-                _backlightPositionShip.Show();
+        //        RotationBitmap();
 
-                if (IsOnPlayingField())
-                {
-                    if (IsEmptyPositionsAroundShip())
-                    {
-                        _backlightPositionShip.BackgroundImage = new Bitmap(Properties.Resources.green_square);
-                        // привязываем боксы к сетке
-                        _backlightPositionShip.Location = _field[_indexRow, _indexCol]._p1;
-                    }
-                    else
-                    {
-                        _backlightPositionShip.BackgroundImage = new Bitmap(Properties.Resources.red_square);
-                        // привязываем боксы к сетке
-                        _backlightPositionShip.Location = _field[_indexRow, _indexCol]._p1;
-                    }
-                }
-                else
-                {
-                    _backlightPositionShip.Hide();
-                }
-            }
-            else
-            {
-                _backlightPositionShip.Hide();
-            }
-        }
-        // удаляем PictureBox подсветки после того как корабыль стал на поле
-        public void DeleteDisplayBoxes()
-        {
-            _parent.Controls.Remove(_backlightPositionShip);
-        }
-        // вращение картинки корабля
-        private void RotationBitmap()
-        {
-            Bitmap bitmap = (Bitmap)ShipRef.Image;
-            bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
-            ShipRef.Image = bitmap;
-        }
-        // вращение корабля на 90/-90 градусов
-        public void RotationShip()
-        {
-            if (ShipRef is not null && ShipRef.IsOnField)
-            {
-                DeleteShipToArray();
+        //        ChangeShipPositioning();
 
-                RotationBitmap();
+        //        if (IsOnPlayingField() && IsEmptyPositionsAroundShip())
+        //        {
+        //            SetShipToArray();
+        //        }
+        //        else
+        //        {
+        //            CreateBacklightWhenRotation();
+        //            _backlightPositionWhenRotation.BackgroundImage = new Bitmap(Properties.Resources.red_square);
+        //            _backlightPositionWhenRotation.BringToFront();
 
-                ChangeShipPositioning();
+        //            RotationBitmap();
 
-                if (IsOnPlayingField() && IsEmptyPositionsAroundShip())
-                {
-                    SetShipToArray();
-                }
-                else
-                {
-                    CreateBacklightWhenRotation();
-                    _backlightPositionWhenRotation.BackgroundImage = new Bitmap(Properties.Resources.red_square);
-                    _backlightPositionWhenRotation.BringToFront();
+        //            ChangeShipPositioning();
 
-                    RotationBitmap();
+        //            SetShipToArray();
 
-                    ChangeShipPositioning();
+        //            // что бы кнопка была визуально отжата
+        //            _parent.BtnRotationRelesed(null, null);
+        //            // блокируем кнопки пока не удалится подсветка
+        //            _parent.BtnRotation.Enabled = false;
+        //            _parent.BtnAuto.Enabled = false;
+        //            _parent.BtnNext.Enabled = false;
 
-                    SetShipToArray();
+        //            _timer.Enabled = true;
+        //            _timer.Start();
+        //        }
+        //    }
+        //}
+        
 
-                    // что бы кнопка была визуально отжата
-                    _parent.BtnRotationRelesed(null, null);
-                    // блокируем кнопки пока не удалится подсветка
-                    _parent.BtnRotation.Enabled = false;
-                    _parent.BtnAuto.Enabled = false;
-                    _parent.BtnNext.Enabled = false;
 
-                    _timer.Enabled = true;
-                    _timer.Start();
-                }
-            }
-        }
-        // возращает индекс корабля в массиве кораблей
-        private int FindIndexShip(int i, int j)
-        {
-            for (int n = 0; n < 10; n++)
-            {
-                if (_ships[n].IndexRow == i && _ships[n].IndexCol == j)
-                {
-                    return n;
-                }
-            }
-            return -1;
-        }
-        // отмечаем позицию корабля вмассиве _field
-        public void SetShipToArray()
-        {
-            switch (ShipRef._shipPositioning)
-            {
-                case ShipPositioning.Horizontal:
-                    int col = _indexCol;
-                    for (int n = 0; n < (int)ShipRef._shipType; n++)
-                    {
-                        _field[_indexRow, col]._ship = (int)ShipRef._shipType;
-                        _field[_indexRow, col]._health = ShipRef.Health;
-                        _field[_indexRow, col]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
+        //// возращаем корабыль в старую позицию на поле если не удалось установить корабыль согласно правилам игры
+        //public void ReturnShipToOldPosition(int i, int j)
+        //{
+        //    Point p = new Point(_field[i, j]._p1.X + 1, _field[i, j]._p1.Y + 1);
+        //    ShipRef.Location = p;
 
-                        col++;
-                    }
-                    break;
-                case ShipPositioning.Vertical:
-                    int row = _indexRow;
-                    for (int n = 0; n < (int)ShipRef._shipType; n++)
-                    {
-                        _field[row, _indexCol]._ship = (int)ShipRef._shipType;
-                        _field[row, _indexCol]._health = ShipRef.Health;
-                        _field[row, _indexCol]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
+        //    _indexRow = i;
+        //    _indexCol = j;
+        //}
+        //// смена позиционирования корабля на поле вертикальное/горизонтальное
+        //private void ChangeShipPositioning()
+        //{
+        //    if (ShipRef._shipPositioning == ShipPositioning.Horizontal)
+        //    {
+        //        ShipRef._shipPositioning = ShipPositioning.Vertical;
+        //    }
+        //    else
+        //    {
+        //        ShipRef._shipPositioning = ShipPositioning.Horizontal;
+        //    }
+        //}
+ 
 
-                        row++;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        // удаление корабля из массива
-        public void DeleteShipToArray()
-        {
-            switch (ShipRef._shipPositioning)
-            {
-                case ShipPositioning.Horizontal:
-                    int col = _indexCol;
-                    for (int n = 0; n < (int)ShipRef._shipType; n++)
-                    {
-                        _field[_indexRow, col++]._ship = 0;
-                    }
-                    break;
-                case ShipPositioning.Vertical:
-                    int row = _indexRow;
-                    for (int n = 0; n < (int)ShipRef._shipType; n++)
-                    {
-                        _field[row++, _indexCol]._ship = 0;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        // проверяем можно ли разместить корабыль в данной позиции согласно правилам игры
-        public bool IsEmptyPositionsAroundShip()
-        {
-            int temp_j;
-            int i, j;
-            int n, k;
+ 
 
-            switch (ShipRef._shipPositioning)
-            {
-                case ShipPositioning.Horizontal:
-                    i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
-                    j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+        //public void TestSave()
+        //{
+        //    using (FileStream fs = new FileStream("array.txt", FileMode.Create))
+        //    {
+        //        using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
+        //        {
+        //            for (int i = 0; i < _sizeField; i++)
+        //            {
+        //                for (int j = 0; j < _sizeField; j++)
+        //                {
+        //                    sw.Write(_field[i, j]._ship + " ");
+        //                }
+        //                sw.Write("\n");
+        //            }
+        //            sw.Write("\n");
 
-                    if (_indexRow == 0) { n = 2; }
-                    else if (i + 3 <= _sizeField) { n = i + 3; }
-                    else { n = _sizeField; }
+        //            for (int i = 0; i < 10; i++)
+        //            {
+        //                sw.Write(_ships[i]._shipPositioning.ToString() + "\n");
+        //            }
+        //        }
 
-                    if (_indexCol == 0) { k = (int)ShipRef._shipType + 1; }
-                    else if (j + (int)ShipRef._shipType + 2 <= _sizeField) { k = j + (int)ShipRef._shipType + 2; }
-                    else { k = _sizeField; }
-
-                    temp_j = j;
-
-                    for (; i < n; i++)
-                    {
-                        for (; j < k; j++)
-                        {
-                            if (_field[i, j]._ship != 0) { return false; }
-                        }
-                        j = temp_j;
-                    }
-
-                    break;
-
-                case ShipPositioning.Vertical:
-                    i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
-                    j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
-
-                    if (_indexRow == 0) { n = (int)ShipRef._shipType + 1; }
-                    else if (i + (int)ShipRef._shipType + 2 <= _sizeField) { n = i + (int)ShipRef._shipType + 2; }
-                    else { n = _sizeField; }
-
-                    if (_indexCol == 0) { k = 2; }
-                    else if (j + 3 <= _sizeField) { k = j + 3; }
-                    else { k = _sizeField; }
-
-                    temp_j = j;
-
-                    for (; i < n; i++)
-                    {
-                        for (; j < k; j++)
-                        {
-                            if (_field[i, j]._ship != 0) { return false; }
-                        }
-                        j = temp_j;
-                    }
-
-                    break;
-            }
-
-            return true;
-        }
-        // возращаем корабыль в старую позицию на поле если не удалось установить корабыль согласно правилам игры
-        public void ReturnShipToOldPosition(int i, int j)
-        {
-            Point p = new Point(_field[i, j]._p1.X + 1, _field[i, j]._p1.Y + 1);
-            ShipRef.Location = p;
-
-            _indexRow = i;
-            _indexCol = j;
-        }
-        // смена позиционирования корабля на поле вертикальное/горизонтальное
-        private void ChangeShipPositioning()
-        {
-            if (ShipRef._shipPositioning == ShipPositioning.Horizontal)
-            {
-                ShipRef._shipPositioning = ShipPositioning.Vertical;
-            }
-            else
-            {
-                ShipRef._shipPositioning = ShipPositioning.Horizontal;
-            }
-        }
-        // координата корабля на поле увеличанная на один по X и Y
-        public Point GetPoint(int i, int j)
-        {
-            return new Point(_field[i, j]._p1.X + 1, _field[i, j]._p1.Y + 1);
-        }
-        // очистка поля
-        public void ClearField()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                ShipRef = _ships[i];
-
-                if (ShipRef.IsOnField)
-                {
-                    _indexRow = _ships[i].IndexRow;
-                    _indexCol = _ships[i].IndexCol;
-
-                    DeleteShipToArray();
-                    SetStartingPosition();
-                }
-            }
-        }
-        // заполняем рандомна массив кораблями
-        private bool RandomPositionShip(Ship ship)
-        {
-            ShipRef = ship;
-
-            ship._shipPositioning = RandomDirection();
-            RandomIndices();
-
-            if (IsEmptyPositionsAroundShip() && IsOnPlayingField())
-            {
-                ship.IsOnField = true;
-                ship.IndexRow = _indexRow;
-                ship.IndexCol = _indexCol;
-
-                SetShipToArray();
-
-                return true;
-            }
-
-            return false;
-        }
-        // отрисовываем корабли на поле в PictureBox-сах
-        public void SetImageShipOnField()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                _ships[i].Location = GetPoint(_ships[i].IndexRow, _ships[i].IndexCol);
-
-                if (_ships[i]._shipPositioning == ShipPositioning.Vertical)
-                {
-                    ShipRef = _ships[i];
-                    RotationBitmap();
-                }
-            }
-        }
-        // обход массива кораблей для рандомной растсновки
-        public void SetShipOnField()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                if (!RandomPositionShip(_ships[i]))
-                {
-                    i--;
-                }
-            }
-        }
-        public void RandomIndices()
-        {
-            Random random = new Random();
-            _indexRow = random.Next(0, 10);
-            _indexCol = random.Next(0, 10);
-        }
-        public ShipPositioning RandomDirection()
-        {
-            Random random = new Random();
-            int num = random.Next(0, 2);
-            ShipPositioning direction = ShipPositioning.Horizontal;
-
-            switch (num)
-            {
-                case 0:
-                    direction = ShipPositioning.Horizontal;
-                    break;
-                case 1:
-                    direction = ShipPositioning.Vertical;
-                    break;
-            }
-            return direction;
-        }
-
-        public void TestSave()
-        {
-            using (FileStream fs = new FileStream("array.txt", FileMode.Create))
-            {
-                using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
-                {
-                    for (int i = 0; i < _sizeField; i++)
-                    {
-                        for (int j = 0; j < _sizeField; j++)
-                        {
-                            sw.Write(_field[i, j]._ship + " ");
-                        }
-                        sw.Write("\n");
-                    }
-                    sw.Write("\n");
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        sw.Write(_ships[i]._shipPositioning.ToString() + "\n");
-                    }
-                }
-
-            }
-        }
+        //    }
+        //}
     }
 }
