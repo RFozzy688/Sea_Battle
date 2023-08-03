@@ -43,7 +43,7 @@ namespace Sea_Battle
 
             _parent = parent;
 
-            CreateShips();
+            CreateShips(new Point(540, 140), 43, true, this);
             CreateField(new Point(23, 140), new Point(66, 183));
 
             _timer = new Timer();
@@ -64,19 +64,21 @@ namespace Sea_Battle
             _parent.BtnNext.Enabled = true;
         }
         // создаём флот кораблей
-        private void CreateShips()
+        private void CreateShips(Point startPoint, int offset, bool show, PlayingField self)
         {
             int index = 0;
 
             // 4-х палубный
-            _ships[index] = new Ship(new Point(540, 140), ShipType.Battleship, ShipPositioning.Horizontal);
+            _ships[index] = new Ship(startPoint, ShipType.Battleship, ShipPositioning.Horizontal);
             _ships[index].Name = "BattleShipBox";
             _ships[index].Image = new Bitmap(Properties.Resources.battleship);
             _parent.Controls.Add(_ships[index]);
-            _ships[index].PlayingFieldRef = this;
+            _ships[index].PlayingFieldRef = self;
+            _ships[index].Visible = show;
             index++;
 
-            Point tempPoint = new Point(540, 226);
+            startPoint.Y += (offset * 2);
+            Point tempPoint = startPoint;
 
             // 3-х палубные
             for (int i = 0; i < 2; i++)
@@ -85,39 +87,44 @@ namespace Sea_Battle
                 _ships[index].Name = "CruiserBox";
                 _ships[index].Image = new Bitmap(Properties.Resources.cruiser);
                 _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = this;
+                _ships[index].PlayingFieldRef = self;
+                _ships[index].Visible = show;
 
-                tempPoint.X += 43 * 4;
+                tempPoint.X += offset * 4;
                 index++;
             }
 
             // 2-х палубные
-            tempPoint = new Point(540, 312);
+            startPoint.Y += (offset * 2);
+            tempPoint = startPoint;
 
             for (int i = 0; i < 3; i++)
             {
                 _ships[index] = new Ship(tempPoint, ShipType.Destroyer, ShipPositioning.Horizontal);
-                _ships[index].Name = "CruiserBox";
+                _ships[index].Name = "DestroyerBox";
                 _ships[index].Image = new Bitmap(Properties.Resources.destroyer);
                 _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = this;
+                _ships[index].PlayingFieldRef = self;
+                _ships[index].Visible = show;
 
-                tempPoint.X += 43 * 3;
+                tempPoint.X += offset * 3;
                 index++;
             }
 
             // 1-о палубные
-            tempPoint = new Point(540, 398);
+            startPoint.Y += (offset * 2);
+            tempPoint = startPoint;
 
             for (int i = 0; i < 4; i++)
             {
                 _ships[index] = new Ship(tempPoint, ShipType.Boat, ShipPositioning.Horizontal);
-                _ships[index].Name = "CruiserBox";
+                _ships[index].Name = "BoatBox";
                 _ships[index].Image = new Bitmap(Properties.Resources.boat);
                 _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = this;
+                _ships[index].PlayingFieldRef = self;
+                _ships[index].Visible = show;
 
-                tempPoint.X += 43 * 2;
+                tempPoint.X += offset * 2;
                 index++;
             }
         }
