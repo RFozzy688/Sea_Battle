@@ -31,7 +31,7 @@ namespace Sea_Battle
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; } // находится ли корабыль на поле
-        public PlayingField_temp PlayingFieldRef { get; set; }
+        public ManualPositioningOfShips PlayerShipRef { get; set; }
         public Ship(Point startPos, ShipType type, ShipPositioning shipPositioning)
         {
             this._shipType = type;
@@ -55,65 +55,65 @@ namespace Sea_Battle
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            //this.BringToFront(); // Помещает элемент управления в начало z-порядка
+            this.BringToFront(); // Помещает элемент управления в начало z-порядка
 
-            //DownPoint = e.Location;
-            //IsDragMode = true;
+            DownPoint = e.Location;
+            IsDragMode = true;
 
-            //PlayingFieldRef.ShipRef = this;
-            //PlayingFieldRef.CreateDisplayBoxes();
+            PlayerShipRef.ShipRef = this;
+            PlayerShipRef.CreateDisplayBoxes();
 
-            //if (IsOnField)
-            //{
-            //    PlayingFieldRef.GetIndices(this.Location);
-            //    PlayingFieldRef.DeleteShipToArray();
-            //}
+            if (IsOnField)
+            {
+                PlayerShipRef.GetIndices(this.Location);
+                PlayerShipRef.DeleteShipToArray();
+            }
 
             base.OnMouseDown(e);
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
             // привязываем корабыль к сетке
-            //PlayingFieldRef.SnapingToShipGrid(Location);
-            //PlayingFieldRef.DeleteDisplayBoxes();
+            PlayerShipRef.SnapingToShipGrid(Location);
+            PlayerShipRef.DeleteDisplayBoxes();
 
-            //if (IsOnField)
-            //{
-            //    if (PlayingFieldRef.IsEmptyPositionsAroundShip())
-            //    {
-            //        IndexRow = PlayingFieldRef.GetIndexRow();
-            //        IndexCol = PlayingFieldRef.GetIndexCol();
+            if (IsOnField)
+            {
+                if (PlayerShipRef.IsEmptyPositionsAroundShip())
+                {
+                    IndexRow = PlayerShipRef.GetIndexRow();
+                    IndexCol = PlayerShipRef.GetIndexCol();
 
-            //        PlayingFieldRef.SetShipToArray();
-            //    }
-            //    else
-            //    {
-            //        if (IndexRow == -1 && IndexCol == -1)
-            //        {
-            //            PlayingFieldRef.SetStartingPosition();
-            //        }
-            //        else
-            //        {
-            //            PlayingFieldRef.DeleteShipToArray();
-            //            PlayingFieldRef.ReturnShipToOldPosition(IndexRow, IndexCol);
-            //            PlayingFieldRef.SetShipToArray();
-            //        }
-            //    }
-            //}
+                    PlayerShipRef.SetShipToArray();
+                }
+                else
+                {
+                    if (IndexRow == -1 && IndexCol == -1)
+                    {
+                        PlayerShipRef.SetStartingPosition();
+                    }
+                    else
+                    {
+                        PlayerShipRef.DeleteShipToArray();
+                        PlayerShipRef.ReturnShipToOldPosition(IndexRow, IndexCol);
+                        PlayerShipRef.SetShipToArray();
+                    }
+                }
+            }
 
             IsDragMode = false;
             base.OnMouseUp(e);
         }
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            //if (IsDragMode)
-            //{
-            //    Point point = e.Location;
-            //    Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
-            //    Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
+            if (IsDragMode)
+            {
+                Point point = e.Location;
+                Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
+                Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
 
-            //    PlayingFieldRef.PositionHighlight(Location);
-            //}
+                PlayerShipRef.PositionHighlight(Location);
+            }
             //_parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);
         }

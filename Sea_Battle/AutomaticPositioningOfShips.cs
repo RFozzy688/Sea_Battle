@@ -8,15 +8,15 @@ namespace Sea_Battle
 {
     internal class AutomaticPositioningOfShips
     {
-        int _indexRow; // индекс строки начала корабля
-        int _indexCol; // индекс столбца начала корабля
-        CreateFleetOfShips FleetRef { get; } // ссылка на флот
-        CreatePlayingField PlayingFieldRef { get; } // ссылка на игровое поле
+        protected int _indexRow; // индекс строки начала корабля
+        protected int _indexCol; // индекс столбца начала корабля
+        protected CreateFleetOfShips _fleetRef; // ссылка на флот
+        protected CreatePlayingField _playingFieldRef; // ссылка на игровое поле
         public Ship ShipRef { get; set; }
         public AutomaticPositioningOfShips(CreateFleetOfShips fleet, CreatePlayingField playingField)
         {
-            FleetRef = fleet;
-            PlayingFieldRef = playingField;
+            _fleetRef = fleet;
+            _playingFieldRef = playingField;
         }
         
         //public int GetSizeField() { return _sizeField; }
@@ -28,7 +28,7 @@ namespace Sea_Battle
         {
             for (int n = 0; n < 10; n++)
             {
-                if (FleetRef.ArrayShips[n].IndexRow == i && FleetRef.ArrayShips[n].IndexCol == j)
+                if (_fleetRef.ArrayShips[n].IndexRow == i && _fleetRef.ArrayShips[n].IndexCol == j)
                 {
                     return n;
                 }
@@ -44,9 +44,9 @@ namespace Sea_Battle
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        PlayingFieldRef.ArrayField[_indexRow, col]._ship = (int)ShipRef._shipType;
-                        PlayingFieldRef.ArrayField[_indexRow, col]._health = ShipRef.Health;
-                        PlayingFieldRef.ArrayField[_indexRow, col]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
+                        _playingFieldRef.ArrayField[_indexRow, col]._ship = (int)ShipRef._shipType;
+                        _playingFieldRef.ArrayField[_indexRow, col]._health = ShipRef.Health;
+                        _playingFieldRef.ArrayField[_indexRow, col]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
 
                         col++;
                     }
@@ -55,9 +55,9 @@ namespace Sea_Battle
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        PlayingFieldRef.ArrayField[row, _indexCol]._ship = (int)ShipRef._shipType;
-                        PlayingFieldRef.ArrayField[row, _indexCol]._health = ShipRef.Health;
-                        PlayingFieldRef.ArrayField[row, _indexCol]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
+                        _playingFieldRef.ArrayField[row, _indexCol]._ship = (int)ShipRef._shipType;
+                        _playingFieldRef.ArrayField[row, _indexCol]._health = ShipRef.Health;
+                        _playingFieldRef.ArrayField[row, _indexCol]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
 
                         row++;
                     }
@@ -75,14 +75,14 @@ namespace Sea_Battle
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        PlayingFieldRef.ArrayField[_indexRow, col++]._ship = 0;
+                        _playingFieldRef.ArrayField[_indexRow, col++]._ship = 0;
                     }
                     break;
                 case ShipPositioning.Vertical:
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        PlayingFieldRef.ArrayField[row++, _indexCol]._ship = 0;
+                        _playingFieldRef.ArrayField[row++, _indexCol]._ship = 0;
                     }
                     break;
                 default:
@@ -90,15 +90,15 @@ namespace Sea_Battle
             }
         }
         // проверяем не выходит ли корабыль за пределы игрового поля
-        private bool IsOnPlayingField()
+        protected bool IsOnPlayingField()
         {
             if (ShipRef._shipPositioning == ShipPositioning.Horizontal &&
-                _indexCol + (int)ShipRef._shipType <= PlayingFieldRef.SizeField)
+                _indexCol + (int)ShipRef._shipType <= _playingFieldRef.SizeField)
             {
                 return true;
             }
             else if ((ShipRef._shipPositioning == ShipPositioning.Vertical &&
-                _indexRow + (int)ShipRef._shipType <= PlayingFieldRef.SizeField))
+                _indexRow + (int)ShipRef._shipType <= _playingFieldRef.SizeField))
             {
                 return true;
             }
@@ -119,12 +119,12 @@ namespace Sea_Battle
                     j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
 
                     if (_indexRow == 0) { n = 2; }
-                    else if (i + 3 <= PlayingFieldRef.SizeField) { n = i + 3; }
-                    else { n = PlayingFieldRef.SizeField; }
+                    else if (i + 3 <= _playingFieldRef.SizeField) { n = i + 3; }
+                    else { n = _playingFieldRef.SizeField; }
 
                     if (_indexCol == 0) { k = (int)ShipRef._shipType + 1; }
-                    else if (j + (int)ShipRef._shipType + 2 <= PlayingFieldRef.SizeField) { k = j + (int)ShipRef._shipType + 2; }
-                    else { k = PlayingFieldRef.SizeField; }
+                    else if (j + (int)ShipRef._shipType + 2 <= _playingFieldRef.SizeField) { k = j + (int)ShipRef._shipType + 2; }
+                    else { k = _playingFieldRef.SizeField; }
 
                     temp_j = j;
 
@@ -132,7 +132,7 @@ namespace Sea_Battle
                     {
                         for (; j < k; j++)
                         {
-                            if (PlayingFieldRef.ArrayField[i, j]._ship != 0) { return false; }
+                            if (_playingFieldRef.ArrayField[i, j]._ship != 0) { return false; }
                         }
                         j = temp_j;
                     }
@@ -144,12 +144,12 @@ namespace Sea_Battle
                     j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
 
                     if (_indexRow == 0) { n = (int)ShipRef._shipType + 1; }
-                    else if (i + (int)ShipRef._shipType + 2 <= PlayingFieldRef.SizeField) { n = i + (int)ShipRef._shipType + 2; }
-                    else { n = PlayingFieldRef.SizeField; }
+                    else if (i + (int)ShipRef._shipType + 2 <= _playingFieldRef.SizeField) { n = i + (int)ShipRef._shipType + 2; }
+                    else { n = _playingFieldRef.SizeField; }
 
                     if (_indexCol == 0) { k = 2; }
-                    else if (j + 3 <= PlayingFieldRef.SizeField) { k = j + 3; }
-                    else { k = PlayingFieldRef.SizeField; }
+                    else if (j + 3 <= _playingFieldRef.SizeField) { k = j + 3; }
+                    else { k = _playingFieldRef.SizeField; }
 
                     temp_j = j;
 
@@ -157,7 +157,7 @@ namespace Sea_Battle
                     {
                         for (; j < k; j++)
                         {
-                            if (PlayingFieldRef.ArrayField[i, j]._ship != 0) { return false; }
+                            if (_playingFieldRef.ArrayField[i, j]._ship != 0) { return false; }
                         }
                         j = temp_j;
                     }
@@ -170,19 +170,19 @@ namespace Sea_Battle
         // координата корабля на поле увеличанная на один по X и Y
         public Point GetPoint(int i, int j)
         {
-            return new Point(PlayingFieldRef.ArrayField[i, j]._p1.X + 1, PlayingFieldRef.ArrayField[i, j]._p1.Y + 1);
+            return new Point(_playingFieldRef.ArrayField[i, j]._p1.X + 1, _playingFieldRef.ArrayField[i, j]._p1.Y + 1);
         }
         // очистка поля
         public void ClearField()
         {
             for (int i = 0; i < 10; i++)
             {
-                ShipRef = FleetRef.ArrayShips[i];
+                ShipRef = _fleetRef.ArrayShips[i];
 
                 if (ShipRef.IsOnField)
                 {
-                    _indexRow = FleetRef.ArrayShips[i].IndexRow;
-                    _indexCol = FleetRef.ArrayShips[i].IndexCol;
+                    _indexRow = _fleetRef.ArrayShips[i].IndexRow;
+                    _indexCol = _fleetRef.ArrayShips[i].IndexCol;
 
                     DeleteShipToArray();
                     SetStartingPosition();
@@ -235,7 +235,7 @@ namespace Sea_Battle
         {
             for (int i = 0; i < 10; i++)
             {
-                if (!RandomPositionShip(FleetRef.ArrayShips[i]))
+                if (!RandomPositionShip(_fleetRef.ArrayShips[i]))
                 {
                     i--;
                 }
@@ -265,7 +265,7 @@ namespace Sea_Battle
             return direction;
         }
         // вращение картинки корабля
-        private void RotationBitmap()
+        protected void RotationBitmap()
         {
             Bitmap bitmap = (Bitmap)ShipRef.Image;
             bitmap.RotateFlip(RotateFlipType.Rotate90FlipX);
@@ -276,11 +276,11 @@ namespace Sea_Battle
         {
             for (int i = 0; i < 10; i++)
             {
-                FleetRef.ArrayShips[i].Location = GetPoint(FleetRef.ArrayShips[i].IndexRow, FleetRef.ArrayShips[i].IndexCol);
+                _fleetRef.ArrayShips[i].Location = GetPoint(_fleetRef.ArrayShips[i].IndexRow, _fleetRef.ArrayShips[i].IndexCol);
 
-                if (FleetRef.ArrayShips[i]._shipPositioning == ShipPositioning.Vertical)
+                if (_fleetRef.ArrayShips[i]._shipPositioning == ShipPositioning.Vertical)
                 {
-                    ShipRef = FleetRef.ArrayShips[i];
+                    ShipRef = _fleetRef.ArrayShips[i];
                     RotationBitmap();
                 }
             }
@@ -293,11 +293,11 @@ namespace Sea_Battle
             {
                 using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
                 {
-                    for (int i = 0; i < PlayingFieldRef.SizeField; i++)
+                    for (int i = 0; i < _playingFieldRef.SizeField; i++)
                     {
-                        for (int j = 0; j < PlayingFieldRef.SizeField; j++)
+                        for (int j = 0; j < _playingFieldRef.SizeField; j++)
                         {
-                            sw.Write(PlayingFieldRef.ArrayField[i, j]._ship + " ");
+                            sw.Write(_playingFieldRef.ArrayField[i, j]._ship + " ");
                         }
                         sw.Write("\n");
                     }
@@ -305,7 +305,7 @@ namespace Sea_Battle
 
                     for (int i = 0; i < 10; i++)
                     {
-                        sw.Write(FleetRef.ArrayShips[i]._shipPositioning.ToString() + "\n");
+                        sw.Write(_fleetRef.ArrayShips[i]._shipPositioning.ToString() + "\n");
                     }
                 }
 

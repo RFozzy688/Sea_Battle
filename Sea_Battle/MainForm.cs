@@ -6,7 +6,7 @@ namespace Sea_Battle
     {
         CreateFleetOfShips _playerFleet;
         CreatePlayingField _playerField;
-        AutomaticPositioningOfShips _playerShipsPosition;
+        ManualPositioningOfShips _playerShipsPosition;
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -16,10 +16,12 @@ namespace Sea_Battle
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
             _playerFleet = new CreateFleetOfShips(this);
-            _playerFleet.CreateShips(new Point(540, 140), 43, true, null);
             _playerField = new CreatePlayingField();
+            _playerShipsPosition = new ManualPositioningOfShips(this, _playerFleet, _playerField);
+
             _playerField.CreateField(new Point(23, 140), new Point(66, 183));
-            _playerShipsPosition = new AutomaticPositioningOfShips(_playerFleet, _playerField);
+            _playerFleet.CreateShips(new Point(540, 140), 43, true, _playerShipsPosition);
+
 
             _embededFont = new EmbededFont();
 
@@ -45,7 +47,7 @@ namespace Sea_Battle
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
 
-            //_playerField.RotationShip();
+            _playerShipsPosition.RotationShip();
         }
         public void BtnRotationRelesed(object sender, MouseEventArgs e)
         {
@@ -59,8 +61,6 @@ namespace Sea_Battle
             _playerShipsPosition.ClearField();
             _playerShipsPosition.SetShipOnField();
             _playerShipsPosition.SetImageShipOnField();
-
-            _playerShipsPosition.TestSave();
         }
         private void BtnAutoRelesed(object sender, MouseEventArgs e)
         {

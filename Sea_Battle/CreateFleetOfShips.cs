@@ -18,7 +18,7 @@ namespace Sea_Battle
             _ships = new Ship[_countShips];
         }
         // создаём флот кораблей
-        public void CreateShips(Point startPoint, int offset, bool show, PlayingField_temp self)
+        public void CreateShips(Point startPoint, int offset, bool show, ManualPositioningOfShips self)
         {
             int index = 0;
 
@@ -27,7 +27,7 @@ namespace Sea_Battle
             _ships[index].Name = "BattleShipBox";
             _ships[index].Image = new Bitmap(Properties.Resources.battleship);
             _parent.Controls.Add(_ships[index]);
-            _ships[index].PlayingFieldRef = self;
+            _ships[index].PlayerShipRef = self;
             _ships[index].Visible = show;
             index++;
 
@@ -41,7 +41,7 @@ namespace Sea_Battle
                 _ships[index].Name = "CruiserBox";
                 _ships[index].Image = new Bitmap(Properties.Resources.cruiser);
                 _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = self;
+                _ships[index].PlayerShipRef = self;
                 _ships[index].Visible = show;
 
                 tempPoint.X += offset * 4;
@@ -58,7 +58,7 @@ namespace Sea_Battle
                 _ships[index].Name = "DestroyerBox";
                 _ships[index].Image = new Bitmap(Properties.Resources.destroyer);
                 _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = self;
+                _ships[index].PlayerShipRef = self;
                 _ships[index].Visible = show;
 
                 tempPoint.X += offset * 3;
@@ -75,7 +75,7 @@ namespace Sea_Battle
                 _ships[index].Name = "BoatBox";
                 _ships[index].Image = new Bitmap(Properties.Resources.boat);
                 _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = self;
+                _ships[index].PlayerShipRef = self;
                 _ships[index].Visible = show;
 
                 tempPoint.X += offset * 2;
