@@ -31,7 +31,7 @@ namespace Sea_Battle
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; } // находится ли корабыль на поле
-        public PlayingField PlayingFieldRef { get; set; }
+        public PlayingField_temp PlayingFieldRef { get; set; }
         public Ship(Point startPos, ShipType type, ShipPositioning shipPositioning)
         {
             this._shipType = type;

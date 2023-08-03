@@ -19,7 +19,7 @@ namespace Sea_Battle
         public int _health; // здоровье корабля
         public int _index; // индекс корабля в массиве кораблей
     }
-    internal class PlayingField
+    internal class PlayingField_temp
     {
         Field[,] _field;
         int _sizeField;
@@ -34,7 +34,7 @@ namespace Sea_Battle
         public int GetSizeField() { return _sizeField; }
         public int GetIndexRow() { return _indexRow; }
         public int GetIndexCol() { return _indexCol; }
-        public PlayingField(MainForm parent)
+        public PlayingField_temp(MainForm parent)
         {
             _sizeField = 10;
             _field = new Field[_sizeField, _sizeField];
@@ -64,7 +64,7 @@ namespace Sea_Battle
             _parent.BtnNext.Enabled = true;
         }
         // создаём флот кораблей
-        private void CreateShips(Point startPoint, int offset, bool show, PlayingField self)
+        private void CreateShips(Point startPoint, int offset, bool show, PlayingField_temp self)
         {
             int index = 0;
 

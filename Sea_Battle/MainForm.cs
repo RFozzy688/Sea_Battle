@@ -5,7 +5,7 @@ namespace Sea_Battle
     public partial class MainForm : Form
     {
 
-        PlayingField _playerField;
+        PlayingField_temp _playerField;
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -14,7 +14,7 @@ namespace Sea_Battle
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
-            _playerField = new PlayingField(this);
+            _playerField = new PlayingField_temp(this);
             _embededFont = new EmbededFont();
 
             BtnAuto.Font = _embededFont.GetBtnFontRelesed();
@@ -49,6 +49,7 @@ namespace Sea_Battle
         {
             BtnAuto.Font = _embededFont.GetBtnFontPressed();
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+
             _playerField.ClearField();
             _playerField.SetShipOnField();
             _playerField.SetImageShipOnField();
