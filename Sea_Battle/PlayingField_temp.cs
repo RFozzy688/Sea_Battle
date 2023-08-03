@@ -15,7 +15,7 @@ namespace Sea_Battle
     internal class PlayingField_temp
     {
         
-        Ship[] _ships;
+        
         MainForm _parent;
         PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
         PictureBox _backlightPositionWhenRotation; // подсветка позиции при не удачном вращении
@@ -30,12 +30,12 @@ namespace Sea_Battle
         {
 
 
-            _ships = new Ship[10];
+            
 
             _parent = parent;
 
-            CreateShips(new Point(540, 140), 43, true, this);
-            CreateField(new Point(23, 140), new Point(66, 183));
+            //CreateShips(new Point(540, 140), 43, true, this);
+            //CreateField(new Point(23, 140), new Point(66, 183));
 
             _timer = new Timer();
             _timer.Enabled = false;
@@ -54,71 +54,7 @@ namespace Sea_Battle
             _parent.BtnAuto.Enabled = true;
             _parent.BtnNext.Enabled = true;
         }
-        // создаём флот кораблей
-        private void CreateShips(Point startPoint, int offset, bool show, PlayingField_temp self)
-        {
-            int index = 0;
-
-            // 4-х палубный
-            _ships[index] = new Ship(startPoint, ShipType.Battleship, ShipPositioning.Horizontal);
-            _ships[index].Name = "BattleShipBox";
-            _ships[index].Image = new Bitmap(Properties.Resources.battleship);
-            _parent.Controls.Add(_ships[index]);
-            _ships[index].PlayingFieldRef = self;
-            _ships[index].Visible = show;
-            index++;
-
-            startPoint.Y += (offset * 2);
-            Point tempPoint = startPoint;
-
-            // 3-х палубные
-            for (int i = 0; i < 2; i++)
-            {
-                _ships[index] = new Ship(tempPoint, ShipType.Cruiser, ShipPositioning.Horizontal);
-                _ships[index].Name = "CruiserBox";
-                _ships[index].Image = new Bitmap(Properties.Resources.cruiser);
-                _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = self;
-                _ships[index].Visible = show;
-
-                tempPoint.X += offset * 4;
-                index++;
-            }
-
-            // 2-х палубные
-            startPoint.Y += (offset * 2);
-            tempPoint = startPoint;
-
-            for (int i = 0; i < 3; i++)
-            {
-                _ships[index] = new Ship(tempPoint, ShipType.Destroyer, ShipPositioning.Horizontal);
-                _ships[index].Name = "DestroyerBox";
-                _ships[index].Image = new Bitmap(Properties.Resources.destroyer);
-                _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = self;
-                _ships[index].Visible = show;
-
-                tempPoint.X += offset * 3;
-                index++;
-            }
-
-            // 1-о палубные
-            startPoint.Y += (offset * 2);
-            tempPoint = startPoint;
-
-            for (int i = 0; i < 4; i++)
-            {
-                _ships[index] = new Ship(tempPoint, ShipType.Boat, ShipPositioning.Horizontal);
-                _ships[index].Name = "BoatBox";
-                _ships[index].Image = new Bitmap(Properties.Resources.boat);
-                _parent.Controls.Add(_ships[index]);
-                _ships[index].PlayingFieldRef = self;
-                _ships[index].Visible = show;
-
-                tempPoint.X += offset * 2;
-                index++;
-            }
-        }
+        
 
         // перемещаем корабль в стартовую позицию если не удалось установить корабыль на поле
         public void SetStartingPosition()
