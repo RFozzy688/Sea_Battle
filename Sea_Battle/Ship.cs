@@ -31,7 +31,7 @@ namespace Sea_Battle
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; } // находится ли корабыль на поле
-        public PlayingField PlayingFieldRef { get; set; }
+        public ManualPositioningOfShips PlayerShipRef { get; set; }
         public Ship(Point startPos, ShipType type, ShipPositioning shipPositioning)
         {
             this._shipType = type;
@@ -60,13 +60,13 @@ namespace Sea_Battle
             DownPoint = e.Location;
             IsDragMode = true;
 
-            PlayingFieldRef.ShipRef = this;
-            PlayingFieldRef.CreateDisplayBoxes();
+            PlayerShipRef.ShipRef = this;
+            PlayerShipRef.CreateDisplayBoxes();
 
             if (IsOnField)
             {
-                PlayingFieldRef.GetIndices(this.Location);
-                PlayingFieldRef.DeleteShipToArray();
+                PlayerShipRef.GetIndices(this.Location);
+                PlayerShipRef.DeleteShipToArray();
             }
 
             base.OnMouseDown(e);
@@ -74,29 +74,29 @@ namespace Sea_Battle
         protected override void OnMouseUp(MouseEventArgs e)
         {
             // привязываем корабыль к сетке
-            PlayingFieldRef.SnapingToShipGrid(Location);
-            PlayingFieldRef.DeleteDisplayBoxes();
+            PlayerShipRef.SnapingToShipGrid(Location);
+            PlayerShipRef.DeleteDisplayBoxes();
 
             if (IsOnField)
             {
-                if (PlayingFieldRef.IsEmptyPositionsAroundShip())
+                if (PlayerShipRef.IsEmptyPositionsAroundShip())
                 {
-                    IndexRow = PlayingFieldRef.GetIndexRow();
-                    IndexCol = PlayingFieldRef.GetIndexCol();
+                    IndexRow = PlayerShipRef.GetIndexRow();
+                    IndexCol = PlayerShipRef.GetIndexCol();
 
-                    PlayingFieldRef.SetShipToArray();
+                    PlayerShipRef.SetShipToArray();
                 }
                 else
                 {
                     if (IndexRow == -1 && IndexCol == -1)
                     {
-                        PlayingFieldRef.SetStartingPosition();
+                        PlayerShipRef.SetStartingPosition();
                     }
                     else
                     {
-                        PlayingFieldRef.DeleteShipToArray();
-                        PlayingFieldRef.ReturnShipToOldPosition(IndexRow, IndexCol);
-                        PlayingFieldRef.SetShipToArray();
+                        PlayerShipRef.DeleteShipToArray();
+                        PlayerShipRef.ReturnShipToOldPosition(IndexRow, IndexCol);
+                        PlayerShipRef.SetShipToArray();
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace Sea_Battle
                 Point deltaPoint = new Point(point.X - DownPoint.X, point.Y - DownPoint.Y);
                 Location = new Point(Location.X + deltaPoint.X, Location.Y + deltaPoint.Y);
 
-                PlayingFieldRef.PositionHighlight(Location);
+                PlayerShipRef.PositionHighlight(Location);
             }
             //_parent.Text = Location.X + " " + Location.Y;
             base.OnMouseMove(e);

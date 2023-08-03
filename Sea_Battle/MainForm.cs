@@ -4,8 +4,14 @@ namespace Sea_Battle
 {
     public partial class MainForm : Form
     {
+        CreateFleetOfShips _playerFleet;
+        CreatePlayingField _playerField;
+        ManualPositioningOfShips _playerShipsPosition;
 
-        PlayingField _playerField;
+        CreateFleetOfShips _enemyFleet;
+        CreatePlayingField _enemyField;
+        AutomaticPositioningOfShips _enemyShipsPosition;
+
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -14,7 +20,20 @@ namespace Sea_Battle
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
 
-            _playerField = new PlayingField(this);
+            _playerFleet = new CreateFleetOfShips(this);
+            _playerField = new CreatePlayingField();
+            _playerShipsPosition = new ManualPositioningOfShips(this, _playerFleet, _playerField);
+
+            _playerField.CreateField(new Point(23, 140), new Point(66, 183));
+            _playerFleet.CreateShips(new Point(540, 140), 43, true, _playerShipsPosition);
+
+            _enemyFleet = new CreateFleetOfShips(this);
+            _enemyField = new CreatePlayingField();
+            _enemyShipsPosition = new AutomaticPositioningOfShips(_enemyFleet, _enemyField);
+
+            _enemyField.CreateField(new Point(540, 140), new Point(583, 183));
+            _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
+
             _embededFont = new EmbededFont();
 
             BtnAuto.Font = _embededFont.GetBtnFontRelesed();
@@ -39,7 +58,7 @@ namespace Sea_Battle
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
 
-            _playerField.RotationShip();
+            _playerShipsPosition.RotationShip();
         }
         public void BtnRotationRelesed(object sender, MouseEventArgs e)
         {
@@ -49,9 +68,10 @@ namespace Sea_Battle
         {
             BtnAuto.Font = _embededFont.GetBtnFontPressed();
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-            _playerField.ClearField();
-            _playerField.SetShipOnField();
-            _playerField.SetImageShipOnField();
+
+            _playerShipsPosition.ClearField();
+            _playerShipsPosition.SetShipOnField();
+            _playerShipsPosition.SetImageShipOnField();
         }
         private void BtnAutoRelesed(object sender, MouseEventArgs e)
         {
@@ -76,5 +96,6 @@ namespace Sea_Battle
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
         }
+
     }
 }
