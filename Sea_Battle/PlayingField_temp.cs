@@ -11,18 +11,10 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace Sea_Battle
 {
-    struct Field
-    {
-        public Point _p1; // верхняя левая точка ячейки поля
-        public Point _p2; // нижняя правая точка ячейки поля
-        public int _ship; // отметка корабля на поле числами
-        public int _health; // здоровье корабля
-        public int _index; // индекс корабля в массиве кораблей
-    }
+
     internal class PlayingField_temp
     {
-        Field[,] _field;
-        int _sizeField;
+        
         Ship[] _ships;
         MainForm _parent;
         PictureBox _backlightPositionShip; // предпоказ где можна или нельзя поставить корабыль
@@ -31,13 +23,12 @@ namespace Sea_Battle
         int _indexCol; // индекс столбца начала корабля
         Timer _timer;
         public Ship ShipRef { get; set; }
-        public int GetSizeField() { return _sizeField; }
+        //public int GetSizeField() { return _sizeField; }
         public int GetIndexRow() { return _indexRow; }
         public int GetIndexCol() { return _indexCol; }
         public PlayingField_temp(MainForm parent)
         {
-            _sizeField = 10;
-            _field = new Field[_sizeField, _sizeField];
+
 
             _ships = new Ship[10];
 
@@ -128,26 +119,7 @@ namespace Sea_Battle
                 index++;
             }
         }
-        // разметка поля
-        public void CreateField(Point p1, Point p2)
-        {
-            for (int i = 0; i < _sizeField; i++)
-            {
-                for (int j = 0; j < _sizeField; j++)
-                {
-                    _field[i, j]._p1 = p1;
-                    _field[i, j]._p2 = p2;
-                    p1.X += 43;
-                    p2.X += 43;
-                }
 
-                p1.X = _field[0, 0]._p1.X;
-                p2.X = _field[0, 0]._p2.X;
-
-                p1.Y += 43;
-                p2.Y += 43;
-            }
-        }
         // перемещаем корабль в стартовую позицию если не удалось установить корабыль на поле
         public void SetStartingPosition()
         {
