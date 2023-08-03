@@ -7,6 +7,11 @@ namespace Sea_Battle
         CreateFleetOfShips _playerFleet;
         CreatePlayingField _playerField;
         ManualPositioningOfShips _playerShipsPosition;
+
+        CreateFleetOfShips _enemyFleet;
+        CreatePlayingField _enemyField;
+        AutomaticPositioningOfShips _enemyShipsPosition;
+
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -22,13 +27,19 @@ namespace Sea_Battle
             _playerField.CreateField(new Point(23, 140), new Point(66, 183));
             _playerFleet.CreateShips(new Point(540, 140), 43, true, _playerShipsPosition);
 
+            _enemyFleet = new CreateFleetOfShips(this);
+            _enemyField = new CreatePlayingField();
+            _enemyShipsPosition = new AutomaticPositioningOfShips(_enemyFleet, _enemyField);
+
+            _enemyField.CreateField(new Point(540, 140), new Point(583, 183));
+            _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
             _embededFont = new EmbededFont();
 
             BtnAuto.Font = _embededFont.GetBtnFontRelesed();
             BtnNext.Font = _embededFont.GetBtnFontRelesed();
             BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
-            BtnNext.ForeColor = Color.FromArgb(38, 42, 182); 
+            BtnNext.ForeColor = Color.FromArgb(38, 42, 182);
         }
 
 
@@ -85,5 +96,6 @@ namespace Sea_Battle
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
         }
+
     }
 }
