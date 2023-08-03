@@ -13,9 +13,11 @@ namespace Sea_Battle
 {
     struct Field
     {
-        public Point _p1;
-        public Point _p2;
-        public int _ship;
+        public Point _p1; // верхняя левая точка ячейки поля
+        public Point _p2; // нижняя правая точка ячейки поля
+        public int _ship; // отметка корабля на поле числами
+        public int _health; // здоровье корабля
+        public int _index; // индекс корабля в массиве кораблей
     }
     internal class PlayingField
     {
@@ -321,6 +323,18 @@ namespace Sea_Battle
                 }
             }
         }
+        // возращает индекс корабля в массиве кораблей
+        private int FindIndexShip(int i, int j)
+        {
+            for (int n = 0; n < 10; n++)
+            {
+                if (_ships[n].IndexRow == i && _ships[n].IndexCol == j)
+                {
+                    return n;
+                }
+            }
+            return -1;
+        }
         // отмечаем позицию корабля вмассиве _field
         public void SetShipToArray()
         {
@@ -330,14 +344,22 @@ namespace Sea_Battle
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        _field[_indexRow, col++]._ship = (int)ShipRef._shipType;
+                        _field[_indexRow, col]._ship = (int)ShipRef._shipType;
+                        _field[_indexRow, col]._health = ShipRef.Health;
+                        _field[_indexRow, col]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
+
+                        col++;
                     }
                     break;
                 case ShipPositioning.Vertical:
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        _field[row++, _indexCol]._ship = (int)ShipRef._shipType;
+                        _field[row, _indexCol]._ship = (int)ShipRef._shipType;
+                        _field[row, _indexCol]._health = ShipRef.Health;
+                        _field[row, _indexCol]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
+
+                        row++;
                     }
                     break;
                 default:
@@ -482,11 +504,11 @@ namespace Sea_Battle
 
             if (IsEmptyPositionsAroundShip() && IsOnPlayingField())
             {
-                SetShipToArray();
-
                 ship.IsOnField = true;
                 ship.IndexRow = _indexRow;
                 ship.IndexCol = _indexCol;
+
+                SetShipToArray();
 
                 return true;
             }

@@ -173,9 +173,49 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mimo_finish {
+            get {
+                object obj = ResourceManager.GetObject("mimo_finish", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mimo_no_repit {
+            get {
+                object obj = ResourceManager.GetObject("mimo_no_repit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap on_target015_no_repit {
+            get {
+                object obj = ResourceManager.GetObject("on_target015_no_repit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap one_field {
             get {
                 object obj = ResourceManager.GetObject("one_field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_cross {
+            get {
+                object obj = ResourceManager.GetObject("red_cross", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

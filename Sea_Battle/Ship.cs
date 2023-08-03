@@ -27,9 +27,10 @@ namespace Sea_Battle
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipPositioning _shipPositioning; // расположение корабля горизонтальное/вертикальное
+        public int Health; // здоровье корабля
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
-        public bool IsOnField { get; set; }
+        public bool IsOnField { get; set; } // находится ли корабыль на поле
         public PlayingField PlayingFieldRef { get; set; }
         public Ship(Point startPos, ShipType type, ShipPositioning shipPositioning)
         {
@@ -40,6 +41,7 @@ namespace Sea_Battle
             this.IsOnField = false;
             this.IndexRow = -1;
             this.IndexCol = -1;
+            this.Health = (int)type;
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
             SetStyle(
@@ -79,10 +81,10 @@ namespace Sea_Battle
             {
                 if (PlayingFieldRef.IsEmptyPositionsAroundShip())
                 {
-                    PlayingFieldRef.SetShipToArray();
-
                     IndexRow = PlayingFieldRef.GetIndexRow();
                     IndexCol = PlayingFieldRef.GetIndexCol();
+
+                    PlayingFieldRef.SetShipToArray();
                 }
                 else
                 {

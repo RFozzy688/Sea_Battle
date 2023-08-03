@@ -65,7 +65,7 @@
             BtnAuto.TabStop = false;
             BtnAuto.Text = "Авто";
             BtnAuto.UseCompatibleTextRendering = true;
-            BtnAuto.UseVisualStyleBackColor = false;
+            BtnAuto.UseVisualStyleBackColor = true;
             BtnAuto.MouseDown += BtnAutoPressed;
             BtnAuto.MouseUp += BtnAutoRelesed;
             // 
