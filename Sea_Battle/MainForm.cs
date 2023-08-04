@@ -42,8 +42,10 @@ namespace Sea_Battle
 
             BtnAuto.Font = _embededFont.GetBtnFontReleased();
             BtnNext.Font = _embededFont.GetBtnFontReleased();
+            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
             BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
             BtnNext.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnToBattle.ForeColor = Color.FromArgb(38, 42, 182);
         }
 
 
@@ -86,11 +88,6 @@ namespace Sea_Battle
         {
             BtnNext.Font = _embededFont.GetBtnFontPressed();
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-
-            ChangeBG();
-            HideButtons();
-            
-            _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
         }
         private void BtnNextReleased(object sender, MouseEventArgs e)
         {
@@ -114,6 +111,24 @@ namespace Sea_Battle
             BtnRotation.Hide();
             BtnAuto.Hide();
             BtnNext.Hide();
+            BtnToBattle.Hide();
+        }
+
+        private void BtnToBattlePressed(object sender, MouseEventArgs e)
+        {
+            BtnToBattle.Font = _embededFont.GetBtnFontPressed();
+            BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+
+            ChangeBG();
+            HideButtons();
+
+            _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
+        }
+
+        private void BtnToBattleReleased(object sender, MouseEventArgs e)
+        {
+            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
+            BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
         }
     }
 }

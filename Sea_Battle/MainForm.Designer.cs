@@ -32,6 +32,7 @@
             BtnAuto = new Button();
             BtnNext = new Button();
             BtnBack = new PictureBox();
+            BtnToBattle = new Button();
             ((System.ComponentModel.ISupportInitialize)BtnRotation).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnBack).BeginInit();
             SuspendLayout();
@@ -87,6 +88,7 @@
             BtnNext.Text = "Далее";
             BtnNext.UseCompatibleTextRendering = true;
             BtnNext.UseVisualStyleBackColor = false;
+            BtnNext.Visible = false;
             BtnNext.MouseDown += BtnNextPressed;
             BtnNext.MouseUp += BtnNextReleased;
             // 
@@ -103,12 +105,34 @@
             BtnBack.MouseDown += BtnBackPressed;
             BtnBack.MouseUp += BtnBackReleased;
             // 
+            // BtnToBattle
+            // 
+            BtnToBattle.BackColor = Color.Transparent;
+            BtnToBattle.BackgroundImage = Properties.Resources.btn_relesed;
+            BtnToBattle.BackgroundImageLayout = ImageLayout.Center;
+            BtnToBattle.CausesValidation = false;
+            BtnToBattle.FlatAppearance.BorderSize = 0;
+            BtnToBattle.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            BtnToBattle.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            BtnToBattle.FlatStyle = FlatStyle.Flat;
+            BtnToBattle.Location = new Point(789, 501);
+            BtnToBattle.Name = "BtnToBattle";
+            BtnToBattle.Size = new Size(212, 76);
+            BtnToBattle.TabIndex = 7;
+            BtnToBattle.TabStop = false;
+            BtnToBattle.Text = "В бой";
+            BtnToBattle.UseCompatibleTextRendering = true;
+            BtnToBattle.UseVisualStyleBackColor = false;
+            BtnToBattle.MouseDown += BtnToBattlePressed;
+            BtnToBattle.MouseUp += BtnToBattleReleased;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.one_field;
             ClientSize = new Size(1024, 603);
+            Controls.Add(BtnToBattle);
             Controls.Add(BtnBack);
             Controls.Add(BtnNext);
             Controls.Add(BtnAuto);
@@ -128,5 +152,6 @@
         public Button BtnAuto;
         public Button BtnNext;
         private PictureBox BtnBack;
+        public Button BtnToBattle;
     }
 }
