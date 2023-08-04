@@ -12,6 +12,8 @@ namespace Sea_Battle
         CreatePlayingField _enemyField;
         AutomaticPositioningOfShips _enemyShipsPosition;
 
+        DrawImage _drawImage;
+
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -33,6 +35,8 @@ namespace Sea_Battle
 
             _enemyField.CreateField(new Point(540, 140), new Point(583, 183));
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
+
+            _drawImage = new DrawImage(this);
 
             _embededFont = new EmbededFont();
 
@@ -84,9 +88,9 @@ namespace Sea_Battle
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
 
             ChangeBG();
-
-            DrawImage drawImage = new DrawImage(this);
-            drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
+            HideButtons();
+            
+            _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
         }
         private void BtnNextReleased(object sender, MouseEventArgs e)
         {
@@ -104,6 +108,12 @@ namespace Sea_Battle
         private void ChangeBG()
         {
             this.BackgroundImage = new Bitmap(Properties.Resources.two_field);
+        }
+        public void HideButtons()
+        {
+            BtnRotation.Hide();
+            BtnAuto.Hide();
+            BtnNext.Hide();
         }
     }
 }

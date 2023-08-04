@@ -41,7 +41,7 @@ namespace Sea_Battle
                 picture.image = GetImageShip(fleet, i);
                 picture.point = GetShipBeginPoint(field, fleet.ArrayShips[i].IndexRow, fleet.ArrayShips[i].IndexCol);
                 
-                fleet.ArrayShips[i].Visible = false;
+                fleet.ArrayShips[i].Hide();
 
                 _drawPicture.Add(picture);
             }
