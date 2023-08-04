@@ -27,7 +27,8 @@ namespace Sea_Battle
         public readonly Point _startPos;
         public readonly ShipType _shipType;
         public ShipPositioning _shipPositioning; // расположение корабля горизонтальное/вертикальное
-        public int Health; // здоровье корабля
+        public int Health { get; set; } // здоровье корабля
+        public bool IsDead { get; set; } // подбит корабль или нет
         public int IndexRow { get; set; } // индекс строки в массиве начала корабля
         public int IndexCol { get; set; } // индекс столбца в массиве начала корабля
         public bool IsOnField { get; set; } // находится ли корабыль на поле
@@ -42,6 +43,7 @@ namespace Sea_Battle
             this.IndexRow = -1;
             this.IndexCol = -1;
             this.Health = (int)type;
+            this.IsDead = false;
 
             // настройка стилей для сглажевания мигания Background и удаления артефактов
             SetStyle(
