@@ -36,8 +36,8 @@ namespace Sea_Battle
 
             _embededFont = new EmbededFont();
 
-            BtnAuto.Font = _embededFont.GetBtnFontRelesed();
-            BtnNext.Font = _embededFont.GetBtnFontRelesed();
+            BtnAuto.Font = _embededFont.GetBtnFontReleased();
+            BtnNext.Font = _embededFont.GetBtnFontReleased();
             BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
             BtnNext.ForeColor = Color.FromArgb(38, 42, 182);
         }
@@ -60,7 +60,7 @@ namespace Sea_Battle
 
             _playerShipsPosition.RotationShip();
         }
-        public void BtnRotationRelesed(object sender, MouseEventArgs e)
+        public void BtnRotationReleased(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
         }
@@ -73,29 +73,37 @@ namespace Sea_Battle
             _playerShipsPosition.SetShipOnField();
             _playerShipsPosition.SetImageShipOnField();
         }
-        private void BtnAutoRelesed(object sender, MouseEventArgs e)
+        private void BtnAutoReleased(object sender, MouseEventArgs e)
         {
-            BtnAuto.Font = _embededFont.GetBtnFontRelesed();
+            BtnAuto.Font = _embededFont.GetBtnFontReleased();
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
         }
         private void BtnNextPressed(object sender, MouseEventArgs e)
         {
             BtnNext.Font = _embededFont.GetBtnFontPressed();
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+
+            ChangeBG();
+
+            DrawImage drawImage = new DrawImage(this);
+            drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
         }
-        private void BtnNextRelesed(object sender, MouseEventArgs e)
+        private void BtnNextReleased(object sender, MouseEventArgs e)
         {
-            BtnNext.Font = _embededFont.GetBtnFontRelesed();
+            BtnNext.Font = _embededFont.GetBtnFontReleased();
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
         }
         private void BtnBackPressed(object sender, MouseEventArgs e)
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
         }
-        private void BtnBackRelesed(object sender, MouseEventArgs e)
+        private void BtnBackReleased(object sender, MouseEventArgs e)
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
         }
-
+        private void ChangeBG()
+        {
+            this.BackgroundImage = new Bitmap(Properties.Resources.two_field);
+        }
     }
 }

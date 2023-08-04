@@ -168,7 +168,7 @@ namespace Sea_Battle
                     SetShipToArray();
 
                     // что бы кнопка была визуально отжата
-                    _parent.BtnRotationRelesed(null, null);
+                    _parent.BtnRotationReleased(null, null);
                     // блокируем кнопки пока не удалится подсветка
                     _parent.BtnRotation.Enabled = false;
                     _parent.BtnAuto.Enabled = false;

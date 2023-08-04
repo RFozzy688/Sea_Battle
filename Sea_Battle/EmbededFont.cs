@@ -18,9 +18,9 @@ namespace Sea_Battle
         private PrivateFontCollection fonts = new PrivateFontCollection();
 
         Font _btnFontPressed;
-        Font _btnFontRelesed;
+        Font _btnFontReleased;
         public Font GetBtnFontPressed() { return _btnFontPressed; }
-        public Font GetBtnFontRelesed() { return _btnFontRelesed; }
+        public Font GetBtnFontReleased() { return _btnFontReleased; }
 
         public EmbededFont()
         {
@@ -33,7 +33,7 @@ namespace Sea_Battle
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
 
             _btnFontPressed = new Font(fonts.Families[0], 26.0F, FontStyle.Bold, GraphicsUnit.Point);
-            _btnFontRelesed = new Font(fonts.Families[0], 30.0F, FontStyle.Bold, GraphicsUnit.Point);
+            _btnFontReleased = new Font(fonts.Families[0], 30.0F, FontStyle.Bold, GraphicsUnit.Point);
         }
     }
 }

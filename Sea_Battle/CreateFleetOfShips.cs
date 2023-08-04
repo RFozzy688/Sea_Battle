@@ -9,13 +9,13 @@ namespace Sea_Battle
     internal class CreateFleetOfShips
     {
         Ship[] _ships;
-        int _countShips;
+        public int CountShips { get; }
         readonly MainForm _parent;
         public CreateFleetOfShips(MainForm parent) 
         {
             _parent = parent;
-            _countShips = 10;
-            _ships = new Ship[_countShips];
+            CountShips = 10;
+            _ships = new Ship[CountShips];
         }
         // создаём флот кораблей
         public void CreateShips(Point startPoint, int offset, bool show, ManualPositioningOfShips self)

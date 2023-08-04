@@ -46,7 +46,7 @@
             BtnRotation.TabIndex = 0;
             BtnRotation.TabStop = false;
             BtnRotation.MouseDown += BtnRotationPressed;
-            BtnRotation.MouseUp += BtnRotationRelesed;
+            BtnRotation.MouseUp += BtnRotationReleased;
             // 
             // BtnAuto
             // 
@@ -67,7 +67,7 @@
             BtnAuto.UseCompatibleTextRendering = true;
             BtnAuto.UseVisualStyleBackColor = true;
             BtnAuto.MouseDown += BtnAutoPressed;
-            BtnAuto.MouseUp += BtnAutoRelesed;
+            BtnAuto.MouseUp += BtnAutoReleased;
             // 
             // BtnNext
             // 
@@ -88,7 +88,7 @@
             BtnNext.UseCompatibleTextRendering = true;
             BtnNext.UseVisualStyleBackColor = false;
             BtnNext.MouseDown += BtnNextPressed;
-            BtnNext.MouseUp += BtnNextRelesed;
+            BtnNext.MouseUp += BtnNextReleased;
             // 
             // BtnBack
             // 
@@ -101,7 +101,7 @@
             BtnBack.TabIndex = 6;
             BtnBack.TabStop = false;
             BtnBack.MouseDown += BtnBackPressed;
-            BtnBack.MouseUp += BtnBackRelesed;
+            BtnBack.MouseUp += BtnBackReleased;
             // 
             // MainForm
             // 
