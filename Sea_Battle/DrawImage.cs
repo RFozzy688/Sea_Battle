@@ -25,9 +25,9 @@ namespace Sea_Battle
         List<Picture> _drawPicture;
         List<Picture> _tempDrawPictureCross; // временное хранение картинки "крестик" при попадании в вражеский корабыль
         MainForm _parent;
-        PictureBox _gifAnimation; // box для анимации промаха и попадания
-        Timer _deleteGifAnimationMiss; // удаляем box с анимацией промаха
-        Timer _deleteGifAnimationExplosion; // удаляем box с анимацией взрыва
+        PictureBox _animation; // box для анимации промаха и попадания
+        Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
+        Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
         Shot _shot;
         Picture _picture; // картинки промаха и попадания
         Picture _pictureShip; // картинки кораблей
@@ -40,32 +40,32 @@ namespace Sea_Battle
             _drawPicture = new List<Picture>();
             _tempDrawPictureCross = new List<Picture>();
 
-            _deleteGifAnimationMiss = new Timer();
-            _deleteGifAnimationMiss.Enabled = false;
-            _deleteGifAnimationMiss.Tick += new EventHandler(DeleteGifAnimationMiss);
+            _deleteRocketAnimation = new Timer();
+            _deleteRocketAnimation.Enabled = false;
+            _deleteRocketAnimation.Tick += new EventHandler(DeleteRocketAnimation);
 
-            _deleteGifAnimationExplosion = new Timer();
-            _deleteGifAnimationExplosion.Enabled = false;
-            _deleteGifAnimationExplosion.Tick += new EventHandler(DeleteGifAnimationExplosion);
+            _deleteExplosionAnimation = new Timer();
+            _deleteExplosionAnimation.Enabled = false;
+            _deleteExplosionAnimation.Tick += new EventHandler(DeleteExplosionAnimation);
 
             _isDead = false;
         }
 
-        private void DeleteGifAnimationMiss(object? sender, EventArgs e)
+        private void DeleteRocketAnimation(object? sender, EventArgs e)
         {
-            _deleteGifAnimationMiss.Enabled = false;
-            _deleteGifAnimationMiss.Stop();
+            _deleteRocketAnimation.Enabled = false;
+            _deleteRocketAnimation.Stop();
 
-            _gifAnimation.Dispose();
+            _animation.Dispose();
 
             AddImageToList();
         }
-        private void DeleteGifAnimationExplosion(object? sender, EventArgs e)
+        private void DeleteExplosionAnimation(object? sender, EventArgs e)
         {
-            _deleteGifAnimationExplosion.Enabled = false;
-            _deleteGifAnimationExplosion.Stop();
+            _deleteExplosionAnimation.Enabled = false;
+            _deleteExplosionAnimation.Stop();
 
-            _gifAnimation.Dispose();
+            _animation.Dispose();
 
             AddImageToList();
 
@@ -130,40 +130,40 @@ namespace Sea_Battle
 
             return point;
         }
-        public void SetMissAnimation(Point point)
+        public void SetRockerAnimation(Point point)
         {
             point = GetPoint(point); // отодвинем от края сетки
 
             Bitmap bitmap = Sea_Battle.Properties.Resources.mimo_no_repit;
-            _gifAnimation = new PictureBox();
-            _gifAnimation.SizeMode = PictureBoxSizeMode.AutoSize;
-            _gifAnimation.Image = bitmap;
-            _gifAnimation.BackColor = Color.Transparent;
-            _gifAnimation.Location = point;
-            _parent.Controls.Add(_gifAnimation);
+            _animation = new PictureBox();
+            _animation.SizeMode = PictureBoxSizeMode.AutoSize;
+            _animation.Image = bitmap;
+            _animation.BackColor = Color.Transparent;
+            _animation.Location = point;
+            _parent.Controls.Add(_animation);
 
-            _deleteGifAnimationMiss.Enabled = true;
-            _deleteGifAnimationMiss.Interval = 1600;
-            _deleteGifAnimationMiss.Start();
+            _deleteRocketAnimation.Enabled = true;
+            _deleteRocketAnimation.Interval = 1600;
+            _deleteRocketAnimation.Start();
 
             _picture.image = new Bitmap(Properties.Resources.mimo_finish);
             _picture.point = point;
         }
-        public void SetHitAnimation(Point point)
+        public void SetExplosionAnimation(Point point)
         {
             point = GetPoint(point); // отодвинем от края сетки
 
             Bitmap bitmap = Sea_Battle.Properties.Resources.on_target015_no_repit;
-            _gifAnimation = new PictureBox();
-            _gifAnimation.SizeMode = PictureBoxSizeMode.AutoSize;
-            _gifAnimation.Image = bitmap;
-            _gifAnimation.BackColor = Color.Transparent;
-            _gifAnimation.Location = new Point(point.X + 20 - bitmap.Width / 2, point.Y + 21 - bitmap.Height / 2);
-            _parent.Controls.Add(_gifAnimation);
+            _animation = new PictureBox();
+            _animation.SizeMode = PictureBoxSizeMode.AutoSize;
+            _animation.Image = bitmap;
+            _animation.BackColor = Color.Transparent;
+            _animation.Location = new Point(point.X + 20 - bitmap.Width / 2, point.Y + 21 - bitmap.Height / 2);
+            _parent.Controls.Add(_animation);
 
-            _deleteGifAnimationExplosion.Enabled = true;
-            _deleteGifAnimationExplosion.Interval = 1050;
-            _deleteGifAnimationExplosion.Start();
+            _deleteExplosionAnimation.Enabled = true;
+            _deleteExplosionAnimation.Interval = 1050;
+            _deleteExplosionAnimation.Start();
 
             _picture.image = new Bitmap(Properties.Resources.red_cross);
             _picture.point = point;
@@ -183,6 +183,67 @@ namespace Sea_Battle
                 fleet.ArrayShips[index].IndexCol);
 
             _isDead = true;
+        }
+        public void SetImageRocketAroundShip()
+        {
+            //int temp_j;
+            //int i, j;
+            //int n, k;
+
+            //switch (ShipRef._shipPositioning)
+            //{
+            //    case ShipPositioning.Horizontal:
+            //        i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
+            //        j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+
+            //        if (_indexRow == 0) { n = 2; }
+            //        else if (i + 3 <= _playingFieldRef.SizeField) { n = i + 3; }
+            //        else { n = _playingFieldRef.SizeField; }
+
+            //        if (_indexCol == 0) { k = (int)ShipRef._shipType + 1; }
+            //        else if (j + (int)ShipRef._shipType + 2 <= _playingFieldRef.SizeField) { k = j + (int)ShipRef._shipType + 2; }
+            //        else { k = _playingFieldRef.SizeField; }
+
+            //        temp_j = j;
+
+            //        for (; i < n; i++)
+            //        {
+            //            for (; j < k; j++)
+            //            {
+            //                if (_playingFieldRef.ArrayField[i, j]._value != 0) { return false; }
+            //            }
+            //            j = temp_j;
+            //        }
+
+            //        break;
+
+            //    case ShipPositioning.Vertical:
+            //        i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
+            //        j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+
+            //        if (_indexRow == 0) { n = (int)ShipRef._shipType + 1; }
+            //        else if (i + (int)ShipRef._shipType + 2 <= _playingFieldRef.SizeField) { n = i + (int)ShipRef._shipType + 2; }
+            //        else { n = _playingFieldRef.SizeField; }
+
+            //        if (_indexCol == 0) { k = 2; }
+            //        else if (j + 3 <= _playingFieldRef.SizeField) { k = j + 3; }
+            //        else { k = _playingFieldRef.SizeField; }
+
+            //        temp_j = j;
+
+            //        for (; i < n; i++)
+            //        {
+            //            for (; j < k; j++)
+            //            {
+            //                if (_playingFieldRef.ArrayField[i, j]._value != 0) { return false; }
+            //            }
+            //            j = temp_j;
+            //        }
+
+            //        break;
+            //}
+
+            //return true;
         }
     }
 }

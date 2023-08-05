@@ -83,7 +83,7 @@ namespace Sea_Battle
             {
                 Point point = field.ArrayField[_row, _col]._p1;
 
-                _drawImage.SetMissAnimation(point);
+                _drawImage.SetRockerAnimation(point);
 
                 field.ArrayField[_row, _col]._value = -1;
             }
@@ -92,7 +92,7 @@ namespace Sea_Battle
                 Point point = field.ArrayField[_row, _col]._p1;
 
                 _drawImage.WhoShot = Shot;
-                _drawImage.SetHitAnimation(point);
+                _drawImage.SetExplosionAnimation(point);
 
                 field.ArrayField[_row, _col]._value = -1;
 
