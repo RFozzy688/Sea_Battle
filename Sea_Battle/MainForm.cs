@@ -106,7 +106,7 @@ namespace Sea_Battle
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
 
-            _drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
+            //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
             _enemyShipsPosition.TestSave();
         }
         private void BtnBackReleased(object sender, MouseEventArgs e)

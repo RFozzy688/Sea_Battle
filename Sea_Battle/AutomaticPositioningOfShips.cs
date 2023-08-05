@@ -45,7 +45,6 @@ namespace Sea_Battle
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
                         _playingFieldRef.ArrayField[_indexRow, col]._value = (int)ShipRef._shipType;
-                        _playingFieldRef.ArrayField[_indexRow, col]._health = ShipRef.Health;
                         _playingFieldRef.ArrayField[_indexRow, col]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
 
                         col++;
@@ -56,7 +55,6 @@ namespace Sea_Battle
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
                         _playingFieldRef.ArrayField[row, _indexCol]._value = (int)ShipRef._shipType;
-                        _playingFieldRef.ArrayField[row, _indexCol]._health = ShipRef.Health;
                         _playingFieldRef.ArrayField[row, _indexCol]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
 
                         row++;

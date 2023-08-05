@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using Timer = System.Windows.Forms.Timer;
+using System.Reflection;
 
 namespace Sea_Battle
 {
@@ -25,30 +26,55 @@ namespace Sea_Battle
         List<Picture> _tempDrawPictureCross; // временное хранение картинки "крестик" при попадании в вражеский корабыль
         MainForm _parent;
         PictureBox _gifAnimation; // box для анимации промаха и попадания
-        Timer _deleteGifAnimation; // удаляем box с анимацией по времени
+        Timer _deleteGifAnimationMiss; // удаляем box с анимацией промаха
+        Timer _deleteGifAnimationExplosion; // удаляем box с анимацией взрыва
         Shot _shot;
-        Picture _picture;
-        public DrawImage(MainForm parent) 
+        Picture _picture; // картинки промаха и попадания
+        Picture _pictureShip; // картинки кораблей
+        bool _isDead; // корабыль уничтожен
+        public WhoShot WhoShot { get; set; }
+        public DrawImage(MainForm parent)
         {
             _parent = parent;
             _parent.Paint += new PaintEventHandler(ImagesOnField_Paint);
             _drawPicture = new List<Picture>();
+            _tempDrawPictureCross = new List<Picture>();
 
-            _deleteGifAnimation = new Timer();
-            _deleteGifAnimation.Enabled = false;
-            _deleteGifAnimation.Tick += new EventHandler(TimerDeleteGifAnimation);
+            _deleteGifAnimationMiss = new Timer();
+            _deleteGifAnimationMiss.Enabled = false;
+            _deleteGifAnimationMiss.Tick += new EventHandler(DeleteGifAnimationMiss);
+
+            _deleteGifAnimationExplosion = new Timer();
+            _deleteGifAnimationExplosion.Enabled = false;
+            _deleteGifAnimationExplosion.Tick += new EventHandler(DeleteGifAnimationExplosion);
+
+            _isDead = false;
         }
 
-        private void TimerDeleteGifAnimation(object? sender, EventArgs e)
+        private void DeleteGifAnimationMiss(object? sender, EventArgs e)
         {
-            _deleteGifAnimation.Enabled = false;
-            _deleteGifAnimation.Stop();
+            _deleteGifAnimationMiss.Enabled = false;
+            _deleteGifAnimationMiss.Stop();
 
             _gifAnimation.Dispose();
 
             AddImageToList();
         }
+        private void DeleteGifAnimationExplosion(object? sender, EventArgs e)
+        {
+            _deleteGifAnimationExplosion.Enabled = false;
+            _deleteGifAnimationExplosion.Stop();
 
+            _gifAnimation.Dispose();
+
+            AddImageToList();
+
+            if (_isDead)
+            {
+                InsertImageShipToList();
+                _isDead = false;
+            }
+        }
         private void ImagesOnField_Paint(object? sender, PaintEventArgs e)
         {
             foreach (var item in _drawPicture)
@@ -56,25 +82,40 @@ namespace Sea_Battle
                 Graphics g = e.Graphics;
                 g.DrawImage(item.image, item.point);
             }
+
+            if (_tempDrawPictureCross.Count > 0)
+            {
+                foreach (var item in _tempDrawPictureCross)
+                {
+                    Graphics g = e.Graphics;
+                    g.DrawImage(item.image, item.point);
+                }
+            }
         }
         public void AddPlayerShipsToList(CreateFleetOfShips fleet, CreatePlayingField field)
         {
             for (int i = 0; i < fleet.CountShips; i++)
             {
-                _picture = new Picture();
-                _picture.image = GetImageShip(fleet, i);
-                _picture.point = GetShipBeginPoint(field, fleet.ArrayShips[i].IndexRow, fleet.ArrayShips[i].IndexCol);
+                _pictureShip = new Picture();
+                _pictureShip.image = GetImageShip(fleet, i);
+
+                _pictureShip.point = GetShipBeginPoint(field, fleet.ArrayShips[i].IndexRow, fleet.ArrayShips[i].IndexCol);
                 
                 fleet.ArrayShips[i].Hide();
 
-                _drawPicture.Add(_picture);
+                _drawPicture.Add(_pictureShip);
             }
 
             _parent.Invalidate();
         }
-        private void AddImageToList()
+        public void AddImageToList()
         {
             _drawPicture.Add(_picture);
+            _parent.Invalidate();
+        }
+        public void InsertImageShipToList()
+        {
+            _drawPicture.Insert(0, _pictureShip);
             _parent.Invalidate();
         }
         public Image GetImageShip(CreateFleetOfShips fleet, int index)
@@ -101,11 +142,9 @@ namespace Sea_Battle
             _gifAnimation.Location = point;
             _parent.Controls.Add(_gifAnimation);
 
-            _shot = Shot.OutTarget; // мимо цели
-
-            _deleteGifAnimation.Enabled = true;
-            _deleteGifAnimation.Interval = 1600;
-            _deleteGifAnimation.Start();
+            _deleteGifAnimationMiss.Enabled = true;
+            _deleteGifAnimationMiss.Interval = 1600;
+            _deleteGifAnimationMiss.Start();
 
             _picture.image = new Bitmap(Properties.Resources.mimo_finish);
             _picture.point = point;
@@ -122,11 +161,9 @@ namespace Sea_Battle
             _gifAnimation.Location = new Point(point.X + 20 - bitmap.Width / 2, point.Y + 21 - bitmap.Height / 2);
             _parent.Controls.Add(_gifAnimation);
 
-            _shot = Shot.InTarget; // попал в цель
-
-            _deleteGifAnimation.Enabled = true;
-            _deleteGifAnimation.Interval = 1050;
-            _deleteGifAnimation.Start();
+            _deleteGifAnimationExplosion.Enabled = true;
+            _deleteGifAnimationExplosion.Interval = 1050;
+            _deleteGifAnimationExplosion.Start();
 
             _picture.image = new Bitmap(Properties.Resources.red_cross);
             _picture.point = point;
@@ -135,6 +172,17 @@ namespace Sea_Battle
         public Point GetPoint(Point point)
         {
             return new Point(point.X + 4, point.Y + 1);
+        }
+        public void ShipIsDead(CreateFleetOfShips fleet, CreatePlayingField field, int index)
+        {
+            _pictureShip = new Picture();
+            _pictureShip.image = GetImageShip(fleet, index);
+
+            _pictureShip.point = GetShipBeginPoint(field, 
+                fleet.ArrayShips[index].IndexRow, 
+                fleet.ArrayShips[index].IndexCol);
+
+            _isDead = true;
         }
     }
 }
