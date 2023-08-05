@@ -214,7 +214,7 @@ namespace Sea_Battle
                     {
                         for (int j = 0; j < _playingFieldRef.SizeField; j++)
                         {
-                            sw.Write(_playingFieldRef.ArrayField[i, j]._ship + " ");
+                            sw.Write(_playingFieldRef.ArrayField[i, j]._value + " ");
                         }
                         sw.Write("\n");
                     }

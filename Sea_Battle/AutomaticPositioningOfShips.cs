@@ -44,7 +44,7 @@ namespace Sea_Battle
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        _playingFieldRef.ArrayField[_indexRow, col]._ship = (int)ShipRef._shipType;
+                        _playingFieldRef.ArrayField[_indexRow, col]._value = (int)ShipRef._shipType;
                         _playingFieldRef.ArrayField[_indexRow, col]._health = ShipRef.Health;
                         _playingFieldRef.ArrayField[_indexRow, col]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
 
@@ -55,7 +55,7 @@ namespace Sea_Battle
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        _playingFieldRef.ArrayField[row, _indexCol]._ship = (int)ShipRef._shipType;
+                        _playingFieldRef.ArrayField[row, _indexCol]._value = (int)ShipRef._shipType;
                         _playingFieldRef.ArrayField[row, _indexCol]._health = ShipRef.Health;
                         _playingFieldRef.ArrayField[row, _indexCol]._index = FindIndexShip(ShipRef.IndexRow, ShipRef.IndexCol);
 
@@ -75,14 +75,14 @@ namespace Sea_Battle
                     int col = _indexCol;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        _playingFieldRef.ArrayField[_indexRow, col++]._ship = 0;
+                        _playingFieldRef.ArrayField[_indexRow, col++]._value = 0;
                     }
                     break;
                 case ShipPositioning.Vertical:
                     int row = _indexRow;
                     for (int n = 0; n < (int)ShipRef._shipType; n++)
                     {
-                        _playingFieldRef.ArrayField[row++, _indexCol]._ship = 0;
+                        _playingFieldRef.ArrayField[row++, _indexCol]._value = 0;
                     }
                     break;
                 default:
@@ -132,7 +132,7 @@ namespace Sea_Battle
                     {
                         for (; j < k; j++)
                         {
-                            if (_playingFieldRef.ArrayField[i, j]._ship != 0) { return false; }
+                            if (_playingFieldRef.ArrayField[i, j]._value != 0) { return false; }
                         }
                         j = temp_j;
                     }
@@ -157,7 +157,7 @@ namespace Sea_Battle
                     {
                         for (; j < k; j++)
                         {
-                            if (_playingFieldRef.ArrayField[i, j]._ship != 0) { return false; }
+                            if (_playingFieldRef.ArrayField[i, j]._value != 0) { return false; }
                         }
                         j = temp_j;
                     }
@@ -297,7 +297,7 @@ namespace Sea_Battle
                     {
                         for (int j = 0; j < _playingFieldRef.SizeField; j++)
                         {
-                            sw.Write(_playingFieldRef.ArrayField[i, j]._ship + " ");
+                            sw.Write(_playingFieldRef.ArrayField[i, j]._value + " ");
                         }
                         sw.Write("\n");
                     }

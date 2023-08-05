@@ -13,7 +13,7 @@ namespace Sea_Battle
         AutomaticPositioningOfShips _enemyShipsPosition;
 
         DrawImage _drawImage;
-
+        Battle _battle;
         EmbededFont _embededFont;
         public MainForm()
         {
@@ -37,6 +37,7 @@ namespace Sea_Battle
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
             _drawImage = new DrawImage(this);
+            _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
 
             _embededFont = new EmbededFont();
 
@@ -56,8 +57,15 @@ namespace Sea_Battle
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            //_playerField.func(new Point(e.X, e.Y));
+            if (_battle.Shot == WhoShot.player)
+            {
+                _battle.HitLocation = e.Location;
 
+                if (_battle.IsConvertHitLocationToIndexes())
+                {
+                    _battle.Fire();
+                }
+            }
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)
@@ -97,6 +105,9 @@ namespace Sea_Battle
         private void BtnBackPressed(object sender, MouseEventArgs e)
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
+
+            _drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
+            _enemyShipsPosition.TestSave();
         }
         private void BtnBackReleased(object sender, MouseEventArgs e)
         {
@@ -118,6 +129,9 @@ namespace Sea_Battle
         {
             BtnToBattle.Font = _embededFont.GetBtnFontPressed();
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+
+            _enemyShipsPosition.SetShipOnField();
+            _enemyShipsPosition.SetImageShipOnField();
 
             ChangeBG();
             HideButtons();
