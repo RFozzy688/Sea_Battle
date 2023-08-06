@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sea_Battle
 {
-    enum WhoShot
+    enum WhoShoot
     {
         player,
         enemy
@@ -23,9 +23,9 @@ namespace Sea_Battle
         MainForm _parent;
         int _row;
         int _col;
-        int x = 0;
-        public WhoShot Shot { get; set; }
+        public WhoShoot Shooter { get; set; }
         public Point HitLocation { get; set; }
+        public bool IsCanPressed { get; set; }
 
         public Battle(MainForm parent,
             CreateFleetOfShips playerFleet,
@@ -41,7 +41,8 @@ namespace Sea_Battle
             _drawImage = drawImage;
             _parent = parent;
 
-            Shot = WhoShot.player;
+            Shooter = WhoShoot.player;
+            IsCanPressed = true;
         }
         public bool IsConvertHitLocationToIndexes()
         {
@@ -64,11 +65,10 @@ namespace Sea_Battle
         }
         public void Fire()
         {
-            x++;
             CreatePlayingField field;
             CreateFleetOfShips fleet;
 
-            if (Shot == WhoShot.player)
+            if (Shooter == WhoShoot.player)
             {
                 field = _enemyField;
                 fleet = _enemyFleet;
@@ -82,34 +82,60 @@ namespace Sea_Battle
             if (WhereDidHit(field) == 0) // промах
             {
                 Point point = field.ArrayField[_row, _col]._p1;
-
                 _drawImage.SetRockerAnimation(point);
-
                 field.ArrayField[_row, _col]._value = -1;
+
+                //ChangeShooter();
+                //IsCanPressed = true;
             }
             else if (WhereDidHit(field) > 0) // попал
             {
                 Point point = field.ArrayField[_row, _col]._p1;
-
-                _drawImage.WhoShot = Shot;
                 _drawImage.SetExplosionAnimation(point);
 
                 field.ArrayField[_row, _col]._value = -1;
-
                 fleet.ArrayShips[field.ArrayField[_row, _col]._index].Health -= 1;
+                int index = field.ArrayField[_row, _col]._index;
                 TestSave();
 
-                if (fleet.ArrayShips[field.ArrayField[_row, _col]._index].Health == 0)
+                if (fleet.ArrayShips[index].Health == 0)
                 {
                     fleet.ArrayShips[field.ArrayField[_row, _col]._index].IsDead = true;
 
-                    _drawImage.ShipIsDead(fleet, field, field.ArrayField[_row, _col]._index);
+                    _drawImage.ShipIsDead(fleet, field, index);
+                    _drawImage.SetImageRocketAroundShip(fleet, field, index);
                 }
             }
         }
         private int WhereDidHit(CreatePlayingField field)
         {
             return field.ArrayField[_row, _col]._value;
+        }
+        public void EnemyFiringIndexes()
+        {
+            Random random = new Random();
+
+            while (true)
+            {
+                _row = random.Next(0, 10);
+                _col = random.Next(0, 10);
+
+                if (_enemyField.ArrayField[_row, _col]._value >= 0)
+                {
+                    break;
+                }
+            }
+        }
+        public void ChangeShooter()
+        {
+            if (Shooter == WhoShoot.player)
+            {
+                Shooter = WhoShoot.enemy;
+            }
+            else
+            {
+                Shooter = WhoShoot.player;
+            }
         }
         public void TestSave()
         {

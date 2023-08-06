@@ -183,19 +183,9 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mimo_no_repit {
+        internal static System.Drawing.Bitmap mimo_no_repit_1_04 {
             get {
-                object obj = ResourceManager.GetObject("mimo_no_repit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mimo_no_repit_2 {
-            get {
-                object obj = ResourceManager.GetObject("mimo_no_repit_2", resourceCulture);
+                object obj = ResourceManager.GetObject("mimo_no_repit_1_04", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

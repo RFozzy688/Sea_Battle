@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using Timer = System.Windows.Forms.Timer;
 using System.Reflection;
+using System.Drawing;
 
 namespace Sea_Battle
 {
@@ -15,30 +16,26 @@ namespace Sea_Battle
         public Image image;
         public Point point;
     }
-    enum Shot
-    {
-        InTarget, 
-        OutTarget
-    }
     internal class DrawImage : Form
     {
         List<Picture> _drawPicture;
-        List<Picture> _tempDrawPictureCross; // временное хранение картинки "крестик" при попадании в вражеский корабыль
+        List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
         MainForm _parent;
         PictureBox _animation; // box для анимации промаха и попадания
         Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
         Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
-        Shot _shot;
         Picture _picture; // картинки промаха и попадания
         Picture _pictureShip; // картинки кораблей
         bool _isDead; // корабыль уничтожен
-        public WhoShot WhoShot { get; set; }
+        Point _imagePosition; // позиция отрисовки картинки промаха или попадания
+        public WhoShoot WhoShot { get; set; }
+        public Battle BattleRef { get; set; }
         public DrawImage(MainForm parent)
         {
             _parent = parent;
             _parent.Paint += new PaintEventHandler(ImagesOnField_Paint);
             _drawPicture = new List<Picture>();
-            _tempDrawPictureCross = new List<Picture>();
+            _tempPictureRocket = new List<Picture>();
 
             _deleteRocketAnimation = new Timer();
             _deleteRocketAnimation.Enabled = false;
@@ -58,6 +55,7 @@ namespace Sea_Battle
 
             _animation.Dispose();
 
+            SetImageRocket(_imagePosition);
             AddImageToList();
         }
         private void DeleteExplosionAnimation(object? sender, EventArgs e)
@@ -67,13 +65,20 @@ namespace Sea_Battle
 
             _animation.Dispose();
 
+            SetImageRedCross(_imagePosition);
             AddImageToList();
 
             if (_isDead)
             {
+                _drawPicture.AddRange(_tempPictureRocket);
+                _tempPictureRocket.Clear();
+
                 InsertImageShipToList();
+
                 _isDead = false;
             }
+
+            //BattleRef.IsCanPressed = true;
         }
         private void ImagesOnField_Paint(object? sender, PaintEventArgs e)
         {
@@ -83,14 +88,14 @@ namespace Sea_Battle
                 g.DrawImage(item.image, item.point);
             }
 
-            if (_tempDrawPictureCross.Count > 0)
-            {
-                foreach (var item in _tempDrawPictureCross)
-                {
-                    Graphics g = e.Graphics;
-                    g.DrawImage(item.image, item.point);
-                }
-            }
+            //if (_tempDrawPictureCross.Count > 0)
+            //{
+            //    foreach (var item in _tempDrawPictureCross)
+            //    {
+            //        Graphics g = e.Graphics;
+            //        g.DrawImage(item.image, item.point);
+            //    }
+            //}
         }
         public void AddPlayerShipsToList(CreateFleetOfShips fleet, CreatePlayingField field)
         {
@@ -113,6 +118,10 @@ namespace Sea_Battle
             _drawPicture.Add(_picture);
             _parent.Invalidate();
         }
+        public void AddImageRocketToTempList()
+        {
+            _tempPictureRocket.Add(_picture);
+        }
         public void InsertImageShipToList()
         {
             _drawPicture.Insert(0, _pictureShip);
@@ -133,8 +142,9 @@ namespace Sea_Battle
         public void SetRockerAnimation(Point point)
         {
             point = GetPoint(point); // отодвинем от края сетки
+            _imagePosition = point;
 
-            Bitmap bitmap = Sea_Battle.Properties.Resources.mimo_no_repit;
+            Bitmap bitmap = Sea_Battle.Properties.Resources.mimo_no_repit_1_04;
             _animation = new PictureBox();
             _animation.SizeMode = PictureBoxSizeMode.AutoSize;
             _animation.Image = bitmap;
@@ -143,15 +153,13 @@ namespace Sea_Battle
             _parent.Controls.Add(_animation);
 
             _deleteRocketAnimation.Enabled = true;
-            _deleteRocketAnimation.Interval = 1600;
+            _deleteRocketAnimation.Interval = 1040;
             _deleteRocketAnimation.Start();
-
-            _picture.image = new Bitmap(Properties.Resources.mimo_finish);
-            _picture.point = point;
         }
         public void SetExplosionAnimation(Point point)
         {
             point = GetPoint(point); // отодвинем от края сетки
+            _imagePosition = point;
 
             Bitmap bitmap = Sea_Battle.Properties.Resources.on_target015_no_repit;
             _animation = new PictureBox();
@@ -164,7 +172,14 @@ namespace Sea_Battle
             _deleteExplosionAnimation.Enabled = true;
             _deleteExplosionAnimation.Interval = 1050;
             _deleteExplosionAnimation.Start();
-
+        }
+        private void SetImageRocket(Point point)
+        {
+            _picture.image = new Bitmap(Properties.Resources.mimo_finish);
+            _picture.point = point;
+        }
+        private void SetImageRedCross(Point point)
+        {
             _picture.image = new Bitmap(Properties.Resources.red_cross);
             _picture.point = point;
         }
@@ -184,66 +199,82 @@ namespace Sea_Battle
 
             _isDead = true;
         }
-        public void SetImageRocketAroundShip()
+        public void SetImageRocketAroundShip(CreateFleetOfShips fleet, CreatePlayingField field, int index)
         {
-            //int temp_j;
-            //int i, j;
-            //int n, k;
+            ShipPositioning shipPositioning = fleet.ArrayShips[index]._shipPositioning;
+            ShipType shipType = fleet.ArrayShips[index]._shipType;
+            int row = fleet.ArrayShips[index].IndexRow;
+            int col = fleet.ArrayShips[index].IndexCol;
+            int sizeField = field.SizeField;
 
-            //switch (ShipRef._shipPositioning)
-            //{
-            //    case ShipPositioning.Horizontal:
-            //        i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
-            //        j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+            int temp_j;
+            int i, j;
+            int n, k;
 
-            //        if (_indexRow == 0) { n = 2; }
-            //        else if (i + 3 <= _playingFieldRef.SizeField) { n = i + 3; }
-            //        else { n = _playingFieldRef.SizeField; }
+            switch (shipPositioning)
+            {
+                case ShipPositioning.Horizontal:
+                    i = (row - 1 < 0) ? 0 : row - 1;
+                    j = (col - 1 < 0) ? 0 : col - 1;
 
-            //        if (_indexCol == 0) { k = (int)ShipRef._shipType + 1; }
-            //        else if (j + (int)ShipRef._shipType + 2 <= _playingFieldRef.SizeField) { k = j + (int)ShipRef._shipType + 2; }
-            //        else { k = _playingFieldRef.SizeField; }
+                    if (row == 0) { n = 2; }
+                    else if (i + 3 <= sizeField) { n = i + 3; }
+                    else { n = sizeField; }
 
-            //        temp_j = j;
+                    if (col == 0) { k = (int)shipType + 1; }
+                    else if (j + (int)shipType + 2 <= sizeField) { k = j + (int)shipType + 2; }
+                    else { k = sizeField; }
 
-            //        for (; i < n; i++)
-            //        {
-            //            for (; j < k; j++)
-            //            {
-            //                if (_playingFieldRef.ArrayField[i, j]._value != 0) { return false; }
-            //            }
-            //            j = temp_j;
-            //        }
+                    temp_j = j;
 
-            //        break;
+                    for (; i < n; i++)
+                    {
+                        for (; j < k; j++)
+                        {
+                            if (field.ArrayField[i, j]._value == 0) 
+                            { 
+                                Point point = field.ArrayField[i, j]._p1;
+                                point = GetPoint(point);
+                                SetImageRocket(point);
+                                AddImageRocketToTempList();
+                            }
+                        }
+                        j = temp_j;
+                    }
 
-            //    case ShipPositioning.Vertical:
-            //        i = (_indexRow - 1 < 0) ? 0 : _indexRow - 1;
-            //        j = (_indexCol - 1 < 0) ? 0 : _indexCol - 1;
+                    break;
 
-            //        if (_indexRow == 0) { n = (int)ShipRef._shipType + 1; }
-            //        else if (i + (int)ShipRef._shipType + 2 <= _playingFieldRef.SizeField) { n = i + (int)ShipRef._shipType + 2; }
-            //        else { n = _playingFieldRef.SizeField; }
+                case ShipPositioning.Vertical:
+                    i = (row - 1 < 0) ? 0 : row - 1;
+                    j = (col - 1 < 0) ? 0 : col - 1;
 
-            //        if (_indexCol == 0) { k = 2; }
-            //        else if (j + 3 <= _playingFieldRef.SizeField) { k = j + 3; }
-            //        else { k = _playingFieldRef.SizeField; }
+                    if (row == 0) { n = (int)shipType + 1; }
+                    else if (i + (int)shipType + 2 <= sizeField) { n = i + (int)shipType + 2; }
+                    else { n = sizeField; }
 
-            //        temp_j = j;
+                    if (col == 0) { k = 2; }
+                    else if (j + 3 <= sizeField) { k = j + 3; }
+                    else { k = sizeField; }
 
-            //        for (; i < n; i++)
-            //        {
-            //            for (; j < k; j++)
-            //            {
-            //                if (_playingFieldRef.ArrayField[i, j]._value != 0) { return false; }
-            //            }
-            //            j = temp_j;
-            //        }
+                    temp_j = j;
 
-            //        break;
-            //}
+                    for (; i < n; i++)
+                    {
+                        for (; j < k; j++)
+                        {
+                            if (field.ArrayField[i, j]._value == 0) 
+                            {
+                                Point point = field.ArrayField[i, j]._p1;
+                                point = GetPoint(point);
+                                SetImageRocket(point);
+                                AddImageRocketToTempList();
+                            }
+                        }
+                        j = temp_j;
+                    }
 
-            //return true;
+                    break;
+            }
         }
     }
 }
