@@ -124,9 +124,6 @@
   <data name="bg_clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\bg_clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bg_clear_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\bg_clear_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="boat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\boat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -169,9 +166,6 @@
   <data name="mimo_no_repit_1_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\mimo_no_repit_1_04.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="one_field" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\one_field.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="on_target015_no_repit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\on_target015_no_repit.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -192,8 +186,5 @@
   </data>
   <data name="ship_plane_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\ship_plane_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="two_field" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\two_field.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

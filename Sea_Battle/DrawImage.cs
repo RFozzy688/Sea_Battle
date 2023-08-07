@@ -103,17 +103,8 @@ namespace Sea_Battle
             foreach (var item in _drawPicture)
             {
                 Graphics g = e.Graphics;
-                g.DrawImage(item.image, item.point);
+                g.DrawImage(item.image, item.point.X, item.point.Y, item.image.Width, item.image.Height);
             }
-
-            //if (_tempDrawPictureCross.Count > 0)
-            //{
-            //    foreach (var item in _tempDrawPictureCross)
-            //    {
-            //        Graphics g = e.Graphics;
-            //        g.DrawImage(item.image, item.point);
-            //    }
-            //}
         }
         public void AddPlayerShipsToList(CreateFleetOfShips fleet, CreatePlayingField field)
         {
@@ -189,14 +180,9 @@ namespace Sea_Battle
             _deleteExplosionAnimation.Interval = 1050;
             _deleteExplosionAnimation.Start();
         }
-        private void InitializeStructPicture(Point point, Bitmap bitmap)
+        public void InitializeStructPicture(Point point, Bitmap bitmap)
         {
             _picture.image = bitmap;
-            _picture.point = point;
-        }
-        private void SetImageRedCross(Point point)
-        {
-            _picture.image = new Bitmap(Properties.Resources.red_cross);
             _picture.point = point;
         }
         // координата изображения на поле увеличанная по X и Y

@@ -20,7 +20,7 @@ namespace Sea_Battle
             InitializeComponent();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            this.BackgroundImage = new Bitmap(Properties.Resources.bg_clear_2);
+            this.BackgroundImage = new Bitmap(Properties.Resources.bg_clear);
 
 
             _playerFleet = new CreateFleetOfShips(this);
@@ -41,6 +41,8 @@ namespace Sea_Battle
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
             _drawImage.FinishRocketAnimationEvent += _battle.StartEnemyShoots;
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
+            _drawImage.InitializeStructPicture(new Point(1, 109), new Bitmap(Properties.Resources.left_field));
+            _drawImage.AddImageToList();
 
             _embededFont = new EmbededFont();
 
@@ -121,7 +123,7 @@ namespace Sea_Battle
         }
         private void ChangeBG()
         {
-            this.BackgroundImage = new Bitmap(Properties.Resources.two_field);
+            //this.BackgroundImage = new Bitmap(Properties.Resources.two_field);
         }
         public void HideButtons()
         {
@@ -139,7 +141,9 @@ namespace Sea_Battle
             _enemyShipsPosition.SetShipOnField();
             _enemyShipsPosition.SetImageShipOnField();
 
-            ChangeBG();
+            _drawImage.InitializeStructPicture(new Point(520, 109), new Bitmap(Properties.Resources.right_field));
+            _drawImage.AddImageToList();
+
             HideButtons();
 
             _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);

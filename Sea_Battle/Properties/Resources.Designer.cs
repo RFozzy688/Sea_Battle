@@ -83,16 +83,6 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bg_clear_2 {
-            get {
-                object obj = ResourceManager.GetObject("bg_clear_2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap boat {
             get {
                 object obj = ResourceManager.GetObject("boat", resourceCulture);
@@ -243,16 +233,6 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap one_field {
-            get {
-                object obj = ResourceManager.GetObject("one_field", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap player_shoots {
             get {
                 object obj = ResourceManager.GetObject("player_shoots", resourceCulture);
@@ -306,16 +286,6 @@ namespace Sea_Battle.Properties {
         internal static System.Drawing.Bitmap ship_plane_2 {
             get {
                 object obj = ResourceManager.GetObject("ship_plane_2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap two_field {
-            get {
-                object obj = ResourceManager.GetObject("two_field", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
