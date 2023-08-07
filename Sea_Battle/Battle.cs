@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Timer = System.Windows.Forms.Timer;
 using NLog;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace Sea_Battle
 {
@@ -27,10 +28,10 @@ namespace Sea_Battle
         int _index;
         int _row;
         int _col;
+        public bool IsBtnInBattlePressed { get; set; }
         public WhoShoot Shooter { get; set; }
         public Point HitLocation { get; set; }
         public bool IsCanPressed { get; set; }
-        int x = 0;
         public Logger _logger;
 
         public Battle(MainForm parent,
@@ -54,10 +55,12 @@ namespace Sea_Battle
             _startEnemyShoots.Interval = 1000;
             _startEnemyShoots.Tick += new EventHandler(EnemyShoots);
 
+            IsBtnInBattlePressed = false;
+
             _logger = LogManager.GetCurrentClassLogger();
         }
 
-        private void EnemyShoots(object? sender, EventArgs e)
+        public void EnemyShoots(object? sender, EventArgs e)
         {
             _startEnemyShoots.Stop();
 
@@ -175,6 +178,19 @@ namespace Sea_Battle
             if (Shooter == WhoShoot.enemy)
             {
                 _startEnemyShoots.Start();
+            }
+        }
+        public WhoShoot WhoFirstShoots()
+        {
+            Random random = new Random();
+
+            if (random.Next(0, 2) == 0)
+            {
+                return WhoShoot.player;
+            }
+            else
+            {
+                return WhoShoot.enemy;
             }
         }
         public void TestSave()
