@@ -33,7 +33,7 @@ namespace Sea_Battle
         Picture _pictureShip; // картинки кораблей
         bool _isDead; // корабыль уничтожен
         Point _imagePosition; // позиция отрисовки картинки промаха или попадания
-        public WhoShoot WhoShot { get; set; }
+        public EnumPlayers WhoShot { get; set; }
         public DrawImage(MainForm parent)
         {
             _parent = parent;
@@ -282,11 +282,11 @@ namespace Sea_Battle
                     break;
             }
         }
-        public void SetImageWhoShooter(WhoShoot whoShoot)
+        public void SetImageWhoShooter(EnumPlayers whoShoot)
         {
             Bitmap bitmap;
 
-            if (whoShoot == WhoShoot.player)
+            if (whoShoot == EnumPlayers.player)
             {
                 bitmap = new Bitmap(Properties.Resources.player_shoots);
             }

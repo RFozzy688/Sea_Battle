@@ -63,7 +63,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_battle.Shooter == WhoShoot.player && _battle.IsCanPressed && _battle.IsBtnInBattlePressed)
+            if (_battle.Shooter == EnumPlayers.player && _battle.IsCanPressed && _battle.IsBtnInBattlePressed)
             {
                 _battle.HitLocation = e.Location;
 
@@ -148,7 +148,7 @@ namespace Sea_Battle
             _battle.IsBtnInBattlePressed = true;
             _battle.Shooter = _battle.WhoFirstShoots();
 
-            if (_battle.Shooter == WhoShoot.enemy)
+            if (_battle.Shooter == EnumPlayers.enemy)
             {
                 _battle.EnemyShoots(null, null);
                 _drawImage.SetImageWhoShooter(_battle.Shooter);

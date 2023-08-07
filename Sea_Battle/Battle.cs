@@ -11,7 +11,7 @@ using System.DirectoryServices.ActiveDirectory;
 
 namespace Sea_Battle
 {
-    enum WhoShoot
+    enum EnumPlayers
     {
         player,
         enemy
@@ -29,7 +29,7 @@ namespace Sea_Battle
         int _row;
         int _col;
         public bool IsBtnInBattlePressed { get; set; }
-        public WhoShoot Shooter { get; set; }
+        public EnumPlayers Shooter { get; set; }
         public Point HitLocation { get; set; }
         public bool IsCanPressed { get; set; }
         public Logger _logger;
@@ -48,7 +48,6 @@ namespace Sea_Battle
             _drawImage = drawImage;
             _parent = parent;
 
-            Shooter = WhoShoot.player;
             IsCanPressed = true;
 
             _startEnemyShoots = new Timer();
@@ -94,7 +93,7 @@ namespace Sea_Battle
             CreatePlayingField field;
             CreateFleetOfShips fleet;
 
-            if (Shooter == WhoShoot.player)
+            if (Shooter == EnumPlayers.player)
             {
                 field = _enemyField;
                 fleet = _enemyFleet;
@@ -151,20 +150,20 @@ namespace Sea_Battle
         }
         public void ChangeShooter()
         {
-            if (Shooter == WhoShoot.player)
+            if (Shooter == EnumPlayers.player)
             {
-                Shooter = WhoShoot.enemy;
+                Shooter = EnumPlayers.enemy;
             }
             else
             {
-                Shooter = WhoShoot.player;
+                Shooter = EnumPlayers.player;
             }
         }
         public void RepeatedShoot()
         {
             IsCanPressed = true;
 
-            if (Shooter == WhoShoot.enemy)
+            if (Shooter == EnumPlayers.enemy)
             {
                 _startEnemyShoots.Start();
             }
@@ -175,22 +174,22 @@ namespace Sea_Battle
             IsCanPressed = true;
             _drawImage.SetImageWhoShooter(Shooter);
 
-            if (Shooter == WhoShoot.enemy)
+            if (Shooter == EnumPlayers.enemy)
             {
                 _startEnemyShoots.Start();
             }
         }
-        public WhoShoot WhoFirstShoots()
+        public EnumPlayers WhoFirstShoots()
         {
             Random random = new Random();
 
             if (random.Next(0, 2) == 0)
             {
-                return WhoShoot.player;
+                return EnumPlayers.player;
             }
             else
             {
-                return WhoShoot.enemy;
+                return EnumPlayers.enemy;
             }
         }
         public void TestSave()
