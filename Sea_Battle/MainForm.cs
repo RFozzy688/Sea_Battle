@@ -54,7 +54,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            //Text = e.X + " " + e.Y;
+            Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -112,7 +112,7 @@ namespace Sea_Battle
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
 
             //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
-            _playerShipsPosition.TestSave();
+            _enemyShipsPosition.TestSave();
         }
         private void BtnBackReleased(object sender, MouseEventArgs e)
         {

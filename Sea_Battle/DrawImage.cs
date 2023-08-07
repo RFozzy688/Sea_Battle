@@ -26,6 +26,7 @@ namespace Sea_Battle
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
         MainForm _parent;
         PictureBox _animation; // box для анимации промаха и попадания
+        PictureBox _whoShoot;
         Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
         Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
         Picture _picture; // картинки промаха и попадания
@@ -48,6 +49,8 @@ namespace Sea_Battle
             _deleteExplosionAnimation.Tick += new EventHandler(DeleteExplosionAnimation);
 
             _isDead = false;
+
+            _whoShoot = new PictureBox();
         }
 
         public void FinishRocketAnimation()
@@ -294,6 +297,25 @@ namespace Sea_Battle
 
                     break;
             }
+        }
+        public void SetImageWhoShooter(WhoShoot whoShoot)
+        {
+            Bitmap bitmap;
+
+            if (whoShoot == WhoShoot.player)
+            {
+                bitmap = new Bitmap(Properties.Resources.player_shoots);
+            }
+            else
+            {
+                bitmap = new Bitmap(Properties.Resources.enemy_shoots);
+            }
+
+            _whoShoot.BackColor = Color.Transparent;
+            _whoShoot.SizeMode = PictureBoxSizeMode.AutoSize;
+            _whoShoot.Image = bitmap;
+            _whoShoot.Location = new Point(473, 287);
+            _parent.Controls.Add(_whoShoot);
         }
     }
 }

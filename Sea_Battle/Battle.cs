@@ -75,10 +75,12 @@ namespace Sea_Battle
                         _enemyField.ArrayField[i, j]._p2.X >= HitLocation.X &&
                         _enemyField.ArrayField[i, j]._p2.Y >= HitLocation.Y)
                     {
-                        _row = i;
-                        _col = j;
-                        //_parent.Text = _row + " " + _col;
-                        return true;
+                        if (_enemyField.ArrayField[i, j]._value >= 0)
+                        {
+                            _row = i;
+                            _col = j;
+                            return true;
+                        }
                     }
                 }
             }
@@ -168,6 +170,7 @@ namespace Sea_Battle
         {
             ChangeShooter();
             IsCanPressed = true;
+            _drawImage.SetImageWhoShooter(Shooter);
 
             if (Shooter == WhoShoot.enemy)
             {

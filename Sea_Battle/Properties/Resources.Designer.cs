@@ -163,6 +163,16 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap enemy_shoots {
+            get {
+                object obj = ResourceManager.GetObject("enemy_shoots", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap green_square {
             get {
                 object obj = ResourceManager.GetObject("green_square", resourceCulture);
@@ -206,6 +216,16 @@ namespace Sea_Battle.Properties {
         internal static System.Drawing.Bitmap one_field {
             get {
                 object obj = ResourceManager.GetObject("one_field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap player_shoots {
+            get {
+                object obj = ResourceManager.GetObject("player_shoots", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
