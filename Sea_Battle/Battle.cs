@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Timer = System.Windows.Forms.Timer;
+using NLog;
 
 namespace Sea_Battle
 {
@@ -21,11 +23,15 @@ namespace Sea_Battle
         CreatePlayingField _enemyField;
         DrawImage _drawImage;
         MainForm _parent;
+        Timer _startEnemyShoots;
+        int _index;
         int _row;
         int _col;
         public WhoShoot Shooter { get; set; }
         public Point HitLocation { get; set; }
         public bool IsCanPressed { get; set; }
+        int x = 0;
+        public Logger _logger;
 
         public Battle(MainForm parent,
             CreateFleetOfShips playerFleet,
@@ -43,6 +49,20 @@ namespace Sea_Battle
 
             Shooter = WhoShoot.player;
             IsCanPressed = true;
+
+            _startEnemyShoots = new Timer();
+            _startEnemyShoots.Interval = 1000;
+            _startEnemyShoots.Tick += new EventHandler(EnemyShoots);
+
+            _logger = LogManager.GetCurrentClassLogger();
+        }
+
+        private void EnemyShoots(object? sender, EventArgs e)
+        {
+            _startEnemyShoots.Stop();
+
+            EnemyFiringIndexes();
+            Fire();
         }
         public bool IsConvertHitLocationToIndexes()
         {
@@ -57,6 +77,7 @@ namespace Sea_Battle
                     {
                         _row = i;
                         _col = j;
+                        //_parent.Text = _row + " " + _col;
                         return true;
                     }
                 }
@@ -82,11 +103,8 @@ namespace Sea_Battle
             if (WhereDidHit(field) == 0) // промах
             {
                 Point point = field.ArrayField[_row, _col]._p1;
-                _drawImage.SetRockerAnimation(point);
+                _drawImage.SetRocketAnimation(point);
                 field.ArrayField[_row, _col]._value = -1;
-
-                //ChangeShooter();
-                //IsCanPressed = true;
             }
             else if (WhereDidHit(field) > 0) // попал
             {
@@ -95,15 +113,15 @@ namespace Sea_Battle
 
                 field.ArrayField[_row, _col]._value = -1;
                 fleet.ArrayShips[field.ArrayField[_row, _col]._index].Health -= 1;
-                int index = field.ArrayField[_row, _col]._index;
+                _index = field.ArrayField[_row, _col]._index;
                 TestSave();
 
-                if (fleet.ArrayShips[index].Health == 0)
+                if (fleet.ArrayShips[_index].Health == 0)
                 {
                     fleet.ArrayShips[field.ArrayField[_row, _col]._index].IsDead = true;
 
-                    _drawImage.ShipIsDead(fleet, field, index);
-                    _drawImage.SetImageRocketAroundShip(fleet, field, index);
+                    _drawImage.ShipIsDead(fleet, field, _index);
+                    _drawImage.SetImageRocketAroundShip(fleet, field, _index);
                 }
             }
         }
@@ -120,7 +138,7 @@ namespace Sea_Battle
                 _row = random.Next(0, 10);
                 _col = random.Next(0, 10);
 
-                if (_enemyField.ArrayField[_row, _col]._value >= 0)
+                if (_playerField.ArrayField[_row, _col]._value >= 0)
                 {
                     break;
                 }
@@ -135,6 +153,25 @@ namespace Sea_Battle
             else
             {
                 Shooter = WhoShoot.player;
+            }
+        }
+        public void RepeatedShoot()
+        {
+            IsCanPressed = true;
+
+            if (Shooter == WhoShoot.enemy)
+            {
+                _startEnemyShoots.Start();
+            }
+        }
+        public void StartEnemyShoots()
+        {
+            ChangeShooter();
+            IsCanPressed = true;
+
+            if (Shooter == WhoShoot.enemy)
+            {
+                _startEnemyShoots.Start();
             }
         }
         public void TestSave()

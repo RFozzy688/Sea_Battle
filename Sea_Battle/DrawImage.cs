@@ -16,8 +16,12 @@ namespace Sea_Battle
         public Image image;
         public Point point;
     }
+    public delegate void FinishRocketAnimationDelegat();
+    public delegate void FinishExplosionAnimationDelegat();
     internal class DrawImage : Form
     {
+        public event FinishRocketAnimationDelegat FinishRocketAnimationEvent;
+        public event FinishExplosionAnimationDelegat FinishExplosionAnimationEvent;
         List<Picture> _drawPicture;
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
         MainForm _parent;
@@ -38,29 +42,41 @@ namespace Sea_Battle
             _tempPictureRocket = new List<Picture>();
 
             _deleteRocketAnimation = new Timer();
-            _deleteRocketAnimation.Enabled = false;
             _deleteRocketAnimation.Tick += new EventHandler(DeleteRocketAnimation);
 
             _deleteExplosionAnimation = new Timer();
-            _deleteExplosionAnimation.Enabled = false;
             _deleteExplosionAnimation.Tick += new EventHandler(DeleteExplosionAnimation);
 
             _isDead = false;
         }
 
+        public void FinishRocketAnimation()
+        {
+            if (FinishRocketAnimationEvent != null)
+            {
+                FinishRocketAnimationEvent();
+            }
+        }
+        public void FinishExplosionAnimation()
+        {
+            if (FinishExplosionAnimationEvent != null)
+            {
+                FinishExplosionAnimationEvent();
+            }
+        }
         private void DeleteRocketAnimation(object? sender, EventArgs e)
         {
-            _deleteRocketAnimation.Enabled = false;
             _deleteRocketAnimation.Stop();
 
             _animation.Dispose();
 
             SetImageRocket(_imagePosition);
             AddImageToList();
+
+            FinishRocketAnimation();
         }
         private void DeleteExplosionAnimation(object? sender, EventArgs e)
         {
-            _deleteExplosionAnimation.Enabled = false;
             _deleteExplosionAnimation.Stop();
 
             _animation.Dispose();
@@ -79,6 +95,7 @@ namespace Sea_Battle
             }
 
             //BattleRef.IsCanPressed = true;
+            FinishExplosionAnimation();
         }
         private void ImagesOnField_Paint(object? sender, PaintEventArgs e)
         {
@@ -139,7 +156,7 @@ namespace Sea_Battle
 
             return point;
         }
-        public void SetRockerAnimation(Point point)
+        public void SetRocketAnimation(Point point)
         {
             point = GetPoint(point); // отодвинем от края сетки
             _imagePosition = point;
@@ -152,7 +169,6 @@ namespace Sea_Battle
             _animation.Location = point;
             _parent.Controls.Add(_animation);
 
-            _deleteRocketAnimation.Enabled = true;
             _deleteRocketAnimation.Interval = 1040;
             _deleteRocketAnimation.Start();
         }
@@ -169,7 +185,6 @@ namespace Sea_Battle
             _animation.Location = new Point(point.X + 20 - bitmap.Width / 2, point.Y + 21 - bitmap.Height / 2);
             _parent.Controls.Add(_animation);
 
-            _deleteExplosionAnimation.Enabled = true;
             _deleteExplosionAnimation.Interval = 1050;
             _deleteExplosionAnimation.Start();
         }
@@ -237,6 +252,8 @@ namespace Sea_Battle
                                 point = GetPoint(point);
                                 SetImageRocket(point);
                                 AddImageRocketToTempList();
+
+                                field.ArrayField[i, j]._value = -1;
                             }
                         }
                         j = temp_j;
@@ -268,6 +285,8 @@ namespace Sea_Battle
                                 point = GetPoint(point);
                                 SetImageRocket(point);
                                 AddImageRocketToTempList();
+
+                                field.ArrayField[i, j]._value = -1;
                             }
                         }
                         j = temp_j;
