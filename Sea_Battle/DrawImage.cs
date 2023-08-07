@@ -34,7 +34,6 @@ namespace Sea_Battle
         bool _isDead; // корабыль уничтожен
         Point _imagePosition; // позиция отрисовки картинки промаха или попадания
         public WhoShoot WhoShot { get; set; }
-        public Battle BattleRef { get; set; }
         public DrawImage(MainForm parent)
         {
             _parent = parent;
@@ -52,7 +51,6 @@ namespace Sea_Battle
 
             _whoShoot = new PictureBox();
         }
-
         public void FinishRocketAnimation()
         {
             if (FinishRocketAnimationEvent != null)
@@ -73,7 +71,7 @@ namespace Sea_Battle
 
             _animation.Dispose();
 
-            SetImageRocket(_imagePosition);
+            InitializeStructPicture(_imagePosition, new Bitmap(Properties.Resources.mimo_finish));
             AddImageToList();
 
             FinishRocketAnimation();
@@ -84,7 +82,7 @@ namespace Sea_Battle
 
             _animation.Dispose();
 
-            SetImageRedCross(_imagePosition);
+            InitializeStructPicture(_imagePosition, new Bitmap(Properties.Resources.red_cross));
             AddImageToList();
 
             if (_isDead)
@@ -191,9 +189,9 @@ namespace Sea_Battle
             _deleteExplosionAnimation.Interval = 1050;
             _deleteExplosionAnimation.Start();
         }
-        private void SetImageRocket(Point point)
+        private void InitializeStructPicture(Point point, Bitmap bitmap)
         {
-            _picture.image = new Bitmap(Properties.Resources.mimo_finish);
+            _picture.image = bitmap;
             _picture.point = point;
         }
         private void SetImageRedCross(Point point)
@@ -253,7 +251,7 @@ namespace Sea_Battle
                             { 
                                 Point point = field.ArrayField[i, j]._p1;
                                 point = GetPoint(point);
-                                SetImageRocket(point);
+                                InitializeStructPicture(point, new Bitmap(Properties.Resources.mimo_finish));
                                 AddImageRocketToTempList();
 
                                 field.ArrayField[i, j]._value = -1;
@@ -286,7 +284,7 @@ namespace Sea_Battle
                             {
                                 Point point = field.ArrayField[i, j]._p1;
                                 point = GetPoint(point);
-                                SetImageRocket(point);
+                                InitializeStructPicture(point, new Bitmap(Properties.Resources.mimo_finish));
                                 AddImageRocketToTempList();
 
                                 field.ArrayField[i, j]._value = -1;
