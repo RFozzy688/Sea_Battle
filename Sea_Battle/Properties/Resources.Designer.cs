@@ -73,6 +73,26 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bg_clear {
+            get {
+                object obj = ResourceManager.GetObject("bg_clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bg_clear_2 {
+            get {
+                object obj = ResourceManager.GetObject("bg_clear_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap boat {
             get {
                 object obj = ResourceManager.GetObject("boat", resourceCulture);
@@ -183,6 +203,16 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap left_field {
+            get {
+                object obj = ResourceManager.GetObject("left_field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mimo_finish {
             get {
                 object obj = ResourceManager.GetObject("mimo_finish", resourceCulture);
@@ -251,12 +281,32 @@ namespace Sea_Battle.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap right_field {
+            get {
+                object obj = ResourceManager.GetObject("right_field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         internal static byte[] seabattle {
             get {
                 object obj = ResourceManager.GetObject("seabattle", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_plane_2 {
+            get {
+                object obj = ResourceManager.GetObject("ship_plane_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

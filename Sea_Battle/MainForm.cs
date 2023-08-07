@@ -20,20 +20,21 @@ namespace Sea_Battle
             InitializeComponent();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            this.BackgroundImage = new Bitmap(Properties.Resources.one_field);
+            this.BackgroundImage = new Bitmap(Properties.Resources.bg_clear_2);
+
 
             _playerFleet = new CreateFleetOfShips(this);
             _playerField = new CreatePlayingField();
             _playerShipsPosition = new ManualPositioningOfShips(this, _playerFleet, _playerField);
 
-            _playerField.CreateField(new Point(23, 140), new Point(66, 183));
-            _playerFleet.CreateShips(new Point(540, 140), 43, true, _playerShipsPosition);
+            _playerField.CreateField(new Point(23, 142), new Point(66, 185));
+            _playerFleet.CreateShips(new Point(540, 142), 43, true, _playerShipsPosition);
 
             _enemyFleet = new CreateFleetOfShips(this);
             _enemyField = new CreatePlayingField();
             _enemyShipsPosition = new AutomaticPositioningOfShips(_enemyFleet, _enemyField);
 
-            _enemyField.CreateField(new Point(540, 140), new Point(583, 183));
+            _enemyField.CreateField(new Point(540, 142), new Point(583, 185));
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
             _drawImage = new DrawImage(this);
@@ -70,7 +71,7 @@ namespace Sea_Battle
                 }
             }
 
-           
+
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)
