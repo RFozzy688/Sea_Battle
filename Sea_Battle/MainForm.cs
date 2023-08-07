@@ -38,7 +38,8 @@ namespace Sea_Battle
 
             _drawImage = new DrawImage(this);
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
-            _drawImage.BattleRef = _battle;
+            _drawImage.FinishRocketAnimationEvent += _battle.StartEnemyShoots;
+            _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
 
             _embededFont = new EmbededFont();
 
@@ -58,7 +59,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_battle.Shooter == WhoShoot.player/* && _battle.IsCanPressed*/)
+            if (_battle.Shooter == WhoShoot.player && _battle.IsCanPressed)
             {
                 _battle.HitLocation = e.Location;
 
@@ -69,11 +70,7 @@ namespace Sea_Battle
                 }
             }
 
-            //while (_battle.Shooter == WhoShoot.enemy)
-            //{
-            //    _battle.EnemyFiringIndexes();
-            //    _battle.Fire();
-            //}
+           
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)
@@ -115,7 +112,7 @@ namespace Sea_Battle
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
 
             //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
-            _enemyShipsPosition.TestSave();
+            _playerShipsPosition.TestSave();
         }
         private void BtnBackReleased(object sender, MouseEventArgs e)
         {
