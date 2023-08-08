@@ -16,6 +16,7 @@ namespace Sea_Battle
         DrawImage _drawImage;
         Battle _battle;
         EmbededFont _embededFont;
+        GameStatistics _gameStatistics;
 
         bool _isBtnInBattlePressed;
         public Color ColorText { get; }
@@ -51,6 +52,7 @@ namespace Sea_Battle
             _embededFont = new EmbededFont();
             _drawImage = new DrawImage(this);
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
+            _gameStatistics = new GameStatistics(this);
 
             _drawImage.FinishRocketAnimationEvent += _battle.StartEnemyShoots;
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
@@ -210,6 +212,11 @@ namespace Sea_Battle
                 _drawImage.AddImageToList();
                 _drawImage.AddTextToList("œŒ–¿∆≈Õ»≈", new Point(350, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
             }
+
+            _gameStatistics.Winner(_battle.Winner);
+            _drawImage.AddTextToList(_gameStatistics.GetBattleTotal(), new Point(20, 108), _embededFont.CreateFont(30.0f, FontStyle.Bold));
+            _drawImage.AddTextToList(_gameStatistics.GetCountPlayerWin(), new Point(20, 150), _embededFont.CreateFont(30.0f, FontStyle.Bold));
+            _drawImage.AddTextToList(_gameStatistics.GetCountEnemyWin(), new Point(20, 195), _embededFont.CreateFont(30.0f, FontStyle.Bold));
         }
 
         private void BtnContinueReleased(object sender, MouseEventArgs e)
