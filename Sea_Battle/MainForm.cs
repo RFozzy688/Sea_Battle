@@ -214,9 +214,12 @@ namespace Sea_Battle
             }
 
             _gameStatistics.Winner(_battle.Winner);
+
             _drawImage.AddTextToList(_gameStatistics.GetBattleTotal(), new Point(20, 108), _embededFont.CreateFont(30.0f, FontStyle.Bold));
             _drawImage.AddTextToList(_gameStatistics.GetCountPlayerWin(), new Point(20, 150), _embededFont.CreateFont(30.0f, FontStyle.Bold));
             _drawImage.AddTextToList(_gameStatistics.GetCountEnemyWin(), new Point(20, 195), _embededFont.CreateFont(30.0f, FontStyle.Bold));
+
+            _gameStatistics.SaveStats();
         }
 
         private void BtnContinueReleased(object sender, MouseEventArgs e)
