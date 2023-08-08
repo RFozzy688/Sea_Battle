@@ -26,14 +26,13 @@ namespace Sea_Battle
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
         MainForm _parent;
         PictureBox _animation; // box для анимации промаха и попадания
-        PictureBox _whoShoot;
         Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
         Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
         Picture _picture; // картинки промаха и попадания
         Picture _pictureShip; // картинки кораблей
         bool _isDead; // корабыль уничтожен
         Point _imagePosition; // позиция отрисовки картинки промаха или попадания
-        public EnumPlayers WhoShot { get; set; }
+        public PictureBox WhoShoot { get; set; } // показывает чей сейчас ход
         public DrawImage(MainForm parent)
         {
             _parent = parent;
@@ -49,7 +48,7 @@ namespace Sea_Battle
 
             _isDead = false;
 
-            _whoShoot = new PictureBox();
+            WhoShoot = new PictureBox();
         }
         public void FinishRocketAnimation()
         {
@@ -98,7 +97,7 @@ namespace Sea_Battle
             //BattleRef.IsCanPressed = true;
             FinishExplosionAnimation();
         }
-        private void ImagesOnField_Paint(object? sender, PaintEventArgs e)
+        public void ImagesOnField_Paint(object? sender, PaintEventArgs e)
         {
             foreach (var item in _drawPicture)
             {
@@ -295,11 +294,18 @@ namespace Sea_Battle
                 bitmap = new Bitmap(Properties.Resources.enemy_shoots);
             }
 
-            _whoShoot.BackColor = Color.Transparent;
-            _whoShoot.SizeMode = PictureBoxSizeMode.AutoSize;
-            _whoShoot.Image = bitmap;
-            _whoShoot.Location = new Point(473, 287);
-            _parent.Controls.Add(_whoShoot);
+            WhoShoot.BackColor = Color.Transparent;
+            WhoShoot.SizeMode = PictureBoxSizeMode.AutoSize;
+            WhoShoot.Image = bitmap;
+            WhoShoot.Location = new Point(473, 287);
+            _parent.Controls.Add(WhoShoot);
+        }
+        public void ClearBackground()
+        {
+            Graphics g = _parent.CreateGraphics();
+            g.Clear(Color.FromArgb(169, 94, 19));
+            Bitmap bitmap = new Bitmap(Properties.Resources.bg_clear);
+            _parent.BackgroundImage = bitmap;
         }
     }
 }

@@ -34,6 +34,7 @@
             BtnNext = new Button();
             BtnBack = new PictureBox();
             BtnToBattle = new Button();
+            BtnContinue = new Button();
             ((System.ComponentModel.ISupportInitialize)BtnRotation).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnBack).BeginInit();
             SuspendLayout();
@@ -127,12 +128,35 @@
             BtnToBattle.MouseDown += BtnToBattlePressed;
             BtnToBattle.MouseUp += BtnToBattleReleased;
             // 
+            // BtnContinue
+            // 
+            BtnContinue.BackColor = Color.Transparent;
+            BtnContinue.BackgroundImage = Properties.Resources.btn_relesed;
+            BtnContinue.BackgroundImageLayout = ImageLayout.Center;
+            BtnContinue.CausesValidation = false;
+            BtnContinue.FlatAppearance.BorderSize = 0;
+            BtnContinue.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            BtnContinue.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            BtnContinue.FlatStyle = FlatStyle.Flat;
+            BtnContinue.ForeColor = SystemColors.ControlText;
+            BtnContinue.Location = new Point(789, 16);
+            BtnContinue.Name = "BtnContinue";
+            BtnContinue.Size = new Size(212, 76);
+            BtnContinue.TabIndex = 8;
+            BtnContinue.TabStop = false;
+            BtnContinue.Text = "Далее...";
+            BtnContinue.UseCompatibleTextRendering = true;
+            BtnContinue.UseVisualStyleBackColor = true;
+            BtnContinue.MouseDown += BtnContinuePressed;
+            BtnContinue.MouseUp += BtnContinueReleased;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1024, 603);
+            Controls.Add(BtnContinue);
             Controls.Add(BtnToBattle);
             Controls.Add(BtnBack);
             Controls.Add(BtnNext);
@@ -154,5 +178,6 @@
         public Button BtnNext;
         private PictureBox BtnBack;
         public Button BtnToBattle;
+        public Button BtnContinue;
     }
 }

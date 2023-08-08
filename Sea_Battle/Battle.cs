@@ -16,8 +16,12 @@ namespace Sea_Battle
         player,
         enemy
     }
+    
     internal class Battle
     {
+        public delegate void EndBattleDelegat();
+        public event EndBattleDelegat EndBattleEvent;
+
         CreateFleetOfShips _playerFleet;
         CreatePlayingField _playerField;
         CreateFleetOfShips _enemyFleet;
@@ -28,6 +32,8 @@ namespace Sea_Battle
         int _index;
         int _row;
         int _col;
+        EnumPlayers _winner;
+        bool _isEndBattle;
         public bool IsBtnInBattlePressed { get; set; }
         public EnumPlayers Shooter { get; set; }
         public Point HitLocation { get; set; }
@@ -90,6 +96,8 @@ namespace Sea_Battle
         }
         public void Fire()
         {
+            _isEndBattle = true;
+
             CreatePlayingField field;
             CreateFleetOfShips fleet;
 
@@ -126,6 +134,8 @@ namespace Sea_Battle
 
                     _drawImage.ShipIsDead(fleet, field, _index);
                     _drawImage.SetImageRocketAroundShip(fleet, field, _index);
+
+                    //_isEndBattle = IsEndBattle();
                 }
             }
         }
@@ -161,6 +171,14 @@ namespace Sea_Battle
         }
         public void RepeatedShoot()
         {
+            if (_isEndBattle)
+            {
+                _winner = Shooter;
+                _parent.Text = _winner.ToString();
+                EndBattle();
+                return;
+            }
+
             IsCanPressed = true;
 
             if (Shooter == EnumPlayers.enemy)
@@ -191,6 +209,43 @@ namespace Sea_Battle
             {
                 return EnumPlayers.enemy;
             }
+        }
+        private bool IsEndBattle()
+        {
+            CreateFleetOfShips fleet;
+            int countDeadShips = 0;
+
+            if (Shooter == EnumPlayers.player)
+            {
+                fleet = _enemyFleet;
+            }
+            else
+            {
+                fleet = _playerFleet;
+            }
+
+            foreach (var ship in fleet.ArrayShips)
+            {
+                if (ship.IsDead)
+                {
+                    countDeadShips++;
+                }
+            }
+
+            if (countDeadShips == 10)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void EndBattle()
+        {
+            EndBattleEvent();
+
+            _drawImage.WhoShoot.Dispose();
         }
         public void TestSave()
         {
