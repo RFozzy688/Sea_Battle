@@ -17,19 +17,22 @@ namespace Sea_Battle
         Battle _battle;
         EmbededFont _embededFont;
 
+        bool _isBtnInBattlePressed;
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
         public MainForm()
         {
             InitializeComponent();
+
             ColorText = Color.FromArgb(38, 42, 182);
             ColorBG = Color.FromArgb(169, 94, 19);
+
+            _isBtnInBattlePressed = false;
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             this.BackgroundImage = new Bitmap(Properties.Resources.bg_clear);
             this.BackColor = ColorBG;
-
 
             _playerFleet = new CreateFleetOfShips(this);
             _playerField = new CreatePlayingField();
@@ -46,7 +49,7 @@ namespace Sea_Battle
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
             _embededFont = new EmbededFont();
-            _drawImage = new DrawImage(this, _embededFont);
+            _drawImage = new DrawImage(this);
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
 
             _drawImage.FinishRocketAnimationEvent += _battle.StartEnemyShoots;
@@ -83,7 +86,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_battle.Shooter == EnumPlayers.player && _battle.IsCanPressed && _battle.IsBtnInBattlePressed)
+            if (_battle.Shooter == EnumPlayers.player && _battle.IsCanPressed && _isBtnInBattlePressed)
             {
                 _battle.HitLocation = e.Location;
 
@@ -154,6 +157,13 @@ namespace Sea_Battle
             _enemyShipsPosition.SetShipOnField();
             _enemyShipsPosition.SetImageShipOnField();
 
+            if (!_playerShipsPosition.AreAllShipsOnField())
+            {
+                _playerShipsPosition.ClearField();
+                _playerShipsPosition.SetShipOnField();
+                _playerShipsPosition.SetImageShipOnField();
+            }
+
             _drawImage.InitializeStructPicture(new Point(520, 109), new Bitmap(Properties.Resources.right_field));
             _drawImage.AddImageToList();
 
@@ -161,7 +171,7 @@ namespace Sea_Battle
 
             _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
 
-            _battle.IsBtnInBattlePressed = true;
+            _isBtnInBattlePressed = true;
             _battle.Shooter = _battle.WhoFirstShoots();
 
             if (_battle.Shooter == EnumPlayers.enemy)

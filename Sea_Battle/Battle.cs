@@ -34,7 +34,6 @@ namespace Sea_Battle
         int _col;
         public EnumPlayers Winner { get; set; }
         bool _isEndBattle;
-        public bool IsBtnInBattlePressed { get; set; }
         public EnumPlayers Shooter { get; set; }
         public Point HitLocation { get; set; }
         public bool IsCanPressed { get; set; }
@@ -59,8 +58,6 @@ namespace Sea_Battle
             _startEnemyShoots = new Timer();
             _startEnemyShoots.Interval = 1000;
             _startEnemyShoots.Tick += new EventHandler(EnemyShoots);
-
-            IsBtnInBattlePressed = false;
 
             _logger = LogManager.GetCurrentClassLogger();
             Winner = EnumPlayers.enemy;

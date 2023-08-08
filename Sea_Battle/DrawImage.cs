@@ -32,7 +32,6 @@ namespace Sea_Battle
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
         List<TextOnField> _drawText;
         MainForm _parent;
-        EmbededFont _font;
         PictureBox _animation; // box для анимации промаха и попадания
         Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
         Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
@@ -42,10 +41,9 @@ namespace Sea_Battle
         bool _isDead; // корабыль уничтожен
         Point _imagePosition; // позиция отрисовки картинки промаха или попадания
         public PictureBox WhoShoot { get; set; } // показывает чей сейчас ход
-        public DrawImage(MainForm parent, EmbededFont font)
+        public DrawImage(MainForm parent)
         {
             _parent = parent;
-            _font = font;
 
             _parent.Paint += new PaintEventHandler(ImagesOnField_Paint);
             _parent.Paint += new PaintEventHandler(DrawTextOnField_Paint);
@@ -63,7 +61,6 @@ namespace Sea_Battle
             _isDead = false;
 
             WhoShoot = new PictureBox();
-            _font = font;
         }
 
         public void FinishRocketAnimation()

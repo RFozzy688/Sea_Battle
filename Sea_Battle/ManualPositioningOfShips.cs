@@ -200,6 +200,18 @@ namespace Sea_Battle
                 ShipRef._shipPositioning = ShipPositioning.Horizontal;
             }
         }
+        // проверяет все ли корабли расставлены на поле у игрока
+        public bool AreAllShipsOnField()
+        {
+            foreach (var item in _fleetRef.ArrayShips)
+            {
+                if (item.IndexRow == -1 || item.IndexCol == -1)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
 
 
