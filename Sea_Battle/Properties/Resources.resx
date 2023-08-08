@@ -157,6 +157,12 @@
   <data name="green_square" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\green_square.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="img_loss" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_loss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_win" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_win.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="left_field" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\left_field.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

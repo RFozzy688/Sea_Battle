@@ -35,5 +35,9 @@ namespace Sea_Battle
             _btnFontPressed = new Font(fonts.Families[0], 26.0F, FontStyle.Bold, GraphicsUnit.Point);
             _btnFontReleased = new Font(fonts.Families[0], 30.0F, FontStyle.Bold, GraphicsUnit.Point);
         }
+        public Font CreateFont(float size, FontStyle style)
+        {
+            return new Font(fonts.Families[0], size, style, GraphicsUnit.Point);
+        }
     }
 }

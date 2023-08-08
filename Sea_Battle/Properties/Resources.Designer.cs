@@ -193,6 +193,26 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap img_loss {
+            get {
+                object obj = ResourceManager.GetObject("img_loss", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap img_win {
+            get {
+                object obj = ResourceManager.GetObject("img_win", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap left_field {
             get {
                 object obj = ResourceManager.GetObject("left_field", resourceCulture);

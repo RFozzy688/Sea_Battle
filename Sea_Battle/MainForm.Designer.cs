@@ -162,6 +162,8 @@
             Controls.Add(BtnNext);
             Controls.Add(BtnAuto);
             Controls.Add(BtnRotation);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

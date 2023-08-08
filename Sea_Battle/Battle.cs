@@ -32,7 +32,7 @@ namespace Sea_Battle
         int _index;
         int _row;
         int _col;
-        EnumPlayers _winner;
+        public EnumPlayers Winner { get; set; }
         bool _isEndBattle;
         public bool IsBtnInBattlePressed { get; set; }
         public EnumPlayers Shooter { get; set; }
@@ -63,6 +63,7 @@ namespace Sea_Battle
             IsBtnInBattlePressed = false;
 
             _logger = LogManager.GetCurrentClassLogger();
+            Winner = EnumPlayers.enemy;
         }
 
         public void EnemyShoots(object? sender, EventArgs e)
@@ -173,8 +174,8 @@ namespace Sea_Battle
         {
             if (_isEndBattle)
             {
-                _winner = Shooter;
-                _parent.Text = _winner.ToString();
+                Winner = Shooter;
+                _parent.Text = Winner.ToString();
                 EndBattle();
                 return;
             }

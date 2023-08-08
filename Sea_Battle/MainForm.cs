@@ -39,14 +39,14 @@ namespace Sea_Battle
             _enemyField.CreateField(new Point(540, 142), new Point(583, 185));
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
-            _drawImage = new DrawImage(this);
+            _embededFont = new EmbededFont();
+            _drawImage = new DrawImage(this, _embededFont);
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
+
             _drawImage.FinishRocketAnimationEvent += _battle.StartEnemyShoots;
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
             _drawImage.InitializeStructPicture(new Point(1, 109), new Bitmap(Properties.Resources.left_field));
             _drawImage.AddImageToList();
-
-            _embededFont = new EmbededFont();
 
             BtnAuto.Font = _embededFont.GetBtnFontReleased();
             BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
@@ -59,7 +59,7 @@ namespace Sea_Battle
 
             BtnContinue.Font = _embededFont.GetBtnFontReleased();
             BtnContinue.ForeColor = Color.FromArgb(38, 42, 182);
-            BtnContinue.Hide();
+            //BtnContinue.Hide();
 
             _battle.EndBattleEvent += EndBattle;
         }
@@ -72,7 +72,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            //Text = e.X + " " + e.Y;
+            Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -179,8 +179,19 @@ namespace Sea_Battle
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
 
             // отключаем отрисовку изображений на поле
-            this.Paint -= _drawImage.ImagesOnField_Paint;
+            _drawImage.ClearListDrawPicture();
             _drawImage.ClearBackground();
+
+            if (_battle.Winner == EnumPlayers.player)
+            {
+                _drawImage.InitializeStructPicture(new Point(121, 128), new Bitmap(Properties.Resources.img_win));
+                _drawImage.AddImageToList();
+            }
+            else
+            {
+                _drawImage.InitializeStructPicture(new Point(3, 128), new Bitmap(Properties.Resources.img_loss));
+                _drawImage.AddImageToList();
+            }
         }
 
         private void BtnContinueReleased(object sender, MouseEventArgs e)
