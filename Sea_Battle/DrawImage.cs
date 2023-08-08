@@ -16,6 +16,12 @@ namespace Sea_Battle
         public Image image;
         public Point point;
     }
+    struct TextOnField
+    {
+        public string text;
+        public Point point;
+        public Font font;
+    }
     public delegate void FinishRocketAnimationDelegat();
     public delegate void FinishExplosionAnimationDelegat();
     internal class DrawImage : Form
@@ -24,6 +30,7 @@ namespace Sea_Battle
         public event FinishExplosionAnimationDelegat FinishExplosionAnimationEvent;
         List<Picture> _drawPicture;
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
+        List<TextOnField> _drawText;
         MainForm _parent;
         EmbededFont _font;
         PictureBox _animation; // box для анимации промаха и попадания
@@ -31,18 +38,21 @@ namespace Sea_Battle
         Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
         Picture _picture; // картинки промаха и попадания
         Picture _pictureShip; // картинки кораблей
+        TextOnField _text;
         bool _isDead; // корабыль уничтожен
         Point _imagePosition; // позиция отрисовки картинки промаха или попадания
         public PictureBox WhoShoot { get; set; } // показывает чей сейчас ход
         public DrawImage(MainForm parent, EmbededFont font)
         {
             _parent = parent;
-            //_font = font;
+            _font = font;
 
             _parent.Paint += new PaintEventHandler(ImagesOnField_Paint);
+            _parent.Paint += new PaintEventHandler(DrawTextOnField_Paint);
 
             _drawPicture = new List<Picture>();
             _tempPictureRocket = new List<Picture>();
+            _drawText = new List<TextOnField>();
 
             _deleteRocketAnimation = new Timer();
             _deleteRocketAnimation.Tick += new EventHandler(DeleteRocketAnimation);
@@ -53,7 +63,9 @@ namespace Sea_Battle
             _isDead = false;
 
             WhoShoot = new PictureBox();
+            _font = font;
         }
+
         public void FinishRocketAnimation()
         {
             if (FinishRocketAnimationEvent != null)
@@ -108,6 +120,18 @@ namespace Sea_Battle
                 g.DrawImage(item.image, item.point.X, item.point.Y, item.image.Width, item.image.Height);
             }
         }
+        private void DrawTextOnField_Paint(object? sender, PaintEventArgs e)
+        {
+            SolidBrush colorBrush = new SolidBrush(_parent.ColorText);
+
+            foreach (var item in _drawText)
+            {
+                Graphics g = e.Graphics;
+                g.DrawString(item.text, item.font, colorBrush, item.point);
+            }
+
+            colorBrush.Dispose();
+        }
         public void AddPlayerShipsToList(CreateFleetOfShips fleet, CreatePlayingField field)
         {
             for (int i = 0; i < fleet.CountShips; i++)
@@ -127,6 +151,15 @@ namespace Sea_Battle
         public void AddImageToList()
         {
             _drawPicture.Add(_picture);
+            _parent.Invalidate();
+        }
+        public void AddTextToList(string str, Point point, Font font)
+        {
+            _text.text = str;
+            _text.point = point;
+            _text.font = font;
+
+            _drawText.Add(_text);
             _parent.Invalidate();
         }
         public void AddImageRocketToTempList()
@@ -306,13 +339,17 @@ namespace Sea_Battle
         public void ClearBackground()
         {
             Graphics g = _parent.CreateGraphics();
-            g.Clear(Color.FromArgb(169, 94, 19));
+            g.Clear(_parent.ColorBG);
             Bitmap bitmap = new Bitmap(Properties.Resources.bg_clear);
             _parent.BackgroundImage = bitmap;
         }
         public void ClearListDrawPicture()
         {
             _drawPicture.Clear();
+        }
+        public void ClearListDrawText()
+        {
+            _drawText.Clear();
         }
     }
 }

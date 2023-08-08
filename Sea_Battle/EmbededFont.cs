@@ -19,6 +19,7 @@ namespace Sea_Battle
 
         Font _btnFontPressed;
         Font _btnFontReleased;
+        Font BattleResultFont { get; }
         public Font GetBtnFontPressed() { return _btnFontPressed; }
         public Font GetBtnFontReleased() { return _btnFontReleased; }
 
@@ -34,6 +35,7 @@ namespace Sea_Battle
 
             _btnFontPressed = new Font(fonts.Families[0], 26.0F, FontStyle.Bold, GraphicsUnit.Point);
             _btnFontReleased = new Font(fonts.Families[0], 30.0F, FontStyle.Bold, GraphicsUnit.Point);
+            BattleResultFont = new Font(fonts.Families[0], 60.0F, FontStyle.Bold, GraphicsUnit.Point);
         }
         public Font CreateFont(float size, FontStyle style)
         {

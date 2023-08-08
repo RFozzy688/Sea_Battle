@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Text;
 
 namespace Sea_Battle
@@ -16,13 +17,18 @@ namespace Sea_Battle
         Battle _battle;
         EmbededFont _embededFont;
 
+        public Color ColorText { get; }
+        public Color ColorBG { get; }
+
         public MainForm()
         {
             InitializeComponent();
+            ColorText = Color.FromArgb(38, 42, 182);
+            ColorBG = Color.FromArgb(169, 94, 19);
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             this.BackgroundImage = new Bitmap(Properties.Resources.bg_clear);
-            this.BackColor = Color.FromArgb(169, 94, 19);
+            this.BackColor = ColorBG;
 
 
             _playerFleet = new CreateFleetOfShips(this);
@@ -49,16 +55,16 @@ namespace Sea_Battle
             _drawImage.AddImageToList();
 
             BtnAuto.Font = _embededFont.GetBtnFontReleased();
-            BtnAuto.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnAuto.ForeColor = ColorText;
 
             BtnNext.Font = _embededFont.GetBtnFontReleased();
-            BtnNext.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnNext.ForeColor = ColorText;
 
             BtnToBattle.Font = _embededFont.GetBtnFontReleased();
-            BtnToBattle.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnToBattle.ForeColor = ColorText;
 
             BtnContinue.Font = _embededFont.GetBtnFontReleased();
-            BtnContinue.ForeColor = Color.FromArgb(38, 42, 182);
+            BtnContinue.ForeColor = ColorText;
             //BtnContinue.Hide();
 
             _battle.EndBattleEvent += EndBattle;
@@ -184,13 +190,15 @@ namespace Sea_Battle
 
             if (_battle.Winner == EnumPlayers.player)
             {
-                _drawImage.InitializeStructPicture(new Point(121, 128), new Bitmap(Properties.Resources.img_win));
+                _drawImage.InitializeStructPicture(new Point(121, 165), new Bitmap(Properties.Resources.img_win));
                 _drawImage.AddImageToList();
+                _drawImage.AddTextToList("œŒ¡≈ƒ¿", new Point(450, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
             }
             else
             {
-                _drawImage.InitializeStructPicture(new Point(3, 128), new Bitmap(Properties.Resources.img_loss));
+                _drawImage.InitializeStructPicture(new Point(3, 146), new Bitmap(Properties.Resources.img_loss));
                 _drawImage.AddImageToList();
+                _drawImage.AddTextToList("œŒ–¿∆≈Õ»≈", new Point(350, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
             }
         }
 
