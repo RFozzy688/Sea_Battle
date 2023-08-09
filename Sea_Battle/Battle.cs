@@ -28,6 +28,7 @@ namespace Sea_Battle
         CreatePlayingField _enemyField;
         DrawImage _drawImage;
         MainForm _parent;
+        AI _aI;
         Timer _startEnemyShoots;
         int _index;
         int _row;
@@ -44,7 +45,8 @@ namespace Sea_Battle
             CreatePlayingField playerField,
             CreateFleetOfShips enemyFleet,
             CreatePlayingField enemyField,
-            DrawImage drawImage) 
+            DrawImage drawImage,
+            AI aI) 
         {
             _playerFleet = playerFleet;
             _playerField = playerField;
@@ -52,6 +54,7 @@ namespace Sea_Battle
             _enemyField = enemyField;
             _drawImage = drawImage;
             _parent = parent;
+            _aI = aI;
 
             IsCanPressed = true;
 
@@ -60,14 +63,22 @@ namespace Sea_Battle
             _startEnemyShoots.Tick += new EventHandler(EnemyShoots);
 
             _logger = LogManager.GetCurrentClassLogger();
-            Winner = EnumPlayers.enemy;
+            //Winner = EnumPlayers.enemy;
         }
 
         public void EnemyShoots(object? sender, EventArgs e)
         {
             _startEnemyShoots.Stop();
 
-            EnemyFiringIndexes();
+            if (_aI.IsWounded) // если ранен, то пытается добить
+            {
+                _aI.SinkShip(ref _row, ref _col);
+            }
+            else /*if (_aI.IsKilled)*/ // если убит, то AI ищет новые индексы для стрельбы
+            {
+                _aI.EnemyFiringIndexes(ref _row, ref _col);
+            }
+
             Fire();
         }
         public bool IsConvertHitLocationToIndexes()
@@ -81,7 +92,7 @@ namespace Sea_Battle
                         _enemyField.ArrayField[i, j]._p2.X >= HitLocation.X &&
                         _enemyField.ArrayField[i, j]._p2.Y >= HitLocation.Y)
                     {
-                        if (_enemyField.ArrayField[i, j]._value >= 0)
+                        if (_enemyField.ArrayField[i, j]._value != -1)
                         {
                             _row = i;
                             _col = j;
@@ -94,7 +105,7 @@ namespace Sea_Battle
         }
         public void Fire()
         {
-            _isEndBattle = true;
+            //_isEndBattle = true;
 
             CreatePlayingField field;
             CreateFleetOfShips fleet;
@@ -133,30 +144,37 @@ namespace Sea_Battle
                     _drawImage.ShipIsDead(fleet, field, _index);
                     _drawImage.SetImageRocketAroundShip(fleet, field, _index);
 
-                    //_isEndBattle = IsEndBattle();
+                    // если враг потопил корабыль, то сбрасываем переменные в начальные значения
+                    if (Shooter == EnumPlayers.enemy)
+                    {
+                        _aI.IsWounded = false;
+                        _aI.ResetDirectionVariables();
+                    }
+
+                    _isEndBattle = IsEndBattle();
+                }
+                else if (Shooter == EnumPlayers.enemy) // если корабыль подбит и при это стпелял враг
+                {
+                    _aI.NumberOfHits++;
+
+                    if (_aI.NumberOfHits == 1)
+                    {
+                        // сохраняем координаты первого попадания
+                        _aI.RowFirstHit = _row;
+                        _aI.ColFirstHit = _col;
+                    }
+
+                    _aI.IsWounded = true;
+                    _aI.RowHit = _row;
+                    _aI.ColHit = _col;
                 }
             }
         }
-        private int WhereDidHit(CreatePlayingField field)
+        private int WhereDidHit(CreatePlayingField field) // определяем куда попали (в корабыль или пустое место)
         {
             return field.ArrayField[_row, _col]._value;
         }
-        public void EnemyFiringIndexes()
-        {
-            Random random = new Random();
-
-            while (true)
-            {
-                _row = random.Next(0, 10);
-                _col = random.Next(0, 10);
-
-                if (_playerField.ArrayField[_row, _col]._value >= 0)
-                {
-                    break;
-                }
-            }
-        }
-        public void ChangeShooter()
+        public void ChangeShooter() // смена игрока который будет стрелять
         {
             if (Shooter == EnumPlayers.player)
             {
@@ -167,12 +185,11 @@ namespace Sea_Battle
                 Shooter = EnumPlayers.player;
             }
         }
-        public void RepeatedShoot()
+        public void RepeatedShoot() // повторный выстрел врага
         {
-            if (_isEndBattle)
+            if (_isEndBattle) // условие конца игры
             {
-                Winner = Shooter;
-                _parent.Text = Winner.ToString();
+                Winner = Shooter; // определяем победителя
                 EndBattle();
                 return;
             }
@@ -181,21 +198,30 @@ namespace Sea_Battle
 
             if (Shooter == EnumPlayers.enemy)
             {
+                // враг стреляет с задержкой в 1 секунду
                 _startEnemyShoots.Start();
             }
         }
-        public void StartEnemyShoots()
+        public void TransitionOfMoveInGame() // переход хода в игре после промаха любого игрока
         {
-            ChangeShooter();
-            IsCanPressed = true;
-            _drawImage.SetImageWhoShooter(Shooter);
+            if (Shooter == EnumPlayers.enemy && _aI.NumberOfHits >= 2)
+            {
+                // фиксируем промах после 2-х или более попаданий врага для смены направления стрельбы
+                _aI.IsOutTarget = true;
+            }
 
+            ChangeShooter(); // смена игрока который будет стрелять
+
+            IsCanPressed = true;
+            _drawImage.SetImageWhoShooter(Shooter); // стрелка которая показывает чей ход
+
+            // начало стрельбы врага
             if (Shooter == EnumPlayers.enemy)
             {
                 _startEnemyShoots.Start();
             }
         }
-        public EnumPlayers WhoFirstShoots()
+        public EnumPlayers WhoFirstShoots() // кто начинает игру
         {
             Random random = new Random();
 
@@ -208,7 +234,7 @@ namespace Sea_Battle
                 return EnumPlayers.enemy;
             }
         }
-        private bool IsEndBattle()
+        private bool IsEndBattle() // проверка на завершение игры
         {
             CreateFleetOfShips fleet;
             int countDeadShips = 0;
@@ -239,11 +265,11 @@ namespace Sea_Battle
                 return false;
             }
         }
-        private void EndBattle()
+        private void EndBattle() // диспетчер оповещающий о что игра закончина
         {
-            EndBattleEvent();
+            EndBattleEvent(); // вызов события
 
-            _drawImage.WhoShoot.Dispose();
+            _drawImage.WhoShoot.Dispose(); // удаляем стрелку показа чей ход
         }
         public void TestSave()
         {

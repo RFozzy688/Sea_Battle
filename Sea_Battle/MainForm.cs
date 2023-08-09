@@ -17,6 +17,7 @@ namespace Sea_Battle
         Battle _battle;
         EmbededFont _embededFont;
         GameStatistics _gameStatistics;
+        AI _aI;
 
         bool _isBtnInBattlePressed;
         public Color ColorText { get; }
@@ -51,10 +52,11 @@ namespace Sea_Battle
 
             _embededFont = new EmbededFont();
             _drawImage = new DrawImage(this);
-            _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage);
+            _aI = new AI(this, _playerField);
+            _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage, _aI);
             _gameStatistics = new GameStatistics(this);
 
-            _drawImage.FinishRocketAnimationEvent += _battle.StartEnemyShoots;
+            _drawImage.FinishRocketAnimationEvent += _battle.TransitionOfMoveInGame;
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
             _drawImage.InitializeStructPicture(new Point(1, 109), new Bitmap(Properties.Resources.left_field));
             _drawImage.AddImageToList();
@@ -70,7 +72,7 @@ namespace Sea_Battle
 
             BtnContinue.Font = _embededFont.GetBtnFontReleased();
             BtnContinue.ForeColor = ColorText;
-            //BtnContinue.Hide();
+            BtnContinue.Hide();
 
             _battle.EndBattleEvent += EndBattle;
         }
@@ -83,7 +85,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            Text = e.X + " " + e.Y;
+            //Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -156,9 +158,12 @@ namespace Sea_Battle
             BtnToBattle.Font = _embededFont.GetBtnFontPressed();
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
 
+            // растановка кораблей врага в рандомном порядке
             _enemyShipsPosition.SetShipOnField();
             _enemyShipsPosition.SetImageShipOnField();
 
+            // если игрок не раставил все свои корабли и нажал кнопку "В бой"
+            // то корабли раставятся в рандомном порядке
             if (!_playerShipsPosition.AreAllShipsOnField())
             {
                 _playerShipsPosition.ClearField();
@@ -166,16 +171,19 @@ namespace Sea_Battle
                 _playerShipsPosition.SetImageShipOnField();
             }
 
+            HideButtons();
+
+            // отрисовка игрового поля врага
             _drawImage.InitializeStructPicture(new Point(520, 109), new Bitmap(Properties.Resources.right_field));
             _drawImage.AddImageToList();
 
-            HideButtons();
-
+            // отрисовка кораблей игрока на поле
             _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
 
-            _isBtnInBattlePressed = true;
-            _battle.Shooter = _battle.WhoFirstShoots();
+            _isBtnInBattlePressed = true; // кнопка в бой была нажата
+            _battle.Shooter = _battle.WhoFirstShoots(); // выбор первого хода
 
+            // если враг игру начинает первым
             if (_battle.Shooter == EnumPlayers.enemy)
             {
                 _battle.EnemyShoots(null, null);
@@ -196,29 +204,37 @@ namespace Sea_Battle
             BtnContinue.Font = _embededFont.GetBtnFontPressed();
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
 
-            // отключаем отрисовку изображений на поле
+            // отключаем отрисовку изображений на поле, т.е. обнуляем список с предыдущими изображениями
+            // кораблей и т. д. они нам больше не нужны
             _drawImage.ClearListDrawPicture();
             _drawImage.ClearBackground();
 
             if (_battle.Winner == EnumPlayers.player)
             {
+                // отрисовка финального изображения
                 _drawImage.InitializeStructPicture(new Point(121, 165), new Bitmap(Properties.Resources.img_win));
                 _drawImage.AddImageToList();
+                // отрисовка текста "ПОБЕДА"
                 _drawImage.AddTextToList("ПОБЕДА", new Point(450, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
             }
             else
             {
+                // отрисовка финального изображения
                 _drawImage.InitializeStructPicture(new Point(3, 146), new Bitmap(Properties.Resources.img_loss));
                 _drawImage.AddImageToList();
+                // отрисовка текста "ПОРАЖЕНИЕ"
                 _drawImage.AddTextToList("ПОРАЖЕНИЕ", new Point(350, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
             }
 
+            // фиксируем победителя в классе статистики
             _gameStatistics.Winner(_battle.Winner);
 
+            // отрисовка статистики на финальном экране
             _drawImage.AddTextToList(_gameStatistics.GetBattleTotal(), new Point(20, 108), _embededFont.CreateFont(30.0f, FontStyle.Bold));
             _drawImage.AddTextToList(_gameStatistics.GetCountPlayerWin(), new Point(20, 150), _embededFont.CreateFont(30.0f, FontStyle.Bold));
             _drawImage.AddTextToList(_gameStatistics.GetCountEnemyWin(), new Point(20, 195), _embededFont.CreateFont(30.0f, FontStyle.Bold));
 
+            // сохранение статистики
             _gameStatistics.SaveStats();
         }
 

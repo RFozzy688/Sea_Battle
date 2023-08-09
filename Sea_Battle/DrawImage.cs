@@ -24,13 +24,13 @@ namespace Sea_Battle
     }
     public delegate void FinishRocketAnimationDelegat();
     public delegate void FinishExplosionAnimationDelegat();
-    internal class DrawImage : Form
+    internal class DrawImage /*: Form*/
     {
         public event FinishRocketAnimationDelegat FinishRocketAnimationEvent;
         public event FinishExplosionAnimationDelegat FinishExplosionAnimationEvent;
-        List<Picture> _drawPicture;
+        List<Picture> _drawPicture; // хранение изображений для прорисовки их на поле
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
-        List<TextOnField> _drawText;
+        List<TextOnField> _drawText; // хранение текста для прорисовки его на поле
         MainForm _parent;
         PictureBox _animation; // box для анимации промаха и попадания
         Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
@@ -159,11 +159,11 @@ namespace Sea_Battle
             _drawText.Add(_text);
             _parent.Invalidate();
         }
-        public void AddImageRocketToTempList()
+        public void AddImageRocketToTempList() // отрисовываем ракеты вокруг корабля после завершения анимации взрыва
         {
             _tempPictureRocket.Add(_picture);
         }
-        public void InsertImageShipToList()
+        public void InsertImageShipToList() // вставляем корабыль в начало списка для того чтобы он отрисовывался до изображения красного креста
         {
             _drawPicture.Insert(0, _pictureShip);
             _parent.Invalidate();
@@ -217,8 +217,7 @@ namespace Sea_Battle
             _picture.image = bitmap;
             _picture.point = point;
         }
-        // координата изображения на поле увеличанная по X и Y
-        public Point GetPoint(Point point)
+        public Point GetPoint(Point point) // координата изображения на поле увеличанная по X и Y
         {
             return new Point(point.X + 4, point.Y + 1);
         }
