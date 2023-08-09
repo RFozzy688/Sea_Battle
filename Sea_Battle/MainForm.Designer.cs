@@ -167,6 +167,7 @@
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            MouseDoubleClick += MainForm_MouseDoubleClick;
             MouseDown += MainForm_MouseDown;
             MouseMove += MainForm_MouseMove;
             ((System.ComponentModel.ISupportInitialize)BtnRotation).EndInit();

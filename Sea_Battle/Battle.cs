@@ -105,7 +105,7 @@ namespace Sea_Battle
         }
         public void Fire()
         {
-            //_isEndBattle = true;
+            _isEndBattle = true;
 
             CreatePlayingField field;
             CreateFleetOfShips fleet;
@@ -151,7 +151,7 @@ namespace Sea_Battle
                         _aI.ResetDirectionVariables();
                     }
 
-                    _isEndBattle = IsEndBattle();
+                    //_isEndBattle = IsEndBattle();
                 }
                 else if (Shooter == EnumPlayers.enemy) // если корабыль подбит и при это стпелял враг
                 {
