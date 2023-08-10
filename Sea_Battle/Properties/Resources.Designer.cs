@@ -223,6 +223,16 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap load_screen {
+            get {
+                object obj = ResourceManager.GetObject("load_screen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mimo_finish {
             get {
                 object obj = ResourceManager.GetObject("mimo_finish", resourceCulture);
@@ -256,6 +266,16 @@ namespace Sea_Battle.Properties {
         internal static System.Drawing.Bitmap player_shoots {
             get {
                 object obj = ResourceManager.GetObject("player_shoots", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap progress_bar {
+            get {
+                object obj = ResourceManager.GetObject("progress_bar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

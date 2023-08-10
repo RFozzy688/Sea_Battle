@@ -5,6 +5,8 @@ namespace Sea_Battle
 {
     public partial class MainForm : Form
     {
+        LoadScreen _loadScreen;
+
         CreateFleetOfShips _playerFleet;
         CreatePlayingField _playerField;
         ManualPositioningOfShips _playerShipsPosition;
@@ -27,6 +29,9 @@ namespace Sea_Battle
         public MainForm()
         {
             InitializeComponent();
+
+            _loadScreen = new LoadScreen(this);
+            _loadScreen.Show();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
 
@@ -109,7 +114,7 @@ namespace Sea_Battle
         }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            //Text = e.X + " " + e.Y;
+            Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -288,6 +293,11 @@ namespace Sea_Battle
         private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             _playerShipsPosition.TestSave();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            this.Visible = false;
         }
     }
 }
