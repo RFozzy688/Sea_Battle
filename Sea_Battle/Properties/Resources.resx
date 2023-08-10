@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="anchor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\anchor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="battleship" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\battleship.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,6 +136,24 @@
   <data name="btn_back_relesed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\btn_back_relesed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="btn_green_arrow_left_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\btn_green_arrow_left_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_green_arrow_left_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\btn_green_arrow_left_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_green_arrow_right_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\btn_green_arrow_right_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_green_arrow_right_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\btn_green_arrow_right_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_long_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\btn_long_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_long_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\btn_long_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="btn_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\btn_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,6 +165,9 @@
   </data>
   <data name="btn_rotation_relesed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\btn_rotation_relesed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="choice_mode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\choice_mode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cruiser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\cruiser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -175,6 +199,12 @@
   <data name="mimo_no_repit_1_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\mimo_no_repit_1_04.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="no_sound_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\no_sound_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="no_sound_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\no_sound_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="on_target015_no_repit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\on_target015_no_repit.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -196,7 +226,19 @@
   <data name="seabattle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\font\seabattle.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="settings_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\settings_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="settings_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\settings_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ship_plane_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\ship_plane_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sound_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\sound_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sound_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\sound_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

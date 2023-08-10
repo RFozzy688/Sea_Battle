@@ -30,8 +30,12 @@ namespace Sea_Battle
         {
             InitializeComponent();
 
-            _loadScreen = new LoadScreen(this);
-            _loadScreen.Show();
+            //_loadScreen = new LoadScreen(this);
+            //_loadScreen.Show();
+            ShowInTaskbar = true;
+
+            _embededFont = new EmbededFont();
+            _drawImage = new DrawImage(this);
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
 
@@ -41,7 +45,38 @@ namespace Sea_Battle
             this.BackgroundImage = new Bitmap(Properties.Resources.bg_clear);
             this.BackColor = ColorBG;
 
-            StartGame();
+            _isBtnInBattlePressed = false;
+            _btnContinuePressed = 0;
+
+            BtnAuto.Font = _embededFont.GetBtnFontReleased();
+            BtnAuto.ForeColor = ColorText;
+
+            BtnNext.Font = _embededFont.GetBtnFontReleased();
+            BtnNext.ForeColor = ColorText;
+
+            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
+            BtnToBattle.ForeColor = ColorText;
+
+            BtnContinue.Font = _embededFont.GetBtnFontReleased();
+            BtnContinue.ForeColor = ColorText;
+
+            BtnExtendedMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnExtendedMode.ForeColor = ColorText;
+
+            BtnClassicMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnClassicMode.ForeColor = ColorText;
+
+            BtnContinue.Hide();
+            BtnAuto.Hide();
+            BtnNext.Hide();
+            BtnToBattle.Hide();
+            BtnBack.Hide();
+            BtnRotation.Hide();
+
+
+
+            ChoiceGameModeScreen();
+
         }
 
         private void EndBattle()
@@ -49,10 +84,23 @@ namespace Sea_Battle
             BtnContinue.Show();
             BtnBack.Hide();
         }
-        private void StartGame()
+        private void ChoiceGameModeScreen()
         {
-            _isBtnInBattlePressed = false;
-            _btnContinuePressed = 0;
+            _drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
+            _drawImage.AddImageToList();
+
+            BtnContinue.Hide();
+            BtnAuto.Hide();
+            BtnNext.Hide();
+            BtnToBattle.Hide();
+            BtnBack.Hide();
+            BtnRotation.Hide();
+
+        }
+        private void ClassicGameMode()
+        {
+            _drawImage.ClearListDrawPicture();
+            _drawImage.ClearBackground();
 
             _playerFleet = new CreateFleetOfShips(this);
             _playerField = new CreatePlayingField();
@@ -68,8 +116,6 @@ namespace Sea_Battle
             _enemyField.CreateField(new Point(540, 142), new Point(583, 185));
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
-            _embededFont = new EmbededFont();
-            _drawImage = new DrawImage(this);
             _aI = new AI(this, _playerField);
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage, _aI);
             _gameStatistics = new GameStatistics(this);
@@ -78,19 +124,6 @@ namespace Sea_Battle
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
             _drawImage.InitializeStructPicture(new Point(1, 109), new Bitmap(Properties.Resources.left_field));
             _drawImage.AddImageToList();
-
-            BtnAuto.Font = _embededFont.GetBtnFontReleased();
-            BtnAuto.ForeColor = ColorText;
-
-            BtnNext.Font = _embededFont.GetBtnFontReleased();
-            BtnNext.ForeColor = ColorText;
-
-            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
-            BtnToBattle.ForeColor = ColorText;
-
-            BtnContinue.Font = _embededFont.GetBtnFontReleased();
-            BtnContinue.ForeColor = ColorText;
-            BtnContinue.Hide();
 
             _battle.EndBattleEvent += EndBattle;
         }
@@ -104,13 +137,16 @@ namespace Sea_Battle
             _enemyField = null;
             _enemyShipsPosition = null;
 
-            _drawImage = null;
+            //_drawImage = null;
             _battle = null;
-            _embededFont = null;
+            //_embededFont = null;
             _gameStatistics = null;
             _aI = null;
 
-            StartGame();
+            _isBtnInBattlePressed = false;
+            _btnContinuePressed = 0;
+
+            ClassicGameMode();
         }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
@@ -186,6 +222,11 @@ namespace Sea_Battle
         {
             BtnToBattle.Font = _embededFont.GetBtnFontPressed();
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+        }
+        private void BtnToBattleReleased(object sender, MouseEventArgs e)
+        {
+            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
+            BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
 
             // растановка кораблей врага в рандомном порядке
             _enemyShipsPosition.SetShipOnField();
@@ -200,7 +241,10 @@ namespace Sea_Battle
                 _playerShipsPosition.SetImageShipOnField();
             }
 
-            HideButtons();
+            BtnRotation.Hide();
+            BtnAuto.Hide();
+            BtnNext.Hide();
+            BtnToBattle.Hide();
 
             // отрисовка игрового поля врага
             _drawImage.InitializeStructPicture(new Point(520, 109), new Bitmap(Properties.Resources.right_field));
@@ -211,6 +255,7 @@ namespace Sea_Battle
 
             _isBtnInBattlePressed = true; // кнопка в бой была нажата
             _battle.Shooter = _battle.WhoFirstShoots(); // выбор первого хода
+            _drawImage.WhoShoot.Show();
 
             // если враг игру начинает первым
             if (_battle.Shooter == EnumPlayers.enemy)
@@ -223,15 +268,15 @@ namespace Sea_Battle
                 _drawImage.SetImageWhoShooter(_battle.Shooter);
             }
         }
-        private void BtnToBattleReleased(object sender, MouseEventArgs e)
-        {
-            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
-            BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-        }
         private void BtnContinuePressed(object sender, MouseEventArgs e)
         {
             BtnContinue.Font = _embededFont.GetBtnFontPressed();
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+        }
+        private void BtnContinueReleased(object sender, MouseEventArgs e)
+        {
+            BtnContinue.Font = _embededFont.GetBtnFontReleased();
+            BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
 
             if (_btnContinuePressed == 0)
             {
@@ -241,6 +286,7 @@ namespace Sea_Battle
                 // кораблей и т. д. они нам больше не нужны
                 _drawImage.ClearListDrawPicture();
                 _drawImage.ClearBackground();
+                _drawImage.WhoShoot.Hide();
 
                 if (_battle.Winner == EnumPlayers.player)
                 {
@@ -284,11 +330,6 @@ namespace Sea_Battle
                 RestartGame();
             }
         }
-        private void BtnContinueReleased(object sender, MouseEventArgs e)
-        {
-            BtnContinue.Font = _embededFont.GetBtnFontReleased();
-            BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-        }
 
         private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -297,7 +338,56 @@ namespace Sea_Battle
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            this.Visible = false;
+            //this.Visible = false;
+        }
+
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            //Bitmap
+        }
+
+        private void BtnExtendedModePressed(object sender, MouseEventArgs e)
+        {
+            BtnExtendedMode.Font = _embededFont.CreateFont(21.0f, FontStyle.Bold);
+            BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
+        }
+
+        private void BtnExtendedModeReleased(object sender, MouseEventArgs e)
+        {
+            BtnExtendedMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
+        }
+
+        private void ClassicModePressed(object sender, MouseEventArgs e)
+        {
+            BtnClassicMode.Font = _embededFont.CreateFont(21.0f, FontStyle.Bold);
+            BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
+        }
+
+        private void ClassicModeReleased(object sender, MouseEventArgs e)
+        {
+            BtnClassicMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
+
+            ClassicGameMode();
+
+            BtnSetting.Hide();
+            BtnExtendedMode.Hide();
+            BtnClassicMode.Hide();
+
+            BtnAuto.Show();
+            BtnToBattle.Show();
+            BtnBack.Show();
+            BtnRotation.Show();
+        }
+
+        private void BtnSettingPressed(object sender, MouseEventArgs e)
+        {
+            BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_pressed);
+        }
+        private void BtnSettingReleased(object sender, MouseEventArgs e)
+        {
+            BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_released);
         }
     }
 }

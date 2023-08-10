@@ -74,7 +74,7 @@ namespace Sea_Battle
             {
                 _aI.SinkShip(ref _row, ref _col);
             }
-            else /*if (_aI.IsKilled)*/ // если убит, то AI ищет новые индексы для стрельбы
+            else // если убит, то AI ищет новые индексы для стрельбы
             {
                 _aI.EnemyFiringIndexes(ref _row, ref _col);
             }
@@ -265,11 +265,11 @@ namespace Sea_Battle
                 return false;
             }
         }
-        private void EndBattle() // диспетчер оповещающий о что игра закончина
+        private void EndBattle() // диспетчер оповещающий что игра закончина
         {
             EndBattleEvent(); // вызов события
 
-            _drawImage.WhoShoot.Dispose(); // удаляем стрелку показа чей ход
+            //_drawImage.WhoShoot.Dispose(); // удаляем стрелку показа чей ход
         }
         public void TestSave()
         {

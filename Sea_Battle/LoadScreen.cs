@@ -22,6 +22,8 @@ namespace Sea_Battle
         {
             InitializeComponent();
 
+            this.BackColor = /*Color.White;*/Color.FromArgb(169, 94, 19);
+
             _parent = parent;
             _screen.BringToFront();
 
@@ -29,7 +31,7 @@ namespace Sea_Battle
             _stretchBitmap = new Bitmap(1, 1);
         }
 
-        private void ProgressBarTimer(object sender, EventArgs e)
+        private void ProgressBarTimer(object sender, EventArgs e) // имитация прогресс бара
         {
             _width += 10;
             Rectangle rectangle = new Rectangle(0, 0, _width, _originalBitmap.Height);
@@ -43,10 +45,10 @@ namespace Sea_Battle
                 this.Close();
 
                 _parent.Visible = true;
+                _parent.ShowInTaskbar = true;
             }
         }
-
-        private void LoadScreen_Paint(object sender, PaintEventArgs e)
+        private void LoadScreen_Paint(object sender, PaintEventArgs e) // отрисовка прогрес бара
         {
             Graphics g = e.Graphics;
             g.DrawImage(_stretchBitmap, 250, 510);
