@@ -23,6 +23,7 @@ namespace Sea_Battle
 
         int _btnContinuePressed; // кнопка выполняет 2-е ф-ции - показ финального экрана и рестарт игры (0 - финальный экран, 1 - рестарт игры)
         bool _isBtnInBattlePressed;
+        bool _isSoundOn; // кнопка BtnSound вкл ли звук
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
@@ -47,6 +48,7 @@ namespace Sea_Battle
 
             _isBtnInBattlePressed = false;
             _btnContinuePressed = 0;
+            _isSoundOn = true;
 
             BtnAuto.Font = _embededFont.GetBtnFontReleased();
             BtnAuto.ForeColor = ColorText;
@@ -66,14 +68,24 @@ namespace Sea_Battle
             BtnClassicMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
             BtnClassicMode.ForeColor = ColorText;
 
+            BtnHard.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnHard.ForeColor = ColorText;
+
+            BtnEasy.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnEasy.ForeColor = ColorText;
+
             BtnContinue.Hide();
             BtnAuto.Hide();
             BtnNext.Hide();
             BtnToBattle.Hide();
             BtnBack.Hide();
             BtnRotation.Hide();
-
-
+            BtnRightLocalization.Hide();
+            BtnLeftLocalization.Hide();
+            BtnEasy.Hide();
+            BtnHard.Hide();
+            BtnSound.Hide();
+            _language.Hide();
 
             ChoiceGameModeScreen();
 
@@ -95,7 +107,14 @@ namespace Sea_Battle
             BtnToBattle.Hide();
             BtnBack.Hide();
             BtnRotation.Hide();
+        }
+        private void SettingsScreen()
+        {
+            _drawImage.ClearListDrawPicture();
+            _drawImage.ClearBackground();
 
+            _drawImage.InitializeStructPicture(new Point(540, 316), new Bitmap(Properties.Resources.anchor));
+            _drawImage.AddImageToList();
         }
         private void ClassicGameMode()
         {
@@ -137,9 +156,7 @@ namespace Sea_Battle
             _enemyField = null;
             _enemyShipsPosition = null;
 
-            //_drawImage = null;
             _battle = null;
-            //_embededFont = null;
             _gameStatistics = null;
             _aI = null;
 
@@ -255,7 +272,7 @@ namespace Sea_Battle
 
             _isBtnInBattlePressed = true; // кнопка в бой была нажата
             _battle.Shooter = _battle.WhoFirstShoots(); // выбор первого хода
-            _drawImage.WhoShoot.Show();
+            _drawImage.WhoShoot.Show(); // показываем PictureBox чей сейчас ход
 
             // если враг игру начинает первым
             if (_battle.Shooter == EnumPlayers.enemy)
@@ -351,20 +368,17 @@ namespace Sea_Battle
             BtnExtendedMode.Font = _embededFont.CreateFont(21.0f, FontStyle.Bold);
             BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
         }
-
         private void BtnExtendedModeReleased(object sender, MouseEventArgs e)
         {
             BtnExtendedMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
             BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
         }
-
-        private void ClassicModePressed(object sender, MouseEventArgs e)
+        private void BtnClassicModePressed(object sender, MouseEventArgs e)
         {
             BtnClassicMode.Font = _embededFont.CreateFont(21.0f, FontStyle.Bold);
             BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
         }
-
-        private void ClassicModeReleased(object sender, MouseEventArgs e)
+        private void BtnClassicModeReleased(object sender, MouseEventArgs e)
         {
             BtnClassicMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
             BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
@@ -380,7 +394,6 @@ namespace Sea_Battle
             BtnBack.Show();
             BtnRotation.Show();
         }
-
         private void BtnSettingPressed(object sender, MouseEventArgs e)
         {
             BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_pressed);
@@ -388,6 +401,83 @@ namespace Sea_Battle
         private void BtnSettingReleased(object sender, MouseEventArgs e)
         {
             BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_released);
+            BtnSetting.Hide();
+            BtnExtendedMode.Hide();
+            BtnClassicMode.Hide();
+
+            SettingsScreen();
+
+            BtnBack.Show();
+            BtnRightLocalization.Show();
+            BtnLeftLocalization.Show();
+            BtnEasy.Show();
+            BtnHard.Show();
+            BtnSound.Show();
+            _language.Show();
+        }
+
+        private void BtnLeftLocalizationPressed(object sender, MouseEventArgs e)
+        {
+            BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_pressed);
+        }
+        private void BtnLeftLocalizationReleased(object sender, MouseEventArgs e)
+        {
+            BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_released);
+        }
+        private void BtnRightLocalizationPressed(object sender, MouseEventArgs e)
+        {
+            BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_pressed);
+        }
+        private void BtnRightLocalizationReleased(object sender, MouseEventArgs e)
+        {
+            BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_released);
+        }
+        private void BtnHardPressed(object sender, MouseEventArgs e)
+        {
+            BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            BtnHard.Font = _embededFont.CreateFont(20.0f, FontStyle.Bold);
+
+        }
+        private void BtnHardReleased(object sender, MouseEventArgs e)
+        {
+            BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
+            BtnHard.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+        }
+        private void BtnEasyPressed(object sender, MouseEventArgs e)
+        {
+            BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            BtnEasy.Font = _embededFont.CreateFont(20.0f, FontStyle.Bold);
+        }
+        private void BtnEasyReleased(object sender, MouseEventArgs e)
+        {
+            BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
+            BtnEasy.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+        }
+        private void BtnSoundPressed(object sender, MouseEventArgs e)
+        {
+            if (_isSoundOn)
+            {
+                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_pressed);
+            }
+            else
+            {
+                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_pressed);
+            }
+            //_isSoundOn = false;
+        }
+        private void BtnSoundReleased(object sender, MouseEventArgs e)
+        {
+            _isSoundOn = !_isSoundOn;
+
+            if (_isSoundOn)
+            {
+                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released);
+            }
+            else
+            {
+                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released);
+            }
+            
         }
     }
 }

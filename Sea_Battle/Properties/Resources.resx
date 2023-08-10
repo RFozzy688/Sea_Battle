@@ -175,8 +175,17 @@
   <data name="destroyer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\destroyer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="deutch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\deutch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="enemy_shoots" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\enemy_shoots.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\english.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="espanol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\espanol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="green_square" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\green_square.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -222,6 +231,9 @@
   </data>
   <data name="right_field" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\right_field.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="russia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\russia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="seabattle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\font\seabattle.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

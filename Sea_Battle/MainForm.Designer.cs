@@ -37,9 +37,19 @@
             BtnExtendedMode = new Button();
             BtnClassicMode = new Button();
             BtnSetting = new PictureBox();
+            BtnRightLocalization = new PictureBox();
+            BtnLeftLocalization = new PictureBox();
+            _language = new PictureBox();
+            BtnSound = new PictureBox();
+            BtnHard = new Button();
+            BtnEasy = new Button();
             ((System.ComponentModel.ISupportInitialize)BtnRotation).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnSetting).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)BtnRightLocalization).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)BtnLeftLocalization).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_language).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)BtnSound).BeginInit();
             SuspendLayout();
             // 
             // BtnRotation
@@ -188,8 +198,8 @@
             BtnClassicMode.Text = "Классический режим";
             BtnClassicMode.UseCompatibleTextRendering = true;
             BtnClassicMode.UseVisualStyleBackColor = false;
-            BtnClassicMode.MouseDown += ClassicModePressed;
-            BtnClassicMode.MouseUp += ClassicModeReleased;
+            BtnClassicMode.MouseDown += BtnClassicModePressed;
+            BtnClassicMode.MouseUp += BtnClassicModeReleased;
             // 
             // BtnSetting
             // 
@@ -204,6 +214,98 @@
             BtnSetting.MouseDown += BtnSettingPressed;
             BtnSetting.MouseUp += BtnSettingReleased;
             // 
+            // BtnRightLocalization
+            // 
+            BtnRightLocalization.BackColor = Color.Transparent;
+            BtnRightLocalization.BackgroundImage = Properties.Resources.btn_green_arrow_right_released;
+            BtnRightLocalization.BackgroundImageLayout = ImageLayout.Center;
+            BtnRightLocalization.Location = new Point(918, 109);
+            BtnRightLocalization.Name = "BtnRightLocalization";
+            BtnRightLocalization.Size = new Size(82, 117);
+            BtnRightLocalization.TabIndex = 12;
+            BtnRightLocalization.TabStop = false;
+            BtnRightLocalization.MouseDown += BtnRightLocalizationPressed;
+            BtnRightLocalization.MouseUp += BtnRightLocalizationReleased;
+            // 
+            // BtnLeftLocalization
+            // 
+            BtnLeftLocalization.BackColor = Color.Transparent;
+            BtnLeftLocalization.BackgroundImage = Properties.Resources.btn_green_arrow_left_released;
+            BtnLeftLocalization.BackgroundImageLayout = ImageLayout.Center;
+            BtnLeftLocalization.Location = new Point(534, 109);
+            BtnLeftLocalization.Name = "BtnLeftLocalization";
+            BtnLeftLocalization.Size = new Size(82, 117);
+            BtnLeftLocalization.TabIndex = 13;
+            BtnLeftLocalization.TabStop = false;
+            BtnLeftLocalization.MouseDown += BtnLeftLocalizationPressed;
+            BtnLeftLocalization.MouseUp += BtnLeftLocalizationReleased;
+            // 
+            // _language
+            // 
+            _language.BackColor = Color.Transparent;
+            _language.BackgroundImage = Properties.Resources.russia;
+            _language.BackgroundImageLayout = ImageLayout.Center;
+            _language.Location = new Point(625, 127);
+            _language.Name = "_language";
+            _language.Size = new Size(284, 80);
+            _language.TabIndex = 14;
+            _language.TabStop = false;
+            // 
+            // BtnSound
+            // 
+            BtnSound.BackColor = Color.Transparent;
+            BtnSound.BackgroundImage = Properties.Resources.sound_released;
+            BtnSound.BackgroundImageLayout = ImageLayout.Center;
+            BtnSound.Location = new Point(155, 355);
+            BtnSound.Name = "BtnSound";
+            BtnSound.Size = new Size(205, 215);
+            BtnSound.TabIndex = 15;
+            BtnSound.TabStop = false;
+            BtnSound.MouseDown += BtnSoundPressed;
+            BtnSound.MouseUp += BtnSoundReleased;
+            // 
+            // BtnHard
+            // 
+            BtnHard.BackColor = Color.Transparent;
+            BtnHard.BackgroundImage = Properties.Resources.btn_relesed;
+            BtnHard.BackgroundImageLayout = ImageLayout.Center;
+            BtnHard.CausesValidation = false;
+            BtnHard.FlatAppearance.BorderSize = 0;
+            BtnHard.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            BtnHard.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            BtnHard.FlatStyle = FlatStyle.Flat;
+            BtnHard.Location = new Point(155, 150);
+            BtnHard.Name = "BtnHard";
+            BtnHard.Size = new Size(212, 76);
+            BtnHard.TabIndex = 16;
+            BtnHard.TabStop = false;
+            BtnHard.Text = "Сложный";
+            BtnHard.UseCompatibleTextRendering = true;
+            BtnHard.UseVisualStyleBackColor = true;
+            BtnHard.MouseDown += BtnHardPressed;
+            BtnHard.MouseUp += BtnHardReleased;
+            // 
+            // BtnEasy
+            // 
+            BtnEasy.BackColor = Color.Transparent;
+            BtnEasy.BackgroundImage = Properties.Resources.btn_relesed;
+            BtnEasy.BackgroundImageLayout = ImageLayout.Center;
+            BtnEasy.CausesValidation = false;
+            BtnEasy.FlatAppearance.BorderSize = 0;
+            BtnEasy.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            BtnEasy.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            BtnEasy.FlatStyle = FlatStyle.Flat;
+            BtnEasy.Location = new Point(155, 254);
+            BtnEasy.Name = "BtnEasy";
+            BtnEasy.Size = new Size(212, 76);
+            BtnEasy.TabIndex = 17;
+            BtnEasy.TabStop = false;
+            BtnEasy.Text = "Лёгкий";
+            BtnEasy.UseCompatibleTextRendering = true;
+            BtnEasy.UseVisualStyleBackColor = true;
+            BtnEasy.MouseDown += BtnEasyPressed;
+            BtnEasy.MouseUp += BtnEasyReleased;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -211,6 +313,12 @@
             BackgroundImage = Properties.Resources.bg_clear;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1024, 603);
+            Controls.Add(BtnEasy);
+            Controls.Add(BtnHard);
+            Controls.Add(BtnSound);
+            Controls.Add(_language);
+            Controls.Add(BtnLeftLocalization);
+            Controls.Add(BtnRightLocalization);
             Controls.Add(BtnSetting);
             Controls.Add(BtnClassicMode);
             Controls.Add(BtnExtendedMode);
@@ -235,6 +343,10 @@
             ((System.ComponentModel.ISupportInitialize)BtnRotation).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnSetting).EndInit();
+            ((System.ComponentModel.ISupportInitialize)BtnRightLocalization).EndInit();
+            ((System.ComponentModel.ISupportInitialize)BtnLeftLocalization).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_language).EndInit();
+            ((System.ComponentModel.ISupportInitialize)BtnSound).EndInit();
             ResumeLayout(false);
         }
 
@@ -248,5 +360,11 @@
         private Button BtnExtendedMode;
         private Button BtnClassicMode;
         private PictureBox BtnSetting;
+        private PictureBox BtnRightLocalization;
+        private PictureBox BtnLeftLocalization;
+        private PictureBox _language;
+        private PictureBox BtnSound;
+        public Button BtnHard;
+        public Button BtnEasy;
     }
 }

@@ -253,9 +253,39 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap deutch {
+            get {
+                object obj = ResourceManager.GetObject("deutch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap enemy_shoots {
             get {
                 object obj = ResourceManager.GetObject("enemy_shoots", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap english {
+            get {
+                object obj = ResourceManager.GetObject("english", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap espanol {
+            get {
+                object obj = ResourceManager.GetObject("espanol", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,6 +436,16 @@ namespace Sea_Battle.Properties {
         internal static System.Drawing.Bitmap right_field {
             get {
                 object obj = ResourceManager.GetObject("right_field", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap russia {
+            get {
+                object obj = ResourceManager.GetObject("russia", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
