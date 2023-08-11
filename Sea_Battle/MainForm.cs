@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 
 namespace Sea_Battle
@@ -24,6 +25,7 @@ namespace Sea_Battle
         int _btnContinuePressed; // кнопка выполняет 2-е ф-ции - показ финального экрана и рестарт игры (0 - финальный экран, 1 - рестарт игры)
         bool _isBtnInBattlePressed;
         bool _isSoundOn; // кнопка BtnSound вкл ли звук
+        int _numberLanguage; // порядковый номер языка для локализации
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
@@ -49,6 +51,7 @@ namespace Sea_Battle
             _isBtnInBattlePressed = false;
             _btnContinuePressed = 0;
             _isSoundOn = true;
+            _numberLanguage = 0;
 
             BtnAuto.Font = _embededFont.GetBtnFontReleased();
             BtnAuto.ForeColor = ColorText;
@@ -167,7 +170,7 @@ namespace Sea_Battle
         }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            Text = e.X + " " + e.Y;
+            //Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -310,6 +313,7 @@ namespace Sea_Battle
                     // отрисовка финального изображения
                     _drawImage.InitializeStructPicture(new Point(121, 165), new Bitmap(Properties.Resources.img_win));
                     _drawImage.AddImageToList();
+
                     // отрисовка текста "ПОБЕДА"
                     _drawImage.AddTextToList("ПОБЕДА", new Point(450, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
                 }
@@ -423,6 +427,9 @@ namespace Sea_Battle
         private void BtnLeftLocalizationReleased(object sender, MouseEventArgs e)
         {
             BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_released);
+
+            _numberLanguage--;
+            if (_numberLanguage < 0) { _numberLanguage = 4; }
         }
         private void BtnRightLocalizationPressed(object sender, MouseEventArgs e)
         {
@@ -431,6 +438,9 @@ namespace Sea_Battle
         private void BtnRightLocalizationReleased(object sender, MouseEventArgs e)
         {
             BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_released);
+
+            _numberLanguage++;
+            if (_numberLanguage > 4) { _numberLanguage = 0; }
         }
         private void BtnHardPressed(object sender, MouseEventArgs e)
         {
@@ -455,29 +465,15 @@ namespace Sea_Battle
         }
         private void BtnSoundPressed(object sender, MouseEventArgs e)
         {
-            if (_isSoundOn)
-            {
-                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_pressed);
-            }
-            else
-            {
-                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_pressed);
-            }
-            //_isSoundOn = false;
+            if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_pressed); }
+            else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_pressed); }
         }
         private void BtnSoundReleased(object sender, MouseEventArgs e)
         {
             _isSoundOn = !_isSoundOn;
 
-            if (_isSoundOn)
-            {
-                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released);
-            }
-            else
-            {
-                BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released);
-            }
-            
+            if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released); }
+            else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released); }
         }
     }
 }

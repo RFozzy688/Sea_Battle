@@ -57,4 +57,442 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BtnContinue.Text" xml:space="preserve">
+    <value>Далее...</value>
+  </data>
+  <data name="&gt;&gt;BtnNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnEasy.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BtnEasy.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="BtnAuto.Location" type="System.Drawing.Point, System.Drawing">
+    <value>571, 501</value>
+  </data>
+  <data name="&gt;&gt;BtnExtendedMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BtnBack.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="BtnClassicMode.Text" xml:space="preserve">
+    <value>Классический режим</value>
+  </data>
+  <data name="&gt;&gt;BtnExtendedMode.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;_language.Name" xml:space="preserve">
+    <value>_language</value>
+  </data>
+  <data name="&gt;&gt;BtnClassicMode.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;BtnRightLocalization.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnRightLocalization.Location" type="System.Drawing.Point, System.Drawing">
+    <value>918, 109</value>
+  </data>
+  <data name="&gt;&gt;BtnAuto.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtnRotation.Name" xml:space="preserve">
+    <value>BtnRotation</value>
+  </data>
+  <data name="&gt;&gt;BtnSetting.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;BtnSound.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Form1</value>
+  </data>
+  <data name="&gt;&gt;BtnContinue.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="BtnNext.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BtnNext.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;BtnRotation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtnSound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnSound.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BtnHard.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;BtnLeftLocalization.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;BtnEasy.Name" xml:space="preserve">
+    <value>BtnEasy</value>
+  </data>
+  <data name="&gt;&gt;BtnRotation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnContinue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="_language.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnAuto.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;BtnClassicMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtnContinue.Name" xml:space="preserve">
+    <value>BtnContinue</value>
+  </data>
+  <data name="&gt;&gt;BtnNext.Name" xml:space="preserve">
+    <value>BtnNext</value>
+  </data>
+  <data name="&gt;&gt;BtnToBattle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnLeftLocalization.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 117</value>
+  </data>
+  <data name="&gt;&gt;_language.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="BtnAuto.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 76</value>
+  </data>
+  <data name="&gt;&gt;BtnHard.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BtnAuto.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;_language.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1024, 603</value>
+  </data>
+  <data name="BtnHard.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="_language.Size" type="System.Drawing.Size, System.Drawing">
+    <value>284, 80</value>
+  </data>
+  <data name="&gt;&gt;BtnBack.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnToBattle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;BtnContinue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnHard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnBack.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="_language.Location" type="System.Drawing.Point, System.Drawing">
+    <value>625, 127</value>
+  </data>
+  <data name="&gt;&gt;BtnBack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnContinue.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BtnEasy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 76</value>
+  </data>
+  <data name="BtnSetting.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;BtnSetting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnEasy.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BtnSound.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;BtnLeftLocalization.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BtnNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 76</value>
+  </data>
+  <data name="&gt;&gt;BtnRotation.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="BtnRightLocalization.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 117</value>
+  </data>
+  <data name="&gt;&gt;BtnExtendedMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnClassicMode.Name" xml:space="preserve">
+    <value>BtnClassicMode</value>
+  </data>
+  <data name="BtnBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 12</value>
+  </data>
+  <data name="BtnExtendedMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>441, 83</value>
+  </data>
+  <data name="BtnExtendedMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>298, 272</value>
+  </data>
+  <data name="BtnSound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 355</value>
+  </data>
+  <data name="BtnEasy.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="BtnHard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 76</value>
+  </data>
+  <data name="BtnClassicMode.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;BtnToBattle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtnAuto.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="BtnHard.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BtnLeftLocalization.Location" type="System.Drawing.Point, System.Drawing">
+    <value>534, 109</value>
+  </data>
+  <data name="BtnLeftLocalization.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="BtnAuto.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BtnNext.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="BtnExtendedMode.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;_language.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnExtendedMode.Name" xml:space="preserve">
+    <value>BtnExtendedMode</value>
+  </data>
+  <data name="&gt;&gt;BtnToBattle.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="BtnExtendedMode.Text" xml:space="preserve">
+    <value>Расширенный режим</value>
+  </data>
+  <data name="BtnSetting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 1</value>
+  </data>
+  <data name="&gt;&gt;BtnClassicMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnRightLocalization.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="BtnContinue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>789, 16</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="BtnLeftLocalization.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnBack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 80</value>
+  </data>
+  <data name="BtnSetting.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="BtnToBattle.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="BtnContinue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 76</value>
+  </data>
+  <data name="BtnEasy.Text" xml:space="preserve">
+    <value>Лёгкий</value>
+  </data>
+  <data name="_language.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;BtnNext.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="BtnNext.Location" type="System.Drawing.Point, System.Drawing">
+    <value>789, 501</value>
+  </data>
+  <data name="BtnRightLocalization.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnSetting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 91</value>
+  </data>
+  <data name="&gt;&gt;BtnToBattle.Name" xml:space="preserve">
+    <value>BtnToBattle</value>
+  </data>
+  <data name="BtnAuto.Text" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="BtnExtendedMode.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnClassicMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>298, 381</value>
+  </data>
+  <data name="&gt;&gt;BtnSound.Name" xml:space="preserve">
+    <value>BtnSound</value>
+  </data>
+  <data name="BtnClassicMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>441, 83</value>
+  </data>
+  <data name="BtnToBattle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>789, 501</value>
+  </data>
+  <data name="&gt;&gt;BtnLeftLocalization.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnRotation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 98</value>
+  </data>
+  <data name="BtnClassicMode.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;BtnAuto.Name" xml:space="preserve">
+    <value>BtnAuto</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnToBattle.Text" xml:space="preserve">
+    <value>В бой</value>
+  </data>
+  <data name="BtnHard.Text" xml:space="preserve">
+    <value>Сложный</value>
+  </data>
+  <data name="&gt;&gt;BtnEasy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnRightLocalization.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtnLeftLocalization.Name" xml:space="preserve">
+    <value>BtnLeftLocalization</value>
+  </data>
+  <data name="BtnToBattle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 76</value>
+  </data>
+  <data name="&gt;&gt;BtnBack.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;BtnNext.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BtnEasy.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnHard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 150</value>
+  </data>
+  <data name="BtnNext.Text" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="&gt;&gt;BtnSetting.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BtnRotation.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;BtnRightLocalization.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="BtnNext.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;BtnSetting.Name" xml:space="preserve">
+    <value>BtnSetting</value>
+  </data>
+  <data name="BtnRotation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>459, 479</value>
+  </data>
+  <data name="BtnSound.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;BtnRightLocalization.Name" xml:space="preserve">
+    <value>BtnRightLocalization</value>
+  </data>
+  <data name="&gt;&gt;BtnHard.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BtnExtendedMode.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BtnContinue.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnToBattle.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="&gt;&gt;BtnBack.Name" xml:space="preserve">
+    <value>BtnBack</value>
+  </data>
+  <data name="BtnEasy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 254</value>
+  </data>
+  <data name="&gt;&gt;BtnAuto.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BtnClassicMode.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="BtnContinue.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="BtnSound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 215</value>
+  </data>
+  <data name="&gt;&gt;BtnHard.Name" xml:space="preserve">
+    <value>BtnHard</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>en-US</value>
+  </metadata>
 </root>
