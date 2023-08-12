@@ -26,13 +26,13 @@ namespace Sea_Battle
     public delegate void FinishExplosionAnimationDelegat();
     internal class DrawImage /*: Form*/
     {
-        public event FinishRocketAnimationDelegat FinishRocketAnimationEvent;
-        public event FinishExplosionAnimationDelegat FinishExplosionAnimationEvent;
+        public event FinishRocketAnimationDelegat? FinishRocketAnimationEvent = null;
+        public event FinishExplosionAnimationDelegat? FinishExplosionAnimationEvent = null;
         List<Picture> _drawPicture; // хранение изображений для прорисовки их на поле
         List<Picture> _tempPictureRocket; // временное хранение картинки "ракеты"
         List<TextOnField> _drawText; // хранение текста для прорисовки его на поле
         MainForm _parent;
-        PictureBox _animation; // box для анимации промаха и попадания
+        PictureBox? _animation = null; // box для анимации промаха и попадания
         Timer _deleteRocketAnimation; // удаляем box с анимацией промаха
         Timer _deleteExplosionAnimation; // удаляем box с анимацией взрыва
         Picture _picture; // картинки промаха и попадания
@@ -86,6 +86,9 @@ namespace Sea_Battle
             InitializeStructPicture(_imagePosition, new Bitmap(Properties.Resources.mimo_finish));
             AddImageToList();
 
+            // блокируется кнопкав Fire()
+            _parent.SetBtnBackState(true);
+
             FinishRocketAnimation();
         }
         private void DeleteExplosionAnimation(object? sender, EventArgs e)
@@ -96,6 +99,9 @@ namespace Sea_Battle
 
             InitializeStructPicture(_imagePosition, new Bitmap(Properties.Resources.red_cross));
             AddImageToList();
+
+            // блокируется кнопкав Fire()
+            _parent.SetBtnBackState(true);
 
             if (_isDead)
             {
@@ -137,11 +143,11 @@ namespace Sea_Battle
                 _pictureShip.image = GetImageShip(fleet, i);
 
                 _pictureShip.point = GetShipBeginPoint(field, fleet.ArrayShips[i].IndexRow, fleet.ArrayShips[i].IndexCol);
-                
-                fleet.ArrayShips[i].Hide();
 
                 _drawPicture.Add(_pictureShip);
             }
+
+            fleet.HideShips();
 
             _parent.Invalidate();
         }

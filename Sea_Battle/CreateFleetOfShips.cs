@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sea_Battle
 {
-    internal class CreateFleetOfShips
+    internal class CreateFleetOfShips : IDisposable
     {
         Ship[] _ships;
         public int CountShips { get; }
@@ -82,6 +82,22 @@ namespace Sea_Battle
                 index++;
             }
         }
+
         public Ship[] ArrayShips { get { return _ships; } }
+        public void HideShips()
+        {
+            foreach (Ship ship in _ships)
+            {
+                ship.Hide();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach(Ship ship in _ships)
+            {
+                ship.Dispose();
+            }
+        }
     }
 }

@@ -28,12 +28,12 @@ namespace Sea_Battle
 
         int _btnContinuePressed; // кнопка выполняет 2-е ф-ции - показ финального экрана и рестарт игры (0 - финальный экран, 1 - рестарт игры)
         bool _isBtnInBattlePressed;
+        bool _isBtnClassicModePressed;
         bool _isSoundOn; // кнопка BtnSound вкл ли звук
         int _currentLanguage; // порядковый номер текущего языка для локализации 0 - ru, 1 - en, 2 - de, 3 - es
         int _selectedLanguage; // порядковый номер выбранного языка
         string? _strLocalization = null; // строка с локализацией
         List<string> _listLocalization; // все локализации
-        bool _isInitEventsDrawImage; // флаг для проверки подписки на ивенты в DrawImage только один раз
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
@@ -61,6 +61,7 @@ namespace Sea_Battle
             this.BackColor = ColorBG;
 
             _isBtnInBattlePressed = false;
+            _isBtnClassicModePressed = false;
             _btnContinuePressed = 0;
             _isSoundOn = true;
             _currentLanguage = 0;
@@ -77,6 +78,10 @@ namespace Sea_Battle
 
         }
 
+        public void SetBtnBackState(bool flag)
+        {
+            BtnBack.Enabled = flag;
+        }
         private void EndBattle()
         {
             BtnContinue.Show();
@@ -84,8 +89,12 @@ namespace Sea_Battle
         }
         private void ChoiceGameModeScreen()
         {
-            _drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
-            _drawImage.AddImageToList();
+            //_drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
+            //_drawImage.AddImageToList();
+
+            BtnClassicMode.Show();
+            BtnExtendedMode.Show();
+            BtnSetting.Show();
 
             BtnContinue.Hide();
             BtnAuto.Hide();
@@ -125,7 +134,6 @@ namespace Sea_Battle
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage, _aI);
             _gameStatistics = new GameStatistics(this);
 
-            //if (DrawImage.FinishRocketAnimationEvent != null)
             _drawImage.FinishRocketAnimationEvent += _battle.TransitionOfMoveInGame;
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
             _drawImage.InitializeStructPicture(new Point(1, 109), new Bitmap(Properties.Resources.left_field));
@@ -138,6 +146,9 @@ namespace Sea_Battle
             _drawImage.FinishRocketAnimationEvent -= _battle.TransitionOfMoveInGame;
             _drawImage.FinishExplosionAnimationEvent -= _battle.RepeatedShoot;
 
+            _drawImage.WhoShoot.Hide();
+
+            _playerFleet.Dispose();
             _playerFleet = null;
             _playerField = null;
             _playerShipsPosition = null;
@@ -150,10 +161,12 @@ namespace Sea_Battle
             _gameStatistics = null;
             _aI = null;
 
+
             _isBtnInBattlePressed = false;
+            _isBtnClassicModePressed = false;
             _btnContinuePressed = 0;
 
-            ClassicGameMode();
+            //ClassicGameMode();
         }
         private void InitControls()
         {
@@ -311,17 +324,35 @@ namespace Sea_Battle
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
 
-            //if (_currentLanguage != _selectedLanguage)
-            //{
-            //    SaveLocalization();
-            //    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
-            //    Controls.Clear();
-            //    InitializeComponent();
-            //    InitControls();
+            if (_currentLanguage != _selectedLanguage)
+            {
+                SaveLocalization();
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
+                Controls.Clear();
+                InitializeComponent();
+
+                _currentLanguage = _selectedLanguage;
+            }
+
+            _drawImage.ClearListDrawPicture();
+            _drawImage.ClearBackground();
+
+            if (_isBtnClassicModePressed) { RestartGame(); }
+
+            //if (_drawImage.GetAnimation() != null) 
+            //{ 
+            //    _drawImage.GetAnimation().Dispose();
             //}
 
+            //_drawImage.GetDeleteExplosionAnimation().Stop();
+            //_drawImage.GetDeleteRocketAnimation().Stop();
+
+            
+            InitControls();
+            ChoiceGameModeScreen();
+
             //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
-            _enemyShipsPosition.TestSave();
+            //_enemyShipsPosition.TestSave();
         }
         public void HideButtons()
         {
@@ -380,6 +411,8 @@ namespace Sea_Battle
             BtnContinue.Font = _textButtonReleased;
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
 
+            //BtnBack.Enabled = true;
+
             if (_btnContinuePressed == 0)
             {
                 _btnContinuePressed++; // == 1. при повторном нажатии рестар игры
@@ -427,20 +460,22 @@ namespace Sea_Battle
             {
                 _drawImage.ClearListDrawPicture();
                 _drawImage.ClearListDrawText();
-                //_drawImage.ClearBackground();
+                _drawImage.ClearBackground();
 
                 _battlesTotal.Hide();
                 _playerWin.Hide();
                 _enemyWin.Hide();
                 _textWin.Hide();
                 _textLoss.Hide();
+                BtnContinue.Hide();
 
-                BtnBack.Show();
-                BtnRotation.Show();
-                BtnToBattle.Show();
-                BtnAuto.Show();
+                //BtnBack.Show();
+                //BtnRotation.Show();
+                //BtnToBattle.Show();
+                //BtnAuto.Show();
 
                 RestartGame();
+                ChoiceGameModeScreen();
             }
         }
         private void BtnExtendedModeReleased(object sender, MouseEventArgs e)
@@ -452,6 +487,7 @@ namespace Sea_Battle
         {
             BtnClassicMode.Font = _textButtonReleased;
             BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
+            _isBtnClassicModePressed = true;
 
             ClassicGameMode();
 

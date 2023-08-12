@@ -63,7 +63,6 @@ namespace Sea_Battle
             _startEnemyShoots.Tick += new EventHandler(EnemyShoots);
 
             _logger = LogManager.GetCurrentClassLogger();
-            //Winner = EnumPlayers.enemy;
         }
 
         public void EnemyShoots(object? sender, EventArgs e)
@@ -105,7 +104,11 @@ namespace Sea_Battle
         }
         public void Fire()
         {
-            _isEndBattle = true;
+            //_isEndBattle = true;
+
+            // блокируем кнопку назад пока не закончится анимация (и в ChangeShooter())
+            // (разблокировка в DeleteExplosionAnimation() и DeleteRocketAnimation)
+            _parent.SetBtnBackState(false); 
 
             CreatePlayingField field;
             CreateFleetOfShips fleet;
@@ -151,7 +154,7 @@ namespace Sea_Battle
                         _aI.ResetDirectionVariables();
                     }
 
-                    //_isEndBattle = IsEndBattle();
+                    _isEndBattle = IsEndBattle();
                 }
                 else if (Shooter == EnumPlayers.enemy) // если корабыль подбит и при это стпелял враг
                 {
@@ -179,6 +182,8 @@ namespace Sea_Battle
             if (Shooter == EnumPlayers.player)
             {
                 Shooter = EnumPlayers.enemy;
+                // блокируем кнопку назад если ход врага
+                _parent.SetBtnBackState(false);
             }
             else
             {
@@ -268,8 +273,6 @@ namespace Sea_Battle
         private void EndBattle() // диспетчер оповещающий что игра закончина
         {
             EndBattleEvent(); // вызов события
-
-            //_drawImage.WhoShoot.Dispose(); // удаляем стрелку показа чей ход
         }
         public void TestSave()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sea_Battle
 {
-    struct Field
+    struct Field 
     {
         public Point _p1; // верхняя левая точка ячейки поля
         public Point _p2; // нижняя правая точка ячейки поля

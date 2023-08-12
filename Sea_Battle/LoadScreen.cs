@@ -22,7 +22,7 @@ namespace Sea_Battle
         {
             InitializeComponent();
 
-            this.BackColor = /*Color.White;*/Color.FromArgb(169, 94, 19);
+            this.BackColor = Color.FromArgb(169, 94, 19);
 
             _parent = parent;
             _screen.BringToFront();
