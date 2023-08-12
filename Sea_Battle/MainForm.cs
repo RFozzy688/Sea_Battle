@@ -31,7 +31,6 @@ namespace Sea_Battle
         bool _isSoundOn; // кнопка BtnSound вкл ли звук
         int _currentLanguage; // порядковый номер текущего языка для локализации 0 - ru, 1 - en, 2 - de, 3 - es
         int _selectedLanguage; // порядковый номер выбранного языка
-        bool _isChangeLocalization; // была ли изменена локализация приложения
         string? _strLocalization = null; // строка с локализацией
         List<string> _listLocalization; // все локализации
         public Color ColorText { get; }
@@ -235,6 +234,8 @@ namespace Sea_Battle
             _listLocalization = new List<string>();
             _listLocalization.Add("ru-RU");
             _listLocalization.Add("en-US");
+            _listLocalization.Add("de-DE");
+            _listLocalization.Add("es-ES");
         }
         private string GetStrLocalization(int index)
         {
@@ -252,7 +253,16 @@ namespace Sea_Battle
                 _language.BackgroundImage = new Bitmap(Properties.Resources.english);
                 _currentLanguage = 1;
             }
-
+            else if (_strLocalization == "de-DE")
+            {
+                _language.BackgroundImage = new Bitmap(Properties.Resources.deutch);
+                _currentLanguage = 2;
+            }
+            else if (_strLocalization == "es-ES")
+            {
+                _language.BackgroundImage = new Bitmap(Properties.Resources.espanol);
+                _currentLanguage = 3;
+            }
         }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
@@ -277,7 +287,7 @@ namespace Sea_Battle
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
 
             _playerShipsPosition.RotationShip();
-        }        
+        }
         private void BtnAutoReleased(object sender, MouseEventArgs e)
         {
             BtnAuto.Font = _textButtonReleased;
