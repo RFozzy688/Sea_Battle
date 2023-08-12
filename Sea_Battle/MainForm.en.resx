@@ -117,7 +117,62 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_gameStatistics._strPlayer" xml:space="preserve">
-    <value>I'am</value>
+  <data name="BtnAuto.Text" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="BtnNext.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="BtnToBattle.Text" xml:space="preserve">
+    <value>Battle</value>
+  </data>
+  <data name="BtnContinue.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="BtnExtendedMode.Text" xml:space="preserve">
+    <value>Advanced mode</value>
+  </data>
+  <data name="BtnClassicMode.Text" xml:space="preserve">
+    <value>Classic mode</value>
+  </data>
+  <data name="BtnHard.Text" xml:space="preserve">
+    <value>Hard</value>
+  </data>
+  <data name="BtnEasy.Text" xml:space="preserve">
+    <value>Easy</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="_battlesTotal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 15</value>
+  </data>
+  <data name="_battlesTotal.Text" xml:space="preserve">
+    <value>Battles:</value>
+  </data>
+  <data name="_playerWin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 15</value>
+  </data>
+  <data name="_playerWin.Text" xml:space="preserve">
+    <value>Player:</value>
+  </data>
+  <data name="_enemyWin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 15</value>
+  </data>
+  <data name="_enemyWin.Text" xml:space="preserve">
+    <value>Enemy:</value>
+  </data>
+  <data name="_textWin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 15</value>
+  </data>
+  <data name="_textWin.Text" xml:space="preserve">
+    <value>VICTORY</value>
+  </data>
+  <data name="_textLoss.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 15</value>
+  </data>
+  <data name="_textLoss.Text" xml:space="preserve">
+    <value>DEFEAT</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Sea Battle</value>
   </data>
 </root>

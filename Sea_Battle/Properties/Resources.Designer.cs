@@ -441,6 +441,26 @@ namespace Sea_Battle.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] RubikMarkerHatch_Regular {
+            get {
+                object obj = ResourceManager.GetObject("RubikMarkerHatch_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] RubikVinyl_Regular {
+            get {
+                object obj = ResourceManager.GetObject("RubikVinyl_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap russia {
@@ -507,6 +527,26 @@ namespace Sea_Battle.Properties {
             get {
                 object obj = ResourceManager.GetObject("sound_released", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Tektur_Condensed_Regular {
+            get {
+                object obj = ResourceManager.GetObject("Tektur_Condensed_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Tektur_VariableFont {
+            get {
+                object obj = ResourceManager.GetObject("Tektur_VariableFont", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

@@ -25,17 +25,17 @@ namespace Sea_Battle
 
         public EmbededFont()
         {
-            byte[] fontData = Properties.Resources.seabattle;
+            byte[] fontData = Properties.Resources.RubikVinyl_Regular;
             IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
             System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
             uint dummy = 0;
-            fonts.AddMemoryFont(fontPtr, Properties.Resources.seabattle.Length);
-            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.seabattle.Length, IntPtr.Zero, ref dummy);
+            fonts.AddMemoryFont(fontPtr, Properties.Resources.RubikVinyl_Regular.Length);
+            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.RubikVinyl_Regular.Length, IntPtr.Zero, ref dummy);
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
 
-            _btnFontPressed = new Font(fonts.Families[0], 26.0F, FontStyle.Bold, GraphicsUnit.Point);
-            _btnFontReleased = new Font(fonts.Families[0], 30.0F, FontStyle.Bold, GraphicsUnit.Point);
-            BattleResultFont = new Font(fonts.Families[0], 60.0F, FontStyle.Bold, GraphicsUnit.Point);
+            //_btnFontPressed = new Font(fonts.Families[0], 26.0F, FontStyle.Regular, GraphicsUnit.Point);
+            //_btnFontReleased = new Font(fonts.Families[0], 30.0F, FontStyle.Regular, GraphicsUnit.Point);
+            //BattleResultFont = new Font(fonts.Families[0], 60.0F, FontStyle.Bold, GraphicsUnit.Point);
         }
         public Font CreateFont(float size, FontStyle style)
         {

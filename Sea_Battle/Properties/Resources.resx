@@ -232,6 +232,12 @@
   <data name="right_field" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\right_field.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="RubikMarkerHatch_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\font\RubikMarkerHatch_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RubikVinyl_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\font\RubikVinyl_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="russia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\russia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -252,5 +258,11 @@
   </data>
   <data name="sound_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\sound_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tektur_Condensed_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\font\Tektur_Condensed_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Tektur_VariableFont" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\font\Tektur_VariableFont.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

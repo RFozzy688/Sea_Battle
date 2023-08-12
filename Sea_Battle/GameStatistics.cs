@@ -11,12 +11,6 @@ namespace Sea_Battle
         int _countPlayerWin;
         int _countEnemyWin;
         int _battleTotal;
-        string _strPlayer = "Я: ";
-        string _strEnemy = "Враг: ";
-        string _strTotal = "Боёв: ";
-        string _player;
-        string _enemy;
-        string _total;
         MainForm _parent;
 
         public GameStatistics(MainForm parent)
@@ -29,9 +23,9 @@ namespace Sea_Battle
 
             LoadStats();
         }
-        public string GetCountPlayerWin() { return _player; }
-        public string GetCountEnemyWin() { return _enemy; }
-        public string GetBattleTotal() { return _total; }
+        public string GetCountPlayerWin() { return _countPlayerWin.ToString(); }
+        public string GetCountEnemyWin() { return _countEnemyWin.ToString(); }
+        public string GetBattleTotal() { return _battleTotal.ToString(); }
         public void Winner(EnumPlayers winner)
         {
             if (winner == EnumPlayers.player)
@@ -43,11 +37,7 @@ namespace Sea_Battle
                 _countEnemyWin++;
             }
 
-            _player = _strPlayer + _countPlayerWin;
-            _enemy = _strEnemy + _countEnemyWin;
-
             _battleTotal = _countPlayerWin + _countEnemyWin;
-            _total = _strTotal + _battleTotal;
         }
         public void SaveStats()
         {

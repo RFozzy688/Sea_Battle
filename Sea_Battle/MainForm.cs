@@ -21,16 +21,28 @@ namespace Sea_Battle
         EmbededFont _embededFont;
         GameStatistics _gameStatistics;
         AI _aI;
+        Font _textButtonReleased; // текст на кнопках (отжата)
+        Font _textButtonPressed; // текст на кнопках (нажата)
+        Font _textLableStat; // текст на лейблах статистика
+        Font _textLableResultBattle; // результат боя
 
         int _btnContinuePressed; // кнопка выполняет 2-е ф-ции - показ финального экрана и рестарт игры (0 - финальный экран, 1 - рестарт игры)
         bool _isBtnInBattlePressed;
         bool _isSoundOn; // кнопка BtnSound вкл ли звук
-        int _numberLanguage; // порядковый номер языка для локализации
+        int _currentLanguage; // порядковый номер текущего языка для локализации 0 - ru, 1 - en, 2 - de, 3 - es
+        int _selectedLanguage; // порядковый номер выбранного языка
+        bool _isChangeLocalization; // была ли изменена локализация приложения
+        string? _strLocalization = null; // строка с локализацией
+        List<string> _listLocalization; // все локализации
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
         public MainForm()
         {
+            _strLocalization = LoadLocalization();
+            if (_strLocalization == null) { _strLocalization = "ru-RU"; }
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
+
             InitializeComponent();
 
             //_loadScreen = new LoadScreen(this);
@@ -51,44 +63,15 @@ namespace Sea_Battle
             _isBtnInBattlePressed = false;
             _btnContinuePressed = 0;
             _isSoundOn = true;
-            _numberLanguage = 0;
+            _currentLanguage = 0;
 
-            BtnAuto.Font = _embededFont.GetBtnFontReleased();
-            BtnAuto.ForeColor = ColorText;
+            _textButtonReleased = _embededFont.CreateFont(23.0f, FontStyle.Regular);
+            _textButtonPressed = _embededFont.CreateFont(20.0f, FontStyle.Regular);
+            _textLableStat = _embededFont.CreateFont(30.0f, FontStyle.Regular);
+            _textLableResultBattle = _embededFont.CreateFont(60.0f, FontStyle.Regular);
 
-            BtnNext.Font = _embededFont.GetBtnFontReleased();
-            BtnNext.ForeColor = ColorText;
-
-            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
-            BtnToBattle.ForeColor = ColorText;
-
-            BtnContinue.Font = _embededFont.GetBtnFontReleased();
-            BtnContinue.ForeColor = ColorText;
-
-            BtnExtendedMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
-            BtnExtendedMode.ForeColor = ColorText;
-
-            BtnClassicMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
-            BtnClassicMode.ForeColor = ColorText;
-
-            BtnHard.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
-            BtnHard.ForeColor = ColorText;
-
-            BtnEasy.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
-            BtnEasy.ForeColor = ColorText;
-
-            BtnContinue.Hide();
-            BtnAuto.Hide();
-            BtnNext.Hide();
-            BtnToBattle.Hide();
-            BtnBack.Hide();
-            BtnRotation.Hide();
-            BtnRightLocalization.Hide();
-            BtnLeftLocalization.Hide();
-            BtnEasy.Hide();
-            BtnHard.Hide();
-            BtnSound.Hide();
-            _language.Hide();
+            InitControls();
+            CreateListLocalization();
 
             ChoiceGameModeScreen();
 
@@ -168,9 +151,112 @@ namespace Sea_Battle
 
             ClassicGameMode();
         }
+        private void InitControls()
+        {
+            BtnAuto.Font = _textButtonReleased;
+            BtnAuto.ForeColor = ColorText;
+
+            BtnNext.Font = _textButtonReleased;
+            BtnNext.ForeColor = ColorText;
+
+            BtnToBattle.Font = _textButtonReleased;
+            BtnToBattle.ForeColor = ColorText;
+
+            BtnContinue.Font = _textButtonReleased;
+            BtnContinue.ForeColor = ColorText;
+
+            BtnExtendedMode.Font = _textButtonReleased;
+            BtnExtendedMode.ForeColor = ColorText;
+
+            BtnClassicMode.Font = _textButtonReleased;
+            BtnClassicMode.ForeColor = ColorText;
+
+            BtnHard.Font = _textButtonReleased;
+            BtnHard.ForeColor = ColorText;
+
+            BtnEasy.Font = _textButtonReleased;
+            BtnEasy.ForeColor = ColorText;
+
+            _battlesTotal.Font = _textLableStat;
+            _battlesTotal.ForeColor = ColorText;
+            _battlesTotal.Hide();
+
+            _playerWin.Font = _textLableStat;
+            _playerWin.ForeColor = ColorText;
+            _playerWin.Hide();
+
+            _enemyWin.Font = _textLableStat;
+            _enemyWin.ForeColor = ColorText;
+            _enemyWin.Hide();
+
+            _textWin.Font = _textLableResultBattle;
+            _textWin.ForeColor = ColorText;
+            _textWin.Hide();
+
+            _textLoss.Font = _textLableResultBattle;
+            _textLoss.ForeColor = ColorText;
+            _textLoss.Hide();
+
+            BtnContinue.Hide();
+            BtnAuto.Hide();
+            BtnNext.Hide();
+            BtnToBattle.Hide();
+            BtnBack.Hide();
+            BtnRotation.Hide();
+            BtnRightLocalization.Hide();
+            BtnLeftLocalization.Hide();
+            BtnEasy.Hide();
+            BtnHard.Hide();
+            BtnSound.Hide();
+            _language.Hide();
+        }
+        private void SaveLocalization()
+        {
+            using (FileStream fs = new FileStream("localization.txt", FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
+                {
+                    sw.Write(_strLocalization + "\n");
+                }
+            }
+        }
+        private string? LoadLocalization()
+        {
+            using (FileStream fs = new FileStream("localization.txt", FileMode.Open))
+            {
+                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
+                {
+                    return sr.ReadLine();
+                }
+            }
+        }
+        private void CreateListLocalization()
+        {
+            _listLocalization = new List<string>();
+            _listLocalization.Add("ru-RU");
+            _listLocalization.Add("en-US");
+        }
+        private string GetStrLocalization(int index)
+        {
+            return _listLocalization[index];
+        }
+        private void SetImageLocalization()
+        {
+            if (_strLocalization == "ru-RU")
+            {
+                _language.BackgroundImage = new Bitmap(Properties.Resources.russia);
+                _currentLanguage = 0;
+            }
+            else if (_strLocalization == "en-US")
+            {
+                _language.BackgroundImage = new Bitmap(Properties.Resources.english);
+                _currentLanguage = 1;
+            }
+
+        }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            //Text = e.X + " " + e.Y;
+            Text = e.X + " " + e.Y;
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -186,50 +272,41 @@ namespace Sea_Battle
                 }
             }
         }
-        private void BtnRotationPressed(object sender, MouseEventArgs e)
-        {
-            BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
-
-            _playerShipsPosition.RotationShip();
-        }
         public void BtnRotationReleased(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
-        }
-        private void BtnAutoPressed(object sender, MouseEventArgs e)
+
+            _playerShipsPosition.RotationShip();
+        }        
+        private void BtnAutoReleased(object sender, MouseEventArgs e)
         {
-            BtnAuto.Font = _embededFont.GetBtnFontPressed();
-            BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            BtnAuto.Font = _textButtonReleased;
+            BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
 
             _playerShipsPosition.ClearField();
             _playerShipsPosition.SetShipOnField();
             _playerShipsPosition.SetImageShipOnField();
         }
-        private void BtnAutoReleased(object sender, MouseEventArgs e)
-        {
-            BtnAuto.Font = _embededFont.GetBtnFontReleased();
-            BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-        }
-        private void BtnNextPressed(object sender, MouseEventArgs e)
-        {
-            BtnNext.Font = _embededFont.GetBtnFontPressed();
-            BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-        }
         private void BtnNextReleased(object sender, MouseEventArgs e)
         {
-            BtnNext.Font = _embededFont.GetBtnFontReleased();
+            BtnNext.Font = _textButtonReleased;
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-        }
-        private void BtnBackPressed(object sender, MouseEventArgs e)
-        {
-            BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
-
-            //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
-            _enemyShipsPosition.TestSave();
         }
         private void BtnBackReleased(object sender, MouseEventArgs e)
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
+
+            if (_currentLanguage != _selectedLanguage)
+            {
+                SaveLocalization();
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
+                Controls.Clear();
+                InitializeComponent();
+                InitControls();
+            }
+
+            //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
+            //_enemyShipsPosition.TestSave();
         }
         public void HideButtons()
         {
@@ -238,14 +315,9 @@ namespace Sea_Battle
             BtnNext.Hide();
             BtnToBattle.Hide();
         }
-        private void BtnToBattlePressed(object sender, MouseEventArgs e)
-        {
-            BtnToBattle.Font = _embededFont.GetBtnFontPressed();
-            BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-        }
         private void BtnToBattleReleased(object sender, MouseEventArgs e)
         {
-            BtnToBattle.Font = _embededFont.GetBtnFontReleased();
+            BtnToBattle.Font = _textButtonReleased;
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
 
             // растановка кораблей врага в рандомном порядке
@@ -288,14 +360,9 @@ namespace Sea_Battle
                 _drawImage.SetImageWhoShooter(_battle.Shooter);
             }
         }
-        private void BtnContinuePressed(object sender, MouseEventArgs e)
-        {
-            BtnContinue.Font = _embededFont.GetBtnFontPressed();
-            BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-        }
         private void BtnContinueReleased(object sender, MouseEventArgs e)
         {
-            BtnContinue.Font = _embededFont.GetBtnFontReleased();
+            BtnContinue.Font = _textButtonReleased;
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
 
             if (_btnContinuePressed == 0)
@@ -315,7 +382,8 @@ namespace Sea_Battle
                     _drawImage.AddImageToList();
 
                     // отрисовка текста "ПОБЕДА"
-                    _drawImage.AddTextToList("ПОБЕДА", new Point(450, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
+                    _textWin.Show();
+                    //_drawImage.AddTextToList("ПОБЕДА", new Point(450, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
                 }
                 else
                 {
@@ -323,16 +391,20 @@ namespace Sea_Battle
                     _drawImage.InitializeStructPicture(new Point(3, 146), new Bitmap(Properties.Resources.img_loss));
                     _drawImage.AddImageToList();
                     // отрисовка текста "ПОРАЖЕНИЕ"
-                    _drawImage.AddTextToList("ПОРАЖЕНИЕ", new Point(350, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
+                    _textLoss.Show();
+                    //_drawImage.AddTextToList("ПОРАЖЕНИЕ", new Point(350, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
                 }
 
                 // фиксируем победителя в классе статистики
                 _gameStatistics.Winner(_battle.Winner);
 
                 // отрисовка статистики на финальном экране
-                _drawImage.AddTextToList(_gameStatistics.GetBattleTotal(), new Point(20, 108), _embededFont.CreateFont(30.0f, FontStyle.Bold));
-                _drawImage.AddTextToList(_gameStatistics.GetCountPlayerWin(), new Point(20, 150), _embededFont.CreateFont(30.0f, FontStyle.Bold));
-                _drawImage.AddTextToList(_gameStatistics.GetCountEnemyWin(), new Point(20, 195), _embededFont.CreateFont(30.0f, FontStyle.Bold));
+                _battlesTotal.Show();
+                _playerWin.Show();
+                _enemyWin.Show();
+                _drawImage.AddTextToList(_gameStatistics.GetBattleTotal(), new Point(240, 115), _embededFont.CreateFont(30.0f, FontStyle.Bold));
+                _drawImage.AddTextToList(_gameStatistics.GetCountPlayerWin(), new Point(240, 170), _embededFont.CreateFont(30.0f, FontStyle.Bold));
+                _drawImage.AddTextToList(_gameStatistics.GetCountEnemyWin(), new Point(240, 230), _embededFont.CreateFont(30.0f, FontStyle.Bold));
 
                 // сохранение статистики
                 _gameStatistics.SaveStats();
@@ -367,24 +439,14 @@ namespace Sea_Battle
             //Bitmap
         }
 
-        private void BtnExtendedModePressed(object sender, MouseEventArgs e)
-        {
-            BtnExtendedMode.Font = _embededFont.CreateFont(21.0f, FontStyle.Bold);
-            BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
-        }
         private void BtnExtendedModeReleased(object sender, MouseEventArgs e)
         {
-            BtnExtendedMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnExtendedMode.Font = _textButtonReleased;
             BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
-        }
-        private void BtnClassicModePressed(object sender, MouseEventArgs e)
-        {
-            BtnClassicMode.Font = _embededFont.CreateFont(21.0f, FontStyle.Bold);
-            BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
         }
         private void BtnClassicModeReleased(object sender, MouseEventArgs e)
         {
-            BtnClassicMode.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
+            BtnClassicMode.Font = _textButtonReleased;
             BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
 
             ClassicGameMode();
@@ -398,10 +460,6 @@ namespace Sea_Battle
             BtnBack.Show();
             BtnRotation.Show();
         }
-        private void BtnSettingPressed(object sender, MouseEventArgs e)
-        {
-            BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_pressed);
-        }
         private void BtnSettingReleased(object sender, MouseEventArgs e)
         {
             BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_released);
@@ -411,6 +469,9 @@ namespace Sea_Battle
 
             SettingsScreen();
 
+            SetImageLocalization();
+            _selectedLanguage = _currentLanguage;
+
             BtnBack.Show();
             BtnRightLocalization.Show();
             BtnLeftLocalization.Show();
@@ -419,54 +480,35 @@ namespace Sea_Battle
             BtnSound.Show();
             _language.Show();
         }
-
-        private void BtnLeftLocalizationPressed(object sender, MouseEventArgs e)
-        {
-            BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_pressed);
-        }
         private void BtnLeftLocalizationReleased(object sender, MouseEventArgs e)
         {
             BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_released);
 
-            _numberLanguage--;
-            if (_numberLanguage < 0) { _numberLanguage = 4; }
-        }
-        private void BtnRightLocalizationPressed(object sender, MouseEventArgs e)
-        {
-            BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_pressed);
+            _currentLanguage--;
+            if (_currentLanguage < 0) { _currentLanguage = 3; }
+
+            _strLocalization = GetStrLocalization(_currentLanguage);
+            SetImageLocalization();
         }
         private void BtnRightLocalizationReleased(object sender, MouseEventArgs e)
         {
             BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_released);
 
-            _numberLanguage++;
-            if (_numberLanguage > 4) { _numberLanguage = 0; }
-        }
-        private void BtnHardPressed(object sender, MouseEventArgs e)
-        {
-            BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-            BtnHard.Font = _embededFont.CreateFont(20.0f, FontStyle.Bold);
+            _currentLanguage++;
+            if (_currentLanguage > 3) { _currentLanguage = 0; }
 
+            _strLocalization = GetStrLocalization(_currentLanguage);
+            SetImageLocalization();
         }
         private void BtnHardReleased(object sender, MouseEventArgs e)
         {
             BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-            BtnHard.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
-        }
-        private void BtnEasyPressed(object sender, MouseEventArgs e)
-        {
-            BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
-            BtnEasy.Font = _embededFont.CreateFont(20.0f, FontStyle.Bold);
+            BtnHard.Font = _textButtonReleased;
         }
         private void BtnEasyReleased(object sender, MouseEventArgs e)
         {
             BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-            BtnEasy.Font = _embededFont.CreateFont(25.0f, FontStyle.Bold);
-        }
-        private void BtnSoundPressed(object sender, MouseEventArgs e)
-        {
-            if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_pressed); }
-            else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_pressed); }
+            BtnEasy.Font = _textButtonReleased;
         }
         private void BtnSoundReleased(object sender, MouseEventArgs e)
         {
@@ -474,6 +516,72 @@ namespace Sea_Battle
 
             if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released); }
             else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released); }
+        }
+
+        private void BtnRotationPressed(object sender, MouseEventArgs e)
+        {
+            BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
+        }
+        private void BtnAutoPressed(object sender, MouseEventArgs e)
+        {
+            BtnAuto.Font = _textButtonPressed;
+            BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+        }
+        private void BtnNextPressed(object sender, MouseEventArgs e)
+        {
+            BtnNext.Font = _textButtonPressed;
+            BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+        }
+        private void BtnBackPressed(object sender, MouseEventArgs e)
+        {
+            BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
+        }
+        private void BtnToBattlePressed(object sender, MouseEventArgs e)
+        {
+            BtnToBattle.Font = _textButtonPressed;
+            BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+        }
+        private void BtnContinuePressed(object sender, MouseEventArgs e)
+        {
+            BtnContinue.Font = _textButtonPressed;
+            BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+        }
+        private void BtnExtendedModePressed(object sender, MouseEventArgs e)
+        {
+            BtnExtendedMode.Font = _textButtonPressed;
+            BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
+        }
+        private void BtnClassicModePressed(object sender, MouseEventArgs e)
+        {
+            BtnClassicMode.Font = _textButtonPressed;
+            BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
+        }
+        private void BtnSettingPressed(object sender, MouseEventArgs e)
+        {
+            BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_pressed);
+        }
+        private void BtnLeftLocalizationPressed(object sender, MouseEventArgs e)
+        {
+            BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_pressed);
+        }
+        private void BtnRightLocalizationPressed(object sender, MouseEventArgs e)
+        {
+            BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_pressed);
+        }
+        private void BtnHardPressed(object sender, MouseEventArgs e)
+        {
+            BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            BtnHard.Font = _textButtonPressed;
+        }
+        private void BtnEasyPressed(object sender, MouseEventArgs e)
+        {
+            BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            BtnEasy.Font = _textButtonPressed;
+        }
+        private void BtnSoundPressed(object sender, MouseEventArgs e)
+        {
+            if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_pressed); }
+            else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_pressed); }
         }
     }
 }

@@ -44,6 +44,11 @@
             BtnSound = new PictureBox();
             BtnHard = new Button();
             BtnEasy = new Button();
+            _battlesTotal = new Label();
+            _playerWin = new Label();
+            _enemyWin = new Label();
+            _textWin = new Label();
+            _textLoss = new Label();
             ((System.ComponentModel.ISupportInitialize)BtnRotation).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnSetting).BeginInit();
@@ -74,7 +79,6 @@
             BtnAuto.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnAuto.Name = "BtnAuto";
             BtnAuto.TabStop = false;
-            BtnAuto.UseCompatibleTextRendering = true;
             BtnAuto.UseVisualStyleBackColor = true;
             BtnAuto.MouseDown += BtnAutoPressed;
             BtnAuto.MouseUp += BtnAutoReleased;
@@ -116,7 +120,6 @@
             BtnToBattle.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnToBattle.Name = "BtnToBattle";
             BtnToBattle.TabStop = false;
-            BtnToBattle.UseCompatibleTextRendering = true;
             BtnToBattle.UseVisualStyleBackColor = false;
             BtnToBattle.MouseDown += BtnToBattlePressed;
             BtnToBattle.MouseUp += BtnToBattleReleased;
@@ -133,7 +136,6 @@
             BtnContinue.ForeColor = SystemColors.ControlText;
             BtnContinue.Name = "BtnContinue";
             BtnContinue.TabStop = false;
-            BtnContinue.UseCompatibleTextRendering = true;
             BtnContinue.UseVisualStyleBackColor = true;
             BtnContinue.MouseDown += BtnContinuePressed;
             BtnContinue.MouseUp += BtnContinueReleased;
@@ -147,7 +149,6 @@
             BtnExtendedMode.FlatAppearance.MouseDownBackColor = Color.Transparent;
             BtnExtendedMode.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnExtendedMode.Name = "BtnExtendedMode";
-            BtnExtendedMode.UseCompatibleTextRendering = true;
             BtnExtendedMode.UseVisualStyleBackColor = false;
             BtnExtendedMode.MouseDown += BtnExtendedModePressed;
             BtnExtendedMode.MouseUp += BtnExtendedModeReleased;
@@ -161,7 +162,6 @@
             BtnClassicMode.FlatAppearance.MouseDownBackColor = Color.Transparent;
             BtnClassicMode.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnClassicMode.Name = "BtnClassicMode";
-            BtnClassicMode.UseCompatibleTextRendering = true;
             BtnClassicMode.UseVisualStyleBackColor = false;
             BtnClassicMode.MouseDown += BtnClassicModePressed;
             BtnClassicMode.MouseUp += BtnClassicModeReleased;
@@ -225,7 +225,6 @@
             BtnHard.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnHard.Name = "BtnHard";
             BtnHard.TabStop = false;
-            BtnHard.UseCompatibleTextRendering = true;
             BtnHard.UseVisualStyleBackColor = true;
             BtnHard.MouseDown += BtnHardPressed;
             BtnHard.MouseUp += BtnHardReleased;
@@ -241,16 +240,50 @@
             BtnEasy.FlatAppearance.MouseOverBackColor = Color.Transparent;
             BtnEasy.Name = "BtnEasy";
             BtnEasy.TabStop = false;
-            BtnEasy.UseCompatibleTextRendering = true;
             BtnEasy.UseVisualStyleBackColor = true;
             BtnEasy.MouseDown += BtnEasyPressed;
             BtnEasy.MouseUp += BtnEasyReleased;
+            // 
+            // _battlesTotal
+            // 
+            resources.ApplyResources(_battlesTotal, "_battlesTotal");
+            _battlesTotal.BackColor = Color.Transparent;
+            _battlesTotal.Name = "_battlesTotal";
+            // 
+            // _playerWin
+            // 
+            resources.ApplyResources(_playerWin, "_playerWin");
+            _playerWin.BackColor = Color.Transparent;
+            _playerWin.Name = "_playerWin";
+            // 
+            // _enemyWin
+            // 
+            resources.ApplyResources(_enemyWin, "_enemyWin");
+            _enemyWin.BackColor = Color.Transparent;
+            _enemyWin.Name = "_enemyWin";
+            // 
+            // _textWin
+            // 
+            resources.ApplyResources(_textWin, "_textWin");
+            _textWin.BackColor = Color.Transparent;
+            _textWin.Name = "_textWin";
+            // 
+            // _textLoss
+            // 
+            resources.ApplyResources(_textLoss, "_textLoss");
+            _textLoss.BackColor = Color.Transparent;
+            _textLoss.Name = "_textLoss";
             // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.bg_clear;
+            Controls.Add(_textLoss);
+            Controls.Add(_textWin);
+            Controls.Add(_enemyWin);
+            Controls.Add(_playerWin);
+            Controls.Add(_battlesTotal);
             Controls.Add(BtnEasy);
             Controls.Add(BtnHard);
             Controls.Add(BtnSound);
@@ -284,6 +317,7 @@
             ((System.ComponentModel.ISupportInitialize)_language).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnSound).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -302,5 +336,10 @@
         private PictureBox BtnSound;
         public Button BtnHard;
         public Button BtnEasy;
+        private Label _battlesTotal;
+        private Label _playerWin;
+        private Label _enemyWin;
+        private Label _textWin;
+        private Label _textLoss;
     }
 }
