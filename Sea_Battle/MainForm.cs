@@ -89,8 +89,8 @@ namespace Sea_Battle
         }
         private void ChoiceGameModeScreen()
         {
-            //_drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
-            //_drawImage.AddImageToList();
+            _drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
+            _drawImage.AddImageToList();
 
             BtnClassicMode.Show();
             BtnExtendedMode.Show();
@@ -161,12 +161,9 @@ namespace Sea_Battle
             _gameStatistics = null;
             _aI = null;
 
-
             _isBtnInBattlePressed = false;
             _isBtnClassicModePressed = false;
             _btnContinuePressed = 0;
-
-            //ClassicGameMode();
         }
         private void InitControls()
         {
@@ -339,15 +336,6 @@ namespace Sea_Battle
 
             if (_isBtnClassicModePressed) { RestartGame(); }
 
-            //if (_drawImage.GetAnimation() != null) 
-            //{ 
-            //    _drawImage.GetAnimation().Dispose();
-            //}
-
-            //_drawImage.GetDeleteExplosionAnimation().Stop();
-            //_drawImage.GetDeleteRocketAnimation().Stop();
-
-            
             InitControls();
             ChoiceGameModeScreen();
 

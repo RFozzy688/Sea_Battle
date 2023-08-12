@@ -86,9 +86,6 @@ namespace Sea_Battle
             InitializeStructPicture(_imagePosition, new Bitmap(Properties.Resources.mimo_finish));
             AddImageToList();
 
-            // блокируется кнопкав Fire()
-            _parent.SetBtnBackState(true);
-
             FinishRocketAnimation();
         }
         private void DeleteExplosionAnimation(object? sender, EventArgs e)
@@ -99,9 +96,6 @@ namespace Sea_Battle
 
             InitializeStructPicture(_imagePosition, new Bitmap(Properties.Resources.red_cross));
             AddImageToList();
-
-            // блокируется кнопкав Fire()
-            _parent.SetBtnBackState(true);
 
             if (_isDead)
             {

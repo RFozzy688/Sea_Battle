@@ -106,8 +106,7 @@ namespace Sea_Battle
         {
             //_isEndBattle = true;
 
-            // блокируем кнопку назад пока не закончится анимация (и в ChangeShooter())
-            // (разблокировка в DeleteExplosionAnimation() и DeleteRocketAnimation)
+            // блокируем кнопку назад пока не будет ход игрока (в ChangeShooter())
             _parent.SetBtnBackState(false); 
 
             CreatePlayingField field;
@@ -182,12 +181,12 @@ namespace Sea_Battle
             if (Shooter == EnumPlayers.player)
             {
                 Shooter = EnumPlayers.enemy;
-                // блокируем кнопку назад если ход врага
-                _parent.SetBtnBackState(false);
             }
             else
             {
                 Shooter = EnumPlayers.player;
+                // так как ход игрока кнопку разблокируем
+                _parent.SetBtnBackState(true);
             }
         }
         public void RepeatedShoot() // повторный выстрел врага
