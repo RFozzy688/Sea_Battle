@@ -33,6 +33,7 @@ namespace Sea_Battle
         int _selectedLanguage; // порядковый номер выбранного языка
         string? _strLocalization = null; // строка с локализацией
         List<string> _listLocalization; // все локализации
+        bool _isInitEventsDrawImage; // флаг для проверки подписки на ивенты в DrawImage только один раз
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
@@ -124,6 +125,7 @@ namespace Sea_Battle
             _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage, _aI);
             _gameStatistics = new GameStatistics(this);
 
+            //if (DrawImage.FinishRocketAnimationEvent != null)
             _drawImage.FinishRocketAnimationEvent += _battle.TransitionOfMoveInGame;
             _drawImage.FinishExplosionAnimationEvent += _battle.RepeatedShoot;
             _drawImage.InitializeStructPicture(new Point(1, 109), new Bitmap(Properties.Resources.left_field));
@@ -133,6 +135,9 @@ namespace Sea_Battle
         }
         private void RestartGame()
         {
+            _drawImage.FinishRocketAnimationEvent -= _battle.TransitionOfMoveInGame;
+            _drawImage.FinishExplosionAnimationEvent -= _battle.RepeatedShoot;
+
             _playerFleet = null;
             _playerField = null;
             _playerShipsPosition = null;
@@ -306,17 +311,17 @@ namespace Sea_Battle
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
 
-            if (_currentLanguage != _selectedLanguage)
-            {
-                SaveLocalization();
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
-                Controls.Clear();
-                InitializeComponent();
-                InitControls();
-            }
+            //if (_currentLanguage != _selectedLanguage)
+            //{
+            //    SaveLocalization();
+            //    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
+            //    Controls.Clear();
+            //    InitializeComponent();
+            //    InitControls();
+            //}
 
             //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
-            //_enemyShipsPosition.TestSave();
+            _enemyShipsPosition.TestSave();
         }
         public void HideButtons()
         {
@@ -393,16 +398,15 @@ namespace Sea_Battle
 
                     // отрисовка текста "ПОБЕДА"
                     _textWin.Show();
-                    //_drawImage.AddTextToList("ПОБЕДА", new Point(450, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
                 }
                 else
                 {
                     // отрисовка финального изображения
                     _drawImage.InitializeStructPicture(new Point(3, 146), new Bitmap(Properties.Resources.img_loss));
                     _drawImage.AddImageToList();
+
                     // отрисовка текста "ПОРАЖЕНИЕ"
                     _textLoss.Show();
-                    //_drawImage.AddTextToList("ПОРАЖЕНИЕ", new Point(350, 115), _embededFont.CreateFont(60.0f, FontStyle.Regular));
                 }
 
                 // фиксируем победителя в классе статистики
@@ -423,7 +427,13 @@ namespace Sea_Battle
             {
                 _drawImage.ClearListDrawPicture();
                 _drawImage.ClearListDrawText();
-                _drawImage.ClearBackground();
+                //_drawImage.ClearBackground();
+
+                _battlesTotal.Hide();
+                _playerWin.Hide();
+                _enemyWin.Hide();
+                _textWin.Hide();
+                _textLoss.Hide();
 
                 BtnBack.Show();
                 BtnRotation.Show();
@@ -433,22 +443,6 @@ namespace Sea_Battle
                 RestartGame();
             }
         }
-
-        private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            _playerShipsPosition.TestSave();
-        }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            //this.Visible = false;
-        }
-
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            //Bitmap
-        }
-
         private void BtnExtendedModeReleased(object sender, MouseEventArgs e)
         {
             BtnExtendedMode.Font = _textButtonReleased;
@@ -526,6 +520,21 @@ namespace Sea_Battle
 
             if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released); }
             else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released); }
+        }
+
+        private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            _playerShipsPosition.TestSave();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            //this.Visible = false;
+        }
+
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            //Bitmap
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)
