@@ -35,6 +35,11 @@ namespace Sea_Battle
         bool _isCanUp;
         bool _isCanDown;
 
+        readonly int _sizeArray = 10;
+        int _shotsBattleship = 24; // максимально 24 выстрела для поиска 4-х палубного корабля
+        int[,] _maskShips; // маска для поиска 4-х, 3-х и 2-х палубных корабле
+        int _shots = 26; // максимально 26 выстрелов для поиска 3-х и 2-х палубных корабле
+
         public Logger _logger;
 
         public AI(MainForm parent, CreatePlayingField field)
@@ -49,9 +54,27 @@ namespace Sea_Battle
             _isCanUp = true;
             _isCanDown = true;
 
+            SetMasks();
+
             DirectionOfFire = Direction.Undefined;
 
             _logger = LogManager.GetCurrentClassLogger();
+        }
+        private void SetMasks() // устанавливаем маску в массивы
+        {
+            _maskShips = new[,]
+            {
+                {0,2,0,1,0,2,0,1,0,2 },
+                {2,0,1,0,2,0,1,0,2,0 },
+                {0,1,0,2,0,1,0,2,0,1 },
+                {1,0,2,0,1,0,2,0,1,0 },
+                {0,2,0,1,0,2,0,1,0,2 },
+                {2,0,1,0,2,0,1,0,2,0 },
+                {0,1,0,2,0,1,0,2,0,1 },
+                {1,0,2,0,1,0,2,0,1,0 },
+                {0,2,0,1,0,2,0,1,0,2 },
+                {2,0,1,0,2,0,1,0,2,0 },
+            };
         }
         public void EnemyFiringIndexes(ref int row, ref int col) // рандомный поиск индексов для стрельбы
         {
@@ -61,6 +84,49 @@ namespace Sea_Battle
             {
                 row = random.Next(0, 10);
                 col = random.Next(0, 10);
+
+                if (_parent.GetGameDifficulty() == GameDifficulty.Hard)
+                {
+                    if (_shotsBattleship != 0 && _maskShips[row, col] == 1)
+                    {
+                        if (_field.ArrayField[row, col]._value != -1)
+                        {
+                            _shotsBattleship--;
+                            _maskShips[row, col] = -1;
+                            break;
+                        }
+                        else
+                        {
+                            _shotsBattleship--;
+                            _maskShips[row, col] = -1;
+                            continue;
+                        }
+                    }
+                    else if (_shotsBattleship != 0 && _maskShips[row, col] != 1)
+                    {
+                        continue;
+                    }
+
+                    if (_shots != 0 && _maskShips[row, col] == 2)
+                    {
+                        if (_field.ArrayField[row, col]._value != -1)
+                        {
+                            _shots--;
+                            _maskShips[row, col] = -1;
+                            break;
+                        }
+                        else
+                        {
+                            _shots--;
+                            _maskShips[row, col] = -1;
+                            continue;
+                        }
+                    }
+                    else if (_shots != 0 && _maskShips[row, col] != 2)
+                    {
+                        continue;
+                    }
+                }
 
                 if (_field.ArrayField[row, col]._value != -1)
                 {
@@ -185,7 +251,7 @@ namespace Sea_Battle
                     direction = Direction.Down;
                     break;
             }
-            _logger.Debug("G.D.F.F. direction {0}", direction.ToString());
+
             return direction;
         }
         public void ResetDirectionVariables() // сбрасываем переменные в начальное состояние
@@ -226,6 +292,31 @@ namespace Sea_Battle
             ColHit = ColFirstHit;
 
             IsOutTarget = false;
+        }
+
+        public void TestSave()
+        {
+            using (FileStream fs = new FileStream("mask.txt", FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
+                {
+                    for (int i = 0; i < _sizeArray; i++)
+                    {
+                        for (int j = 0; j < _sizeArray; j++)
+                        {
+                            sw.Write(_maskShips[i, j] + ",");
+                        }
+                        sw.Write("\n");
+                    }
+                    //sw.Write("\n");
+
+                    //for (int i = 0; i < 10; i++)
+                    //{
+                    //    sw.Write(_ships[i]._shipPositioning.ToString() + "\n");
+                    //}
+                }
+
+            }
         }
     }
 }

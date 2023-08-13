@@ -4,6 +4,11 @@ using System.Text;
 
 namespace Sea_Battle
 {
+    public enum GameDifficulty
+    {
+        Hard,
+        Easy
+    }
     public partial class MainForm : Form
     {
         LoadScreen _loadScreen;
@@ -29,17 +34,18 @@ namespace Sea_Battle
         int _btnContinuePressed; // кнопка выполняет 2-е ф-ции - показ финального экрана и рестарт игры (0 - финальный экран, 1 - рестарт игры)
         bool _isBtnInBattlePressed;
         bool _isBtnClassicModePressed;
-        bool _isSoundOn; // кнопка BtnSound вкл ли звук
+        bool _isSoundOn = true; // кнопка BtnSound вкл ли звук
         int _currentLanguage; // порядковый номер текущего языка для локализации 0 - ru, 1 - en, 2 - de, 3 - es
         int _selectedLanguage; // порядковый номер выбранного языка
         string? _strLocalization = null; // строка с локализацией
         List<string> _listLocalization; // все локализации
+        GameDifficulty _gameDifficulty = GameDifficulty.Easy; // сложность игры
         public Color ColorText { get; }
         public Color ColorBG { get; }
 
         public MainForm()
         {
-            _strLocalization = LoadLocalization();
+            LoadSettings();
             if (_strLocalization == null) { _strLocalization = "ru-RU"; }
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
 
@@ -63,7 +69,6 @@ namespace Sea_Battle
             _isBtnInBattlePressed = false;
             _isBtnClassicModePressed = false;
             _btnContinuePressed = 0;
-            _isSoundOn = true;
             _currentLanguage = 0;
 
             _textButtonReleased = _embededFont.CreateFont(23.0f, FontStyle.Regular);
@@ -78,6 +83,7 @@ namespace Sea_Battle
 
         }
 
+        public GameDifficulty GetGameDifficulty() { return _gameDifficulty; }
         public void SetBtnBackState(bool flag)
         {
             BtnBack.Enabled = flag;
@@ -224,23 +230,27 @@ namespace Sea_Battle
             BtnSound.Hide();
             _language.Hide();
         }
-        private void SaveLocalization()
+        private void SaveSettings()
         {
-            using (FileStream fs = new FileStream("localization.txt", FileMode.Create))
+            using (FileStream fs = new FileStream("settings.txt", FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
                 {
                     sw.Write(_strLocalization + "\n");
+                    sw.Write(_isSoundOn + "\n");
+                    sw.Write(((int)_gameDifficulty) + "\n");
                 }
             }
         }
-        private string? LoadLocalization()
+        private void LoadSettings()
         {
-            using (FileStream fs = new FileStream("localization.txt", FileMode.Open))
+            using (FileStream fs = new FileStream("settings.txt", FileMode.Open))
             {
                 using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
                 {
-                    return sr.ReadLine();
+                    _strLocalization = sr.ReadLine();
+                    _isSoundOn = Boolean.Parse(sr.ReadLine());
+                    _gameDifficulty = (GameDifficulty)Int32.Parse(sr.ReadLine());
                 }
             }
         }
@@ -278,6 +288,16 @@ namespace Sea_Battle
                 _language.BackgroundImage = new Bitmap(Properties.Resources.espanol);
                 _currentLanguage = 3;
             }
+        }
+        private void SetImageSound()
+        {
+            if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released); }
+            else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released); }
+        }
+        private void SetTextColorDifficulty()
+        {
+            if (_gameDifficulty == GameDifficulty.Hard) { BtnHard.ForeColor = Color.Red; }
+            else if (_gameDifficulty == GameDifficulty.Easy) { BtnEasy.ForeColor = Color.Red; }
         }
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
@@ -323,13 +343,14 @@ namespace Sea_Battle
 
             if (_currentLanguage != _selectedLanguage)
             {
-                SaveLocalization();
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_strLocalization);
                 Controls.Clear();
                 InitializeComponent();
 
                 _currentLanguage = _selectedLanguage;
             }
+
+            SaveSettings();
 
             _drawImage.ClearListDrawPicture();
             _drawImage.ClearBackground();
@@ -378,6 +399,7 @@ namespace Sea_Battle
 
             // отрисовка кораблей игрока на поле
             _drawImage.AddPlayerShipsToList(_playerFleet, _playerField);
+            //_playerFleet.HideShips();
 
             _isBtnInBattlePressed = true; // кнопка в бой была нажата
             _battle.Shooter = _battle.WhoFirstShoots(); // выбор первого хода
@@ -500,6 +522,9 @@ namespace Sea_Battle
             SetImageLocalization();
             _selectedLanguage = _currentLanguage;
 
+            SetImageSound();
+            SetTextColorDifficulty();
+
             BtnBack.Show();
             BtnRightLocalization.Show();
             BtnLeftLocalization.Show();
@@ -532,11 +557,15 @@ namespace Sea_Battle
         {
             BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
             BtnHard.Font = _textButtonReleased;
+
+            _gameDifficulty = GameDifficulty.Hard;
         }
         private void BtnEasyReleased(object sender, MouseEventArgs e)
         {
             BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
             BtnEasy.Font = _textButtonReleased;
+
+            _gameDifficulty = GameDifficulty.Easy;
         }
         private void BtnSoundReleased(object sender, MouseEventArgs e)
         {
@@ -615,11 +644,15 @@ namespace Sea_Battle
         {
             BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
             BtnHard.Font = _textButtonPressed;
+            BtnHard.ForeColor = Color.Red;
+            BtnEasy.ForeColor = ColorText;
         }
         private void BtnEasyPressed(object sender, MouseEventArgs e)
         {
             BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
             BtnEasy.Font = _textButtonPressed;
+            BtnEasy.ForeColor = Color.Red;
+            BtnHard.ForeColor = ColorText;
         }
         private void BtnSoundPressed(object sender, MouseEventArgs e)
         {
