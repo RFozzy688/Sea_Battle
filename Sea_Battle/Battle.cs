@@ -17,7 +17,6 @@ namespace Sea_Battle
         player,
         enemy
     }
-    
     internal class Battle
     {
         public delegate void EndBattleDelegat();
@@ -108,7 +107,7 @@ namespace Sea_Battle
         }
         public void Fire()
         {
-            _isEndBattle = true;
+            //_isEndBattle = true;
 
             // блокируем кнопку назад пока не будет ход игрока (в ChangeShooter())
             _parent.SetBtnBackState(false); 
@@ -143,7 +142,7 @@ namespace Sea_Battle
                 field.ArrayField[_row, _col]._value = -1;
                 fleet.ArrayShips[field.ArrayField[_row, _col]._index].Health -= 1;
                 _index = field.ArrayField[_row, _col]._index;
-                TestSave();
+                //TestSave();
 
                 if (fleet.ArrayShips[_index].Health == 0)
                 {
@@ -159,7 +158,7 @@ namespace Sea_Battle
                         _aI.ResetDirectionVariables();
                     }
 
-                    //_isEndBattle = IsEndBattle();
+                    _isEndBattle = IsEndBattle();
                 }
                 else if (Shooter == EnumPlayers.enemy) // если корабыль подбит и при это стпелял враг
                 {
@@ -256,7 +255,6 @@ namespace Sea_Battle
         private bool IsEndBattle() // проверка на завершение игры
         {
             CreateFleetOfShips fleet;
-            int countDeadShips = 0;
 
             if (Shooter == EnumPlayers.player)
             {
@@ -269,24 +267,35 @@ namespace Sea_Battle
 
             foreach (var ship in fleet.ArrayShips)
             {
-                if (ship.IsDead)
+                if (!ship.IsDead) // корабыль не убит
                 {
-                    countDeadShips++;
+                    return false;
                 }
             }
 
-            if (countDeadShips == 10)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
         private void EndBattle() // диспетчер оповещающий что игра закончина
         {
             EndBattleEvent(); // вызов события
+
+            if (Winner == EnumPlayers.player)
+            {
+                _sound.PlaySound("win");
+            }
+            else
+            {
+                _sound.PlaySound("lose");
+
+                for (int i = 0; i < _enemyFleet.CountShips; i++)
+                {
+                    if (!_enemyFleet.ArrayShips[i].IsDead)
+                    {
+                        _drawImage.ShipIsDead(_enemyFleet, _enemyField, i);
+                        _drawImage.InsertImageShipToList();
+                    }
+                }
+            }
         }
         public void TestSave()
         {

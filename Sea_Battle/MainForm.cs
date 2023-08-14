@@ -455,8 +455,6 @@ namespace Sea_Battle
 
                     // отрисовка текста "ПОБЕДА"
                     _textWin.Show();
-
-                    _sound.PlaySound("win");
                 }
                 else
                 {
@@ -466,7 +464,6 @@ namespace Sea_Battle
 
                     // отрисовка текста "ПОРАЖЕНИЕ"
                     _textLoss.Show();
-                    _sound.PlaySound("lose");
                 }
 
                 // фиксируем победителя в классе статистики
