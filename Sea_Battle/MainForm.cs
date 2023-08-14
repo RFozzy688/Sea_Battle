@@ -327,6 +327,7 @@ namespace Sea_Battle
         public void BtnRotationReleased(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_relesed);
+            _sound.PlaySound("crumpled");
 
             _playerShipsPosition.RotationShip();
         }
@@ -334,6 +335,7 @@ namespace Sea_Battle
         {
             BtnAuto.Font = _textButtonReleased;
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
+            _sound.PlaySound("crumpled");
 
             _playerShipsPosition.ClearField();
             _playerShipsPosition.SetShipOnField();
@@ -343,10 +345,12 @@ namespace Sea_Battle
         {
             BtnNext.Font = _textButtonReleased;
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnBackReleased(object sender, MouseEventArgs e)
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_relesed);
+            _sound.PlaySound("crumpled");
 
             if (_currentLanguage != _selectedLanguage)
             {
@@ -381,6 +385,7 @@ namespace Sea_Battle
         {
             BtnToBattle.Font = _textButtonReleased;
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
+            _sound.PlaySound("crumpled");
 
             _sound.TimerSound.Stop();
             _sound.TimerSoundOcean.Stop();
@@ -430,8 +435,7 @@ namespace Sea_Battle
         {
             BtnContinue.Font = _textButtonReleased;
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
-
-            //BtnBack.Enabled = true;
+            _sound.PlaySound("crumpled");
 
             if (_btnContinuePressed == 0)
             {
@@ -502,11 +506,13 @@ namespace Sea_Battle
         {
             BtnExtendedMode.Font = _textButtonReleased;
             BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
+            _sound.PlaySound("crumpled");
         }
         private void BtnClassicModeReleased(object sender, MouseEventArgs e)
         {
             BtnClassicMode.Font = _textButtonReleased;
             BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_released);
+            _sound.PlaySound("crumpled");
             _isBtnClassicModePressed = true;
 
             ClassicGameMode();
@@ -523,6 +529,7 @@ namespace Sea_Battle
         private void BtnSettingReleased(object sender, MouseEventArgs e)
         {
             BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_released);
+            _sound.PlaySound("crumpled");
             BtnSetting.Hide();
             BtnExtendedMode.Hide();
             BtnClassicMode.Hide();
@@ -546,6 +553,7 @@ namespace Sea_Battle
         private void BtnLeftLocalizationReleased(object sender, MouseEventArgs e)
         {
             BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_released);
+            _sound.PlaySound("crumpled");
 
             _currentLanguage--;
             if (_currentLanguage < 0) { _currentLanguage = 3; }
@@ -556,6 +564,7 @@ namespace Sea_Battle
         private void BtnRightLocalizationReleased(object sender, MouseEventArgs e)
         {
             BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_released);
+            _sound.PlaySound("crumpled");
 
             _currentLanguage++;
             if (_currentLanguage > 3) { _currentLanguage = 0; }
@@ -567,6 +576,7 @@ namespace Sea_Battle
         {
             BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
             BtnHard.Font = _textButtonReleased;
+            _sound.PlaySound("crumpled");
 
             _gameDifficulty = GameDifficulty.Hard;
         }
@@ -574,11 +584,14 @@ namespace Sea_Battle
         {
             BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
             BtnEasy.Font = _textButtonReleased;
+            _sound.PlaySound("crumpled");
 
             _gameDifficulty = GameDifficulty.Easy;
         }
         private void BtnSoundReleased(object sender, MouseEventArgs e)
         {
+            _sound.PlaySound("crumpled");
+
             _isSoundOn = !_isSoundOn;
 
             if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released); }
@@ -603,57 +616,69 @@ namespace Sea_Battle
         private void BtnRotationPressed(object sender, MouseEventArgs e)
         {
             BtnRotation.Image = new Bitmap(Properties.Resources.btn_rotation_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnAutoPressed(object sender, MouseEventArgs e)
         {
             BtnAuto.Font = _textButtonPressed;
             BtnAuto.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnNextPressed(object sender, MouseEventArgs e)
         {
             BtnNext.Font = _textButtonPressed;
             BtnNext.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnBackPressed(object sender, MouseEventArgs e)
         {
             BtnBack.BackgroundImage = new Bitmap(Properties.Resources.btn_back_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnToBattlePressed(object sender, MouseEventArgs e)
         {
             BtnToBattle.Font = _textButtonPressed;
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnContinuePressed(object sender, MouseEventArgs e)
         {
             BtnContinue.Font = _textButtonPressed;
             BtnContinue.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnExtendedModePressed(object sender, MouseEventArgs e)
         {
             BtnExtendedMode.Font = _textButtonPressed;
             BtnExtendedMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnClassicModePressed(object sender, MouseEventArgs e)
         {
             BtnClassicMode.Font = _textButtonPressed;
             BtnClassicMode.BackgroundImage = new Bitmap(Properties.Resources.btn_long_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnSettingPressed(object sender, MouseEventArgs e)
         {
             BtnSetting.BackgroundImage = new Bitmap(Properties.Resources.settings_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnLeftLocalizationPressed(object sender, MouseEventArgs e)
         {
             BtnLeftLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_left_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnRightLocalizationPressed(object sender, MouseEventArgs e)
         {
             BtnRightLocalization.BackgroundImage = new Bitmap(Properties.Resources.btn_green_arrow_right_pressed);
+            _sound.PlaySound("crumpled");
         }
         private void BtnHardPressed(object sender, MouseEventArgs e)
         {
             BtnHard.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
             BtnHard.Font = _textButtonPressed;
+            _sound.PlaySound("crumpled");
             BtnHard.ForeColor = Color.Red;
             BtnEasy.ForeColor = ColorText;
         }
@@ -661,11 +686,14 @@ namespace Sea_Battle
         {
             BtnEasy.BackgroundImage = new Bitmap(Properties.Resources.btn_pressed);
             BtnEasy.Font = _textButtonPressed;
+            _sound.PlaySound("crumpled");
             BtnEasy.ForeColor = Color.Red;
             BtnHard.ForeColor = ColorText;
         }
         private void BtnSoundPressed(object sender, MouseEventArgs e)
         {
+            _sound.PlaySound("crumpled");
+
             if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_pressed); }
             else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_pressed); }
         }

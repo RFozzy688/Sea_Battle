@@ -55,6 +55,9 @@ namespace Sea_Battle
             _listSound.Add("ocean", @"..\..\..\Resources\sound\ocean.wav");
             _listSound.Add("ranen", @"..\..\..\Resources\sound\ranen.wav");
             _listSound.Add("ubit", @"..\..\..\Resources\sound\ubit.wav");
+            _listSound.Add("crumpled", @"..\..\..\Resources\sound\crumpled.wav");
+            _listSound.Add("lose", @"..\..\..\Resources\sound\lose.wav");
+            _listSound.Add("win", @"..\..\..\Resources\sound\win.wav");
         }
         private void SoundOceanTimer(object? sender, EventArgs e)
         {

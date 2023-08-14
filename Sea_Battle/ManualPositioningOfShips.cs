@@ -34,11 +34,12 @@ namespace Sea_Battle
             _parent.Controls.Remove(_backlightPositionWhenRotation);
 
             _timer.Stop();
-            _timer.Enabled = false;
 
-            _parent.BtnRotation.Enabled = true;
-            _parent.BtnAuto.Enabled = true;
-            _parent.BtnNext.Enabled = true;
+            _parent.BtnRotation.Show();
+            _parent.BtnAuto.Show();
+            _parent.BtnToBattle.Show();
+
+            _parent.IsBtnUnBlocked = true;
         }
         // если точка находится на игровом поле, то возращаем индексы этой ячейки
         public bool GetIndices(Point point)
@@ -167,14 +168,11 @@ namespace Sea_Battle
 
                     SetShipToArray();
 
-                    // что бы кнопка была визуально отжата
-                    _parent.BtnRotationReleased(null, null);
-                    // блокируем кнопки пока не удалится подсветка
-                    _parent.BtnRotation.Enabled = false;
-                    _parent.BtnAuto.Enabled = false;
-                    _parent.BtnNext.Enabled = false;
+                    // скрываем кнопки пока не удалится подсветка
+                    _parent.BtnRotation.Hide();
+                    _parent.BtnAuto.Hide();
+                    _parent.BtnToBattle.Hide();
 
-                    _timer.Enabled = true;
                     _timer.Start();
                 }
             }
