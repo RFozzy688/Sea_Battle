@@ -38,8 +38,6 @@ namespace Sea_Battle
             _parent.BtnRotation.Show();
             _parent.BtnAuto.Show();
             _parent.BtnToBattle.Show();
-
-            _parent.IsBtnUnBlocked = true;
         }
         // если точка находится на игровом поле, то возращаем индексы этой ячейки
         public bool GetIndices(Point point)

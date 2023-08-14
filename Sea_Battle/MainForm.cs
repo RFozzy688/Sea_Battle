@@ -455,6 +455,8 @@ namespace Sea_Battle
 
                     // отрисовка текста "ПОБЕДА"
                     _textWin.Show();
+
+                    _sound.PlaySound("win");
                 }
                 else
                 {
@@ -464,6 +466,7 @@ namespace Sea_Battle
 
                     // отрисовка текста "ПОРАЖЕНИЕ"
                     _textLoss.Show();
+                    _sound.PlaySound("lose");
                 }
 
                 // фиксируем победителя в классе статистики
@@ -492,11 +495,6 @@ namespace Sea_Battle
                 _textWin.Hide();
                 _textLoss.Hide();
                 BtnContinue.Hide();
-
-                //BtnBack.Show();
-                //BtnRotation.Show();
-                //BtnToBattle.Show();
-                //BtnAuto.Show();
 
                 RestartGame();
                 ChoiceGameModeScreen();
@@ -600,7 +598,7 @@ namespace Sea_Battle
 
         private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            _playerShipsPosition.TestSave();
+            _enemyShipsPosition.TestSave();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

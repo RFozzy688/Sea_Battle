@@ -108,7 +108,7 @@ namespace Sea_Battle
         }
         public void Fire()
         {
-            //_isEndBattle = true;
+            _isEndBattle = true;
 
             // блокируем кнопку назад пока не будет ход игрока (в ChangeShooter())
             _parent.SetBtnBackState(false); 
@@ -159,7 +159,7 @@ namespace Sea_Battle
                         _aI.ResetDirectionVariables();
                     }
 
-                    _isEndBattle = IsEndBattle();
+                    //_isEndBattle = IsEndBattle();
                 }
                 else if (Shooter == EnumPlayers.enemy) // если корабыль подбит и при это стпелял враг
                 {
