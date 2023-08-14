@@ -301,6 +301,24 @@ namespace Sea_Battle.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream gudok {
+            get {
+                return ResourceManager.GetStream("gudok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream gulls {
+            get {
+                return ResourceManager.GetStream("gulls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap img_loss {
@@ -337,6 +355,15 @@ namespace Sea_Battle.Properties {
             get {
                 object obj = ResourceManager.GetObject("load_screen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream mimo {
+            get {
+                return ResourceManager.GetStream("mimo", resourceCulture);
             }
         }
         
@@ -381,6 +408,15 @@ namespace Sea_Battle.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream ocean {
+            get {
+                return ResourceManager.GetStream("ocean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap on_target015_no_repit {
@@ -407,6 +443,15 @@ namespace Sea_Battle.Properties {
             get {
                 object obj = ResourceManager.GetObject("progress_bar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream ranen {
+            get {
+                return ResourceManager.GetStream("ranen", resourceCulture);
             }
         }
         
@@ -547,6 +592,15 @@ namespace Sea_Battle.Properties {
             get {
                 object obj = ResourceManager.GetObject("Tektur_VariableFont", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream ubit {
+            get {
+                return ResourceManager.GetStream("ubit", resourceCulture);
             }
         }
     }

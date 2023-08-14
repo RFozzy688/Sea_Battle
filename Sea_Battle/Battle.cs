@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Timer = System.Windows.Forms.Timer;
 using NLog;
 using System.DirectoryServices.ActiveDirectory;
+using System.Media;
 
 namespace Sea_Battle
 {
@@ -29,6 +30,7 @@ namespace Sea_Battle
         DrawImage _drawImage;
         MainForm _parent;
         AI _aI;
+        Sound _sound;
         Timer _startEnemyShoots;
         int _index;
         int _row;
@@ -46,7 +48,8 @@ namespace Sea_Battle
             CreateFleetOfShips enemyFleet,
             CreatePlayingField enemyField,
             DrawImage drawImage,
-            AI aI) 
+            AI aI,
+            Sound sound) 
         {
             _playerFleet = playerFleet;
             _playerField = playerField;
@@ -55,6 +58,7 @@ namespace Sea_Battle
             _drawImage = drawImage;
             _parent = parent;
             _aI = aI;
+            _sound = sound;
 
             IsCanPressed = true;
 
@@ -128,6 +132,8 @@ namespace Sea_Battle
                 Point point = field.ArrayField[_row, _col]._p1;
                 _drawImage.SetRocketAnimation(point);
                 field.ArrayField[_row, _col]._value = -1;
+
+                _sound.PlaySound("mimo");
             }
             else if (WhereDidHit(field) > 0) // попал
             {
@@ -169,6 +175,15 @@ namespace Sea_Battle
                     _aI.IsWounded = true;
                     _aI.RowHit = _row;
                     _aI.ColHit = _col;
+                }
+
+                if (fleet.ArrayShips[field.ArrayField[_row, _col]._index].IsDead)
+                {
+                    _sound.PlaySound("ubit");
+                }
+                else
+                {
+                    _sound.PlaySound("ranen");
                 }
             }
         }

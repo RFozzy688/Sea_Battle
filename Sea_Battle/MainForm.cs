@@ -26,6 +26,7 @@ namespace Sea_Battle
         EmbededFont _embededFont;
         GameStatistics _gameStatistics;
         AI _aI;
+        Sound _sound;
         Font _textButtonReleased; // текст на кнопках (отжата)
         Font _textButtonPressed; // текст на кнопках (нажата)
         Font _textLableStat; // текст на лейблах статистика
@@ -57,6 +58,7 @@ namespace Sea_Battle
 
             _embededFont = new EmbededFont();
             _drawImage = new DrawImage(this);
+            _sound = new Sound(this);
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
 
@@ -84,6 +86,7 @@ namespace Sea_Battle
         }
 
         public GameDifficulty GetGameDifficulty() { return _gameDifficulty; }
+        public bool GetSoundOn() { return _isSoundOn; }
         public void SetBtnBackState(bool flag)
         {
             BtnBack.Enabled = flag;
@@ -97,6 +100,9 @@ namespace Sea_Battle
         {
             _drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
             _drawImage.AddImageToList();
+
+            _sound.SoundMainScreenTimer(null, null);
+            _sound.SoundMainScreenStartTimer();
 
             BtnClassicMode.Show();
             BtnExtendedMode.Show();
@@ -137,7 +143,7 @@ namespace Sea_Battle
             _enemyFleet.CreateShips(new Point(200, 0), 0, false, null);
 
             _aI = new AI(this, _playerField);
-            _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage, _aI);
+            _battle = new Battle(this, _playerFleet, _playerField, _enemyFleet, _enemyField, _drawImage, _aI, _sound);
             _gameStatistics = new GameStatistics(this);
 
             _drawImage.FinishRocketAnimationEvent += _battle.TransitionOfMoveInGame;
@@ -166,6 +172,7 @@ namespace Sea_Battle
             _battle = null;
             _gameStatistics = null;
             _aI = null;
+ 
 
             _isBtnInBattlePressed = false;
             _isBtnClassicModePressed = false;
@@ -374,6 +381,9 @@ namespace Sea_Battle
         {
             BtnToBattle.Font = _textButtonReleased;
             BtnToBattle.BackgroundImage = new Bitmap(Properties.Resources.btn_relesed);
+
+            _sound.TimerSound.Stop();
+            _sound.TimerSoundOcean.Stop();
 
             // растановка кораблей врага в рандомном порядке
             _enemyShipsPosition.SetShipOnField();

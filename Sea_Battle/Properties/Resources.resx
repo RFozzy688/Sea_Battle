@@ -190,6 +190,12 @@
   <data name="green_square" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\green_square.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="gudok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\gudok.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="gulls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\gulls.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="img_loss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\img_loss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -201,6 +207,9 @@
   </data>
   <data name="load_screen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\load_screen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mimo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\mimo.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="mimo_finish" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\mimo_finish.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -214,6 +223,9 @@
   <data name="no_sound_released" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\no_sound_released.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ocean" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\ocean.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="on_target015_no_repit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\on_target015_no_repit.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -222,6 +234,9 @@
   </data>
   <data name="progress_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\progress_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ranen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\ranen.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="red_cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\red_cross.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -264,5 +279,8 @@
   </data>
   <data name="Tektur_VariableFont" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\font\Tektur_VariableFont.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ubit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\ubit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
