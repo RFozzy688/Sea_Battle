@@ -301,6 +301,16 @@ namespace Sea_Battle.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon icon {
+            get {
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap img_loss {
@@ -443,16 +453,6 @@ namespace Sea_Battle.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static byte[] RubikMarkerHatch_Regular {
-            get {
-                object obj = ResourceManager.GetObject("RubikMarkerHatch_Regular", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
         internal static byte[] RubikVinyl_Regular {
             get {
                 object obj = ResourceManager.GetObject("RubikVinyl_Regular", resourceCulture);
@@ -467,16 +467,6 @@ namespace Sea_Battle.Properties {
             get {
                 object obj = ResourceManager.GetObject("russia", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] seabattle {
-            get {
-                object obj = ResourceManager.GetObject("seabattle", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -527,26 +517,6 @@ namespace Sea_Battle.Properties {
             get {
                 object obj = ResourceManager.GetObject("sound_released", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] Tektur_Condensed_Regular {
-            get {
-                object obj = ResourceManager.GetObject("Tektur_Condensed_Regular", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] Tektur_VariableFont {
-            get {
-                object obj = ResourceManager.GetObject("Tektur_VariableFont", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }

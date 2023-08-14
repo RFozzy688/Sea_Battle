@@ -303,12 +303,8 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "MainForm";
-            ShowInTaskbar = false;
             Shown += MainForm_Shown;
-            Paint += MainForm_Paint;
-            MouseDoubleClick += MainForm_MouseDoubleClick;
             MouseDown += MainForm_MouseDown;
-            MouseMove += MainForm_MouseMove;
             ((System.ComponentModel.ISupportInitialize)BtnRotation).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnSetting).EndInit();

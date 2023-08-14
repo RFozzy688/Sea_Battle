@@ -57,60 +57,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BtnAuto.Text" xml:space="preserve">
-    <value>Auto</value>
-  </data>
-  <data name="BtnNext.Text" xml:space="preserve">
-    <value>Más</value>
-  </data>
-  <data name="BtnToBattle.Text" xml:space="preserve">
-    <value>El combate</value>
-  </data>
-  <data name="BtnContinue.Text" xml:space="preserve">
-    <value>Más</value>
-  </data>
-  <data name="BtnExtendedMode.Text" xml:space="preserve">
-    <value>Modo avanzado</value>
-  </data>
-  <data name="BtnClassicMode.Text" xml:space="preserve">
-    <value>Modo clásico</value>
-  </data>
-  <data name="BtnHard.Text" xml:space="preserve">
-    <value>Difícil</value>
-  </data>
-  <data name="BtnEasy.Text" xml:space="preserve">
-    <value>Fácil</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="_battlesTotal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 15</value>
-  </data>
-  <data name="_battlesTotal.Text" xml:space="preserve">
-    <value>Combate:</value>
+    <value>36, 15</value>
   </data>
   <data name="_playerWin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 15</value>
-  </data>
-  <data name="_playerWin.Text" xml:space="preserve">
-    <value>Jugador:</value>
+    <value>17, 15</value>
   </data>
   <data name="_enemyWin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 15</value>
-  </data>
-  <data name="_enemyWin.Text" xml:space="preserve">
-    <value>Enemigo:</value>
+    <value>35, 15</value>
   </data>
   <data name="_textWin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 15</value>
-  </data>
-  <data name="_textWin.Text" xml:space="preserve">
-    <value>La victoria</value>
+    <value>54, 15</value>
   </data>
   <data name="_textLoss.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 15</value>
-  </data>
-  <data name="_textLoss.Text" xml:space="preserve">
-    <value>La derrota</value>
+    <value>81, 15</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -229,8 +190,5 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAA=
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>El combate naval</value>
   </data>
 </root>

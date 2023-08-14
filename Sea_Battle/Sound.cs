@@ -59,7 +59,7 @@ namespace Sea_Battle
             _listSound.Add("lose", @"..\..\..\Resources\sound\lose.wav");
             _listSound.Add("win", @"..\..\..\Resources\sound\win.wav");
         }
-        private void SoundOceanTimer(object? sender, EventArgs e)
+        public void SoundOceanTimer(object? sender, EventArgs e)
         {
             PlaySound("ocean");
         }
@@ -75,8 +75,6 @@ namespace Sea_Battle
         }
         public void SoundMainScreenStartTimer()
         {
-            PlaySound("ocean");
-
             TimerSoundOcean.Start();
             TimerSound.Start();
         }

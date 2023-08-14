@@ -32,10 +32,6 @@ namespace Sea_Battle
             fonts.AddMemoryFont(fontPtr, Properties.Resources.RubikVinyl_Regular.Length);
             AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.RubikVinyl_Regular.Length, IntPtr.Zero, ref dummy);
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
-
-            //_btnFontPressed = new Font(fonts.Families[0], 26.0F, FontStyle.Regular, GraphicsUnit.Point);
-            //_btnFontReleased = new Font(fonts.Families[0], 30.0F, FontStyle.Regular, GraphicsUnit.Point);
-            //BattleResultFont = new Font(fonts.Families[0], 60.0F, FontStyle.Bold, GraphicsUnit.Point);
         }
         public Font CreateFont(float size, FontStyle style)
         {

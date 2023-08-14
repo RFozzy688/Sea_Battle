@@ -52,9 +52,8 @@ namespace Sea_Battle
 
             InitializeComponent();
 
-            //_loadScreen = new LoadScreen(this);
-            //_loadScreen.Show();
-            ShowInTaskbar = true;
+            _loadScreen = new LoadScreen(this);
+            _loadScreen.Show();
 
             _embededFont = new EmbededFont();
             _drawImage = new DrawImage(this);
@@ -80,9 +79,6 @@ namespace Sea_Battle
 
             InitControls();
             CreateListLocalization();
-
-            ChoiceGameModeScreen();
-
         }
 
         public GameDifficulty GetGameDifficulty() { return _gameDifficulty; }
@@ -96,12 +92,12 @@ namespace Sea_Battle
             BtnContinue.Show();
             BtnBack.Hide();
         }
-        private void ChoiceGameModeScreen()
+        public void ChoiceGameModeScreen()
         {
             _drawImage.InitializeStructPicture(new Point(0, 100), new Bitmap(Properties.Resources.choice_mode));
             _drawImage.AddImageToList();
 
-            _sound.SoundMainScreenTimer(null, null);
+            _sound.SoundOceanTimer(null, null);
             _sound.SoundMainScreenStartTimer();
 
             BtnClassicMode.Show();
@@ -172,7 +168,7 @@ namespace Sea_Battle
             _battle = null;
             _gameStatistics = null;
             _aI = null;
- 
+
 
             _isBtnInBattlePressed = false;
             _isBtnClassicModePressed = false;
@@ -306,11 +302,6 @@ namespace Sea_Battle
             if (_gameDifficulty == GameDifficulty.Hard) { BtnHard.ForeColor = Color.Red; }
             else if (_gameDifficulty == GameDifficulty.Easy) { BtnEasy.ForeColor = Color.Red; }
         }
-        private void MainForm_MouseMove(object sender, MouseEventArgs e)
-        {
-            Text = e.X + " " + e.Y;
-        }
-
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             if (_battle.Shooter == EnumPlayers.player && _battle.IsCanPressed && _isBtnInBattlePressed)
@@ -323,6 +314,10 @@ namespace Sea_Battle
                     _battle.Fire();
                 }
             }
+        }
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            this.Visible = false;
         }
         public void BtnRotationReleased(object sender, MouseEventArgs e)
         {
@@ -373,13 +368,6 @@ namespace Sea_Battle
 
             //_drawImage.AddPlayerShipsToList(_enemyFleet, _enemyField);
             //_enemyShipsPosition.TestSave();
-        }
-        public void HideButtons()
-        {
-            BtnRotation.Hide();
-            BtnAuto.Hide();
-            BtnNext.Hide();
-            BtnToBattle.Hide();
         }
         private void BtnToBattleReleased(object sender, MouseEventArgs e)
         {
@@ -591,21 +579,6 @@ namespace Sea_Battle
 
             if (_isSoundOn) { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.sound_released); }
             else { BtnSound.BackgroundImage = new Bitmap(Properties.Resources.no_sound_released); }
-        }
-
-        private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            _enemyShipsPosition.TestSave();
-        }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            //this.Visible = false;
-        }
-
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            //Bitmap
         }
 
         private void BtnRotationPressed(object sender, MouseEventArgs e)

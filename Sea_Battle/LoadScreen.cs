@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using
 
 namespace Sea_Battle
 {
@@ -46,6 +45,9 @@ namespace Sea_Battle
 
                 _parent.Visible = true;
                 _parent.ShowInTaskbar = true;
+                _parent.ShowIcon = true;
+
+                _parent.ChoiceGameModeScreen();
             }
         }
         private void LoadScreen_Paint(object sender, PaintEventArgs e) // отрисовка прогрес бара
