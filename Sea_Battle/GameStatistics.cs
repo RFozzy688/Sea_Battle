@@ -41,7 +41,7 @@ namespace Sea_Battle
         }
         public void SaveStats()
         {
-            using (FileStream fs = new FileStream("stats.txt", FileMode.Create))
+            using (FileStream fs = new FileStream(@"..\..\..\stats.txt", FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
                 {
@@ -54,7 +54,7 @@ namespace Sea_Battle
         }
         private void LoadStats()
         {
-            using (FileStream fs = new FileStream("stats.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(@"..\..\..\stats.txt", FileMode.Open))
             {
                 using (StreamReader sr = new StreamReader(fs, Encoding.Unicode))
                 {

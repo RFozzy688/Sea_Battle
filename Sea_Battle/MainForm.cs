@@ -235,7 +235,7 @@ namespace Sea_Battle
         }
         private void SaveSettings()
         {
-            using (FileStream fs = new FileStream("settings.txt", FileMode.Create))
+            using (FileStream fs = new FileStream(@"..\..\..\settings.txt", FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
                 {
@@ -247,7 +247,7 @@ namespace Sea_Battle
         }
         private void LoadSettings()
         {
-            using (FileStream fs = new FileStream("settings.txt", FileMode.Open))
+            using (FileStream fs = new FileStream(@"..\..\..\settings.txt", FileMode.Open))
             {
                 using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
                 {
